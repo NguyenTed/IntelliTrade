@@ -4,8 +4,10 @@ server:
 spring:
   application:
     name: Profile Service
+  config:
+    import: optional:secrets.properties
   neo4j:
-    uri: bolt://localhost:7687
+    uri: bolt://${DB_HOST}:${DB_PORT}
     authentication:
-      username: neo4j
-      password: nguyenquocthuan
+      username: ${DB_USER}
+      password: ${DB_PASSWORD}
