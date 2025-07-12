@@ -1,0 +1,61 @@
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Node (frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log/
+dist/
+.next/
+build/
+.env.local
+.env.development
+.env.production
+
+# Java / Spring Boot
+**/target/
+**/.classpath
+**/.project
+**/.settings/
+**/*.iml
+*.jar
+*.war
+*.ear
+
+# IntelliJ
+.idea/
+*.iws
+*.ipr
+*.iml
+out/
+
+# VSCode
+.vscode/
+
+# Docker
+**/.dockerignore
+**/Dockerfile
+docker-compose.override.yml
+
+# Environment variables
+.env
+.env.*
+
+# CI/CD
+coverage/
+*.lcov
+test-results/
+jacoco.exec
+
+# Mac and Linux
+*.swp
+*.swo
+
+# Ignore local DB volumes if used
+volumes/
