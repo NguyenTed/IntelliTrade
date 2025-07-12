@@ -1,0 +1,17 @@
+package com.intellitrade.auth.external;
+
+import com.intellitrade.auth.configuration.AuthenticationRequestInterceptor;
+import com.intellitrade.auth.dto.request.ProfileCreationRequest;
+import com.intellitrade.auth.dto.response.ApiResponse;
+import com.intellitrade.auth.dto.response.ProfileResponse;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@FeignClient(name = "profile-service", url = "${app.services.profile}",
+        configuration = { AuthenticationRequestInterceptor.class })
+public interface ProfileClient {
+    @PostMapping(value = "/internal/profiles", produces = MediaType.APPLICATION_JSON_VALUE)
+    ApiResponse<ProfileResponse> createProfile(@RequestBody ProfileCreationRequest request);
+}

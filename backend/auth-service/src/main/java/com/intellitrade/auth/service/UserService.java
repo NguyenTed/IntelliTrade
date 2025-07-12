@@ -1,12 +1,16 @@
 package com.intellitrade.auth.service;
 
 import com.intellitrade.auth.constant.PredefinedRole;
+import com.intellitrade.auth.dto.request.ProfileCreationRequest;
 import com.intellitrade.auth.dto.request.UserCreationRequest;
+import com.intellitrade.auth.dto.response.ProfileResponse;
 import com.intellitrade.auth.dto.response.UserResponse;
 import com.intellitrade.auth.entity.Role;
 import com.intellitrade.auth.entity.User;
 import com.intellitrade.auth.exception.AppException;
 import com.intellitrade.auth.exception.ErrorCode;
+import com.intellitrade.auth.external.ProfileClient;
+import com.intellitrade.auth.mapper.ProfileMapper;
 import com.intellitrade.auth.mapper.UserMapper;
 import com.intellitrade.auth.repository.RoleRepository;
 import com.intellitrade.auth.repository.UserRepository;
@@ -29,7 +33,9 @@ import java.util.List;
 public class UserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
+    ProfileClient profileClient;
     UserMapper userMapper;
+    ProfileMapper profileMapper;
     PasswordEncoder passwordEncoder;
 
     public UserResponse createUser(UserCreationRequest request) {
@@ -43,12 +49,20 @@ public class UserService {
         user.setEmailVerified(false);
 
         try {
-            userRepository.save(user);
+            user = userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
 
-        return userMapper.toUserResponse(user);
+        ProfileCreationRequest profileCreationRequest = profileMapper.toProfileCreationRequest(request);
+        profileCreationRequest.setUserId(user.getId());
+        profileClient.createProfile(profileCreationRequest);
+
+        UserResponse userResponse = userMapper.toUserResponse(user);
+
+        log.info("User created: {}", userResponse);
+
+        return userResponse;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
