@@ -36,6 +36,7 @@ public class AuthenticationController {
 
     @PostMapping("/introspect")
     public ApiResponse<IntrospectResponse> introspect(@RequestBody IntrospectRequest introspectRequest) {
+        System.out.println("Introspect request token: " + introspectRequest.accessToken());
         return ApiResponse.<IntrospectResponse>builder()
                 .result(authenticationService.introspect(introspectRequest))
                 .build();

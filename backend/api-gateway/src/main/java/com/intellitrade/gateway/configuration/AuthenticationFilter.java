@@ -59,12 +59,8 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             return unauthenticated(exchange.getResponse());
 
         String token = authHeader.getFirst().replace("Bearer ", "");
-        log.info("Token: {}", token);
 
         IntrospectRequest introspectRequest = IntrospectRequest.builder().accessToken(token).build();
-
-        log.info("Authentication failed: no token present or invalid token");
-        log.info("Path in filter: {}", exchange.getRequest().getPath());
 
         return authService.introspect(introspectRequest).flatMap(introspectResponse -> {
             if (introspectResponse.getResult().valid())

@@ -1,16 +1,12 @@
 package com.intellitrade.profile.controller;
 
-import com.intellitrade.profile.dto.request.ProfileCreationRequest;
 import com.intellitrade.profile.dto.response.ApiResponse;
 import com.intellitrade.profile.dto.response.ProfileResponse;
 import com.intellitrade.profile.service.ProfileService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -18,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProfileController {
     ProfileService profileService;
 
-    @PostMapping
-    public ApiResponse<ProfileResponse> createProfile(@RequestBody ProfileCreationRequest profileCreationRequest) {
+    @GetMapping("/{profileId}")
+    public ApiResponse<ProfileResponse> getProfileById(@PathVariable String profileId) {
         return ApiResponse.<ProfileResponse>builder()
-                .result(profileService.createProfile(profileCreationRequest))
+                .result(profileService.getProfileById(profileId))
                 .build();
     }
 }
