@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "profile-service", url = "${app.services.profile}",
         configuration = { AuthenticationRequestInterceptor.class })
 public interface ProfileClient {
-    @PostMapping(value = "/internal/profiles", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/profiles/internal", produces = MediaType.APPLICATION_JSON_VALUE)
     ApiResponse<ProfileResponse> createProfile(@RequestBody ProfileCreationRequest request);
 }

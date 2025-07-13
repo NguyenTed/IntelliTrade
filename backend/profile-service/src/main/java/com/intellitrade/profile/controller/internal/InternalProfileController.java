@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RestController
-@RequestMapping("/internal/profiles")
+@RequestMapping("/internal")
 public class InternalProfileController {
     ProfileService profileService;
 

@@ -22,11 +22,11 @@ import java.security.NoSuchAlgorithmException;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/token")
 public class AuthenticationController {
     AuthenticationService authenticationService;
 
-    @PostMapping("/token")
+    @PostMapping()
     public ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest authenticationRequest) throws NoSuchAlgorithmException {
         System.out.println("Authentication request: " + authenticationRequest);
         return ApiResponse.<AuthenticationResponse>builder()

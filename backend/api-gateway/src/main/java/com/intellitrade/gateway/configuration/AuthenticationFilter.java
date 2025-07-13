@@ -38,7 +38,8 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     @NonFinal
     public String[] PUBLIC_ENDPOINTS = {
             "/auth/.*",
-            "/users/registration"
+            "/users/registration",
+            "/notification/email/send"
     };
 
     @Value("${app.api-prefix}")
@@ -62,6 +63,9 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
         IntrospectRequest introspectRequest = IntrospectRequest.builder().accessToken(token).build();
 
+        log.info("Authentication failed: no token present or invalid token");
+        log.info("Path in filter: {}", exchange.getRequest().getPath());
+
         return authService.introspect(introspectRequest).flatMap(introspectResponse -> {
             if (introspectResponse.getResult().valid())
                 return chain.filter(exchange);
@@ -75,9 +79,13 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         return -1;
     }
 
-    private boolean isPublicEndpoint(ServerHttpRequest request){
+    private boolean isPublicEndpoint(ServerHttpRequest request) {
+        String path = request.getURI().getPath();
+        log.info("Request path: {}", path);
+
         return Arrays.stream(PUBLIC_ENDPOINTS)
-                .anyMatch(s -> request.getURI().getPath().matches(apiPrefix + s));
+                .map(endpoint -> apiPrefix + endpoint) // builds full regex
+                .anyMatch(path::matches);
     }
 
     Mono<Void> unauthenticated(ServerHttpResponse response){
