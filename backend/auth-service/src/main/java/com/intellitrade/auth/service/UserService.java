@@ -3,7 +3,6 @@ package com.intellitrade.auth.service;
 import com.intellitrade.auth.constant.PredefinedRole;
 import com.intellitrade.auth.dto.request.ProfileCreationRequest;
 import com.intellitrade.auth.dto.request.UserCreationRequest;
-import com.intellitrade.auth.dto.response.ProfileResponse;
 import com.intellitrade.auth.dto.response.UserResponse;
 import com.intellitrade.auth.entity.Role;
 import com.intellitrade.auth.entity.User;
@@ -14,11 +13,13 @@ import com.intellitrade.auth.mapper.ProfileMapper;
 import com.intellitrade.auth.mapper.UserMapper;
 import com.intellitrade.auth.repository.RoleRepository;
 import com.intellitrade.auth.repository.UserRepository;
+import com.intellitrade.event.dto.NotificationEvent;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,7 @@ public class UserService {
     UserMapper userMapper;
     ProfileMapper profileMapper;
     PasswordEncoder passwordEncoder;
+    KafkaTemplate<String, Object> kafkaTemplate;
 
     public UserResponse createUser(UserCreationRequest request) {
         User user = userMapper.toUser(request);
@@ -60,7 +62,16 @@ public class UserService {
 
         UserResponse userResponse = userMapper.toUserResponse(user);
 
-        log.info("User created: {}", userResponse);
+        String body = "Hello " + request.username();
+
+        NotificationEvent notificationEvent = NotificationEvent.builder()
+                .channel("EMAIL")
+                .recipient(request.email())
+                .subject("Welcome to Intelli Trade - Number 1 Trading platform with AI power")
+                .body(body)
+                .build();
+
+        kafkaTemplate.send("notification-delivery", notificationEvent);
 
         return userResponse;
     }
