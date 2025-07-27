@@ -9,9 +9,9 @@ namespace finance_Socket.Realtime.shared
             _tickers = new Dictionary<TickerDataProvider, List<TickerGroup>>();
         }
 
-        public void AddTicker(TickerDataProvider provider, string ticker)
+        public void AddTicker(string ticker, string interval, TickerDataProvider provider = TickerDataProvider.WEBSOCKETBINANCE)
         {
-            if (ticker == null || provider == null)
+            if (ticker == null || provider == null || interval == null)
             {
                 return;
             }
@@ -21,10 +21,10 @@ namespace finance_Socket.Realtime.shared
                 _tickers[provider] = new List<TickerGroup>();
             }
 
-            var group = _tickers[provider].FirstOrDefault(t => t.ticker == ticker);
+            var group = _tickers[provider].FirstOrDefault(t => t.ticker == ticker && t.interval == interval);
             if (group == null)
             {
-                _tickers[provider].Add(new TickerGroup(ticker));
+                _tickers[provider].Add(new TickerGroup(ticker, interval));
             }
             else
             {
@@ -41,15 +41,15 @@ namespace finance_Socket.Realtime.shared
             return new List<TickerGroup>();
         }
 
-        public Dictionary<TickerDataProvider, List<string>> GetAllActiveTickers()
+        public Dictionary<TickerDataProvider, List<TickerGroup>> GetAllActiveTickers()
         {
             return _tickers.ToDictionary(
                 kvp => kvp.Key,
-                kvp => kvp.Value.Where(x => x.NumberofConnections > 0).Select(tg => tg.ticker).ToList()
+                kvp => kvp.Value.Where(x => x.NumberofConnections > 0).ToList()
             );
         }
 
-        public void RemoveConnection(string ticker)
+        public void RemoveConnection(string ticker, string interval)
         {
             if (string.IsNullOrEmpty(ticker))
             {
@@ -58,7 +58,7 @@ namespace finance_Socket.Realtime.shared
 
             foreach (var provider in _tickers.Keys.ToList())
             {
-                var group = _tickers[provider].FirstOrDefault(t => t.ticker == ticker);
+                var group = _tickers[provider].FirstOrDefault(t => t.ticker == ticker && t.interval == interval);
                 if (group != null)
                 {
                     if(group.NumberofConnections > 0)
@@ -69,6 +69,5 @@ namespace finance_Socket.Realtime.shared
                 }
             }
         }
-
     }
 }

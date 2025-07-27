@@ -10,6 +10,8 @@ builder.Services.AddSignalR();
 
 // Add services to the container.
 builder.Services.AddSingleton<TickerManager>();
+// builder.Services.AddHostedService<>();
+builder.Services.Configure<StockUpdateOptions>(builder.Configuration.GetSection("StockUpdateOptions"));
 
 
 var app = builder.Build();
