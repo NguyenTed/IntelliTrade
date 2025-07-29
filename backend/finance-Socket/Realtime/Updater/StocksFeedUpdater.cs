@@ -13,24 +13,33 @@ namespace finance_Socket.Realtime.Updater
         // protected readonly IOptions<StockUpdateOptions> Options;
         protected readonly ILogger<StocksFeedUpdater> Logger;
         protected readonly StockUpdateOptions _options;
+        protected TickerDataProvider Provider;
+        protected readonly ISendTracker SendTracker;
+
+        private readonly Dictionary<string, DateTime> _lastSentTime = new();
 
         public StocksFeedUpdater(
             TickerManager tickerManager,
+            ISendTracker sendTracker,
             IHubContext<StocksFeedHub, IStockUpdateClient> hubContex,
             IOptions<StockUpdateOptions> options,
             ILogger<StocksFeedUpdater> logger)
         {
             this.TickerManager = tickerManager;
             this.HubContext = hubContex;
-            // this.Options = options;
             this.Logger = logger;
             this._options = options.Value;
+            this.SendTracker = sendTracker;
         }
 
 
         protected async Task SendToGroupAsync(string groupName, StockPriceUpdate data)
         {
+            Logger.LogInformation($"Sending update to group {groupName}: {data}");
             await HubContext.Clients.Group(groupName).ReceiveStockPriceUpdate(data);
         }
+
+        protected abstract Task SubscribeStreams(IEnumerable<string> streams);
+        protected abstract Task UnSubscribeStreams(IEnumerable<string> streams);
     }
 }
