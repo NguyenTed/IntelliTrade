@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("finance-Socket")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cfb3a5d544ebe82672ea6624dc90876df2b02444")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39b416fb1aa98c5eea2937224cdc96dd73342716")]
 [assembly: System.Reflection.AssemblyProductAttribute("finance-Socket")]
 [assembly: System.Reflection.AssemblyTitleAttribute("finance-Socket")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
