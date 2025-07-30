@@ -15,7 +15,6 @@ namespace finance_Socket.Realtime.Updater.Provider
         private readonly string _baseUrl = "wss://stream.binance.com:9443/ws";
         private WebsocketClient _client;
         private HashSet<string> _currentStreams = new();
-        private Dictionary<string, DateTime> _lastSentTime = new();
 
         public BinanceFeedUpdater(
             TickerManager tickerManager,
