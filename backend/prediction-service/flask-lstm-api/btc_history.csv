@@ -1,0 +1,13 @@
+The file btc_history.csv is intended to contain historical cryptocurrency price data. Since I don't have specific data to include, I will create a placeholder CSV structure that you can later fill with actual data.
+
+date,close
+2023-01-01,30000
+2023-01-02,31000
+2023-01-03,32000
+2023-01-04,31500
+2023-01-05,32500
+2023-01-06,33000
+2023-01-07,34000
+2023-01-08,33500
+2023-01-09,34500
+2023-01-10,35000
