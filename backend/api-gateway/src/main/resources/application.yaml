@@ -12,6 +12,18 @@ spring:
       server:
         webflux:
           routes:
+            - id: crawler_service
+              uri: http://localhost:5000
+              predicates:
+                - Path=${app.api-prefix}/crawler/**
+              filters:
+                - StripPrefix=2
+            - id: post_comment_service
+              uri: http://localhost:8084
+              predicates:
+                - Path=${app.api-prefix}/post-comment/**
+              filters:
+                - StripPrefix=2
             - id: auth_service
               uri: http://localhost:8080
               predicates:
@@ -30,4 +42,5 @@ spring:
                 Path=${app.api-prefix}/notification/**
               filters:
                 StripPrefix=2
+
 
