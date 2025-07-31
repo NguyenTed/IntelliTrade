@@ -1,0 +1,8 @@
+D:\Coding\IntelliTrade\backend\market-service\obj\Debug\net8.0\market-service.csproj.AssemblyReference.cache
+D:\Coding\IntelliTrade\backend\market-service\obj\Debug\net8.0\market-service.GeneratedMSBuildEditorConfig.editorconfig
+D:\Coding\IntelliTrade\backend\market-service\obj\Debug\net8.0\market-service.AssemblyInfoInputs.cache
+D:\Coding\IntelliTrade\backend\market-service\obj\Debug\net8.0\market-service.AssemblyInfo.cs
+D:\Coding\IntelliTrade\backend\market-service\obj\Debug\net8.0\market-service.csproj.CoreCompileInputs.cache
+D:\Coding\IntelliTrade\backend\market-service\obj\Debug\net8.0\market-service.MvcApplicationPartsAssemblyInfo.cs
+D:\Coding\IntelliTrade\backend\market-service\obj\Debug\net8.0\market-service.MvcApplicationPartsAssemblyInfo.cache
+D:\Coding\IntelliTrade\backend\market-service\obj\Debug\net8.0\market-service.sourcelink.json
