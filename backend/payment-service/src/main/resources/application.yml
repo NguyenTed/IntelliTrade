@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: payment-service
+  config:
+    import: optional:secrets.properties
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  kafka:
+    bootstrap-servers: ${KAFKA_HOST}:${KAFKA_PORT}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  payment:
+    vnpay:
+      vnp_TmnCode: ${VNP_TMNCODE}
+      vnp_HashSecret: ${VNP_HASHSECRET}
+      vnp_PayUrl: ${VNP_PAYURL}
+      vnp_ApiUrl: ${VNP_APIURL}
+      vnp_ReturnUrl: ${VNP_RETURNURL}
+server:
+  port: 8085
+  servlet:
+    context-path: /payment
+app:
+  services:
+    profile: http://localhost:8081
+    notification: http://localhost:8082
