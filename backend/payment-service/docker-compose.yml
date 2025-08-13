@@ -1,0 +1,55 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:9.3.0
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: nguyenquocthuan
+      MYSQL_USER: nqthuan
+      MYSQL_PASSWORD: nguyenquocthuan
+      MYSQL_DATABASE: payment_service
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - backend
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  payment-service:
+    container_name: payment-container
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '8085:8085'  # bạn dùng 8085 ở ngoài nhưng mapping tới port 80 -> sai
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: payment_service
+      DB_USER: root
+      DB_PASSWORD: nguyenquocthuan
+      KAFKA_HOST: kafka
+      KAFKA_PORT: 9094
+      VNP_TMNCODE: K4G45J9C
+      VNP_HASHSECRET: KJBSE7YUXYVXJSFCL866545N98RE4SEJ
+      VNP_PAYURL: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+      VNP_APIURL: https://sandbox.vnpayment.vn/merchant_webapi/api/transaction
+      VNP_RETURNURL: http://localhost:5173/vnpay/callback
+    depends_on:
+      - mysql
+    networks:
+      - backend
+
+volumes:
+  mysql-data:
+networks:
+  backend:
+    driver: bridge
+
+
