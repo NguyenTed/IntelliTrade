@@ -1,0 +1,71 @@
+{
+  "total": 3,
+  "totalitem": 4,
+  "items": [
+    {
+      "comment_id": 60233856,
+      "parent_id": 60233856,
+      "article_id": 4909278,
+      "content": "\"VN-Index đóng cửa cao hơn tham chiếu gần 7 điểm, lên gần 1.385 điểm.\"<br />Càng lên cao gió càng mát các bác ạ, mục tiêu bây giờ là VNI 143x nhá :')",
+      "full_name": "pharmaconceptshare",
+      "creation_time": 1751451077,
+      "time": "17:11 2/7",
+      "userlike": 10,
+      "t_r_1": 10,
+      "t_r_2": 0,
+      "t_r_3": 0,
+      "t_r_4": 0,
+      "userid": 1091979884,
+      "type": 8,
+      "like_ismember": false,
+      "replys": {
+        "total": 1,
+        "items": []
+      },
+      "rating": {},
+      "is_pin": 0
+    },
+    {
+      "comment_id": 60233689,
+      "parent_id": 60233689,
+      "article_id": 4909278,
+      "content": "Không mua lấy gì bán! Cảm ơn ông Trump đã giúp tôi có ngày hôm nay!",
+      "full_name": "contact.cnxx",
+      "creation_time": 1751450005,
+      "time": "16:53 2/7",
+      "userlike": 8,
+      "t_r_1": 6,
+      "t_r_2": 2,
+      "t_r_3": 0,
+      "t_r_4": 0,
+      "userid": 1064495907,
+      "type": 8,
+      "like_ismember": false,
+      "replys": {},
+      "rating": {},
+      "is_pin": 0
+    },
+    {
+      "comment_id": 60234067,
+      "parent_id": 60234067,
+      "article_id": 4909278,
+      "content": "\"VIX ghi nhận thanh khoản gần 1.617 tỷ đồng, cao nhất thị trường.\"<br />Xin chúc mừng quý cổ đông :-)",
+      "full_name": "pharmaconceptshare",
+      "creation_time": 1751452624,
+      "time": "17:37 2/7",
+      "userlike": 2,
+      "t_r_1": 2,
+      "t_r_2": 0,
+      "t_r_3": 0,
+      "t_r_4": 0,
+      "userid": 1091979884,
+      "type": 8,
+      "like_ismember": false,
+      "replys": {},
+      "rating": {},
+      "is_pin": 0
+    }
+  ],
+  "items_pin": [],
+  "offset": 0
+}

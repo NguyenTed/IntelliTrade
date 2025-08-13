@@ -1,0 +1,48 @@
+{
+  "total": 2,
+  "totalitem": 2,
+  "items": [
+    {
+      "comment_id": 60136730,
+      "parent_id": 60136730,
+      "article_id": 4905296,
+      "content": "Thời gian hoãn không được xác định rõ ràng mà chỉ đề cập \"cho đến khi thị trường tích cực\".<br />Rất ủng hộ",
+      "full_name": "pharmaconceptshare",
+      "creation_time": 1750688670,
+      "time": "21:24 23/6",
+      "userlike": 3,
+      "t_r_1": 3,
+      "t_r_2": 0,
+      "t_r_3": 0,
+      "t_r_4": 0,
+      "userid": 1091979884,
+      "type": 8,
+      "like_ismember": false,
+      "replys": {},
+      "rating": {},
+      "is_pin": 0
+    },
+    {
+      "comment_id": 60148943,
+      "parent_id": 60148943,
+      "article_id": 4905296,
+      "content": "Rất mong chờ các cty xây dựng của ông Dương niêm yết trên sàn.",
+      "full_name": "vongocthien86",
+      "creation_time": 1750773494,
+      "time": "20:58 24/6",
+      "userlike": 1,
+      "t_r_1": 1,
+      "t_r_2": 0,
+      "t_r_3": 0,
+      "t_r_4": 0,
+      "userid": 1039320751,
+      "type": 8,
+      "like_ismember": false,
+      "replys": {},
+      "rating": {},
+      "is_pin": 0
+    }
+  ],
+  "items_pin": [],
+  "offset": 0
+}

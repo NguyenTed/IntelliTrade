@@ -1,0 +1,416 @@
+[
+  {
+    "id": 12244351,
+    "parent_id": null,
+    "root_id": 12244351,
+    "comment": "Perfect setup mate",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Perfect setup mate"
+      ]
+    },
+    "created_at": "2025-07-09T18:21:39.008806Z",
+    "editable_until": "2025-07-09T18:36:39.008806Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 42982754,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/42982754-0tHY.png",
+        "mid": "https://s3.tradingview.com/userpics/42982754-0tHY_mid.png",
+        "big": "https://s3.tradingview.com/userpics/42982754-0tHY_big.png",
+        "orig": "https://s3.tradingview.com/userpics/42982754-0tHY_orig.png"
+      },
+      "username": "SEBASTIIAN74",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12244264,
+    "parent_id": null,
+    "root_id": 12244264,
+    "comment": "perfect analysis as always",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "perfect analysis as always"
+      ]
+    },
+    "created_at": "2025-07-09T17:53:10.156082Z",
+    "editable_until": "2025-07-09T18:08:10.156082Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 18895686,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/18895686-eVpR.png",
+        "mid": "https://s3.tradingview.com/userpics/18895686-eVpR_mid.png",
+        "big": "https://s3.tradingview.com/userpics/18895686-eVpR_big.png",
+        "orig": "https://s3.tradingview.com/userpics/18895686-eVpR_orig.png"
+      },
+      "username": "TehThomas",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "tvd",
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12244175,
+    "parent_id": null,
+    "root_id": 12244175,
+    "comment": "Great potential short!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Great potential short!"
+      ]
+    },
+    "created_at": "2025-07-09T17:12:41.754907Z",
+    "editable_until": "2025-07-09T17:27:41.754907Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 23734588,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/23734588-0HQ9.png",
+        "mid": "https://s3.tradingview.com/userpics/23734588-0HQ9_mid.png",
+        "big": "https://s3.tradingview.com/userpics/23734588-0HQ9_big.png",
+        "orig": "https://s3.tradingview.com/userpics/23734588-0HQ9_orig.png"
+      },
+      "username": "Youriverse",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12244132,
+    "parent_id": null,
+    "root_id": 12244132,
+    "comment": "Great analysis",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Great analysis"
+      ]
+    },
+    "created_at": "2025-07-09T16:56:54.135307Z",
+    "editable_until": "2025-07-09T17:11:54.135307Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 105304932,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/105304932-FlfZ.png",
+        "mid": "https://s3.tradingview.com/userpics/105304932-FlfZ_mid.png",
+        "big": "https://s3.tradingview.com/userpics/105304932-FlfZ_big.png",
+        "orig": "https://s3.tradingview.com/userpics/105304932-FlfZ_orig.png"
+      },
+      "username": "Liquidity_Gold_FX",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "ios",
+    "platform_link_url": "https://apps.apple.com/app/id1205990992?pt=118302550&ct=comments&mt=8",
+    "platform_link_text": "TradingView for iOS"
+  },
+  {
+    "id": 12243677,
+    "parent_id": null,
+    "root_id": 12243677,
+    "comment": "Always Great Analysis",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Always Great Analysis"
+      ]
+    },
+    "created_at": "2025-07-09T13:46:20.977231Z",
+    "editable_until": "2025-07-09T14:01:20.977231Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 90982494,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/90982494-j5Mp.png",
+        "mid": "https://s3.tradingview.com/userpics/90982494-j5Mp_mid.png",
+        "big": "https://s3.tradingview.com/userpics/90982494-j5Mp_big.png",
+        "orig": "https://s3.tradingview.com/userpics/90982494-j5Mp_orig.png"
+      },
+      "username": "GoldMarketKiller",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12243283,
+    "parent_id": null,
+    "root_id": 12243283,
+    "comment": "Perfect entry",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Perfect entry"
+      ]
+    },
+    "created_at": "2025-07-09T11:01:16.179034Z",
+    "editable_until": "2025-07-09T11:16:16.179034Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 100756377,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/100756377-xAPT.png",
+        "mid": "https://s3.tradingview.com/userpics/100756377-xAPT_mid.png",
+        "big": "https://s3.tradingview.com/userpics/100756377-xAPT_big.png",
+        "orig": "https://s3.tradingview.com/userpics/100756377-xAPT_orig.png"
+      },
+      "username": "Jameshead007",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12243119,
+    "parent_id": null,
+    "root_id": 12243119,
+    "comment": "nice setup",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "nice setup"
+      ]
+    },
+    "created_at": "2025-07-09T10:07:46.426551Z",
+    "editable_until": "2025-07-09T10:22:46.426551Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 105207098,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/105207098-x12h.png",
+        "mid": "https://s3.tradingview.com/userpics/105207098-x12h_mid.png",
+        "big": "https://s3.tradingview.com/userpics/105207098-x12h_big.png",
+        "orig": "https://s3.tradingview.com/userpics/105207098-x12h_orig.png"
+      },
+      "username": "XAUUSD_TRADING_MASTER",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12242920,
+    "parent_id": null,
+    "root_id": 12242920,
+    "comment": "nice setup",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "nice setup"
+      ]
+    },
+    "created_at": "2025-07-09T09:07:26.984027Z",
+    "editable_until": "2025-07-09T09:22:26.984027Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 21804266,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/21804266-Sohn.png",
+        "mid": "https://s3.tradingview.com/userpics/21804266-Sohn_mid.png",
+        "big": "https://s3.tradingview.com/userpics/21804266-Sohn_big.png",
+        "orig": "https://s3.tradingview.com/userpics/21804266-Sohn_orig.png"
+      },
+      "username": "melikatrader94",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12242204,
+    "parent_id": null,
+    "root_id": 12242204,
+    "comment": "nice set up",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "nice set up"
+      ]
+    },
+    "created_at": "2025-07-09T02:51:17.243451Z",
+    "editable_until": "2025-07-09T03:06:17.243451Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 60228875,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/60228875-Tg38.png",
+        "mid": "https://s3.tradingview.com/userpics/60228875-Tg38_mid.png",
+        "big": "https://s3.tradingview.com/userpics/60228875-Tg38_big.png",
+        "orig": "https://s3.tradingview.com/userpics/60228875-Tg38_orig.png"
+      },
+      "username": "Moon-ForexAcademy",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  }
+]

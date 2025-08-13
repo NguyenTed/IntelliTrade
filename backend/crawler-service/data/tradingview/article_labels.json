@@ -1,0 +1,4 @@
+[
+  { "selector": "h1[class^='title-']", "label": "title" },
+  { "selector": "span[class^='ast-']", "label": "content" }
+]

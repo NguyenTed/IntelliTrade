@@ -1,0 +1,737 @@
+[
+  {
+    "id": 12244196,
+    "parent_id": null,
+    "root_id": 12244196,
+    "comment": "Thanks excavo,  what about the alts though ? :(",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Thanks excavo,  what about the alts though ? :("
+      ]
+    },
+    "created_at": "2025-07-09T17:19:24.037140Z",
+    "editable_until": "2025-07-09T17:34:24.037140Z",
+    "likes_count": 2,
+    "user_vote": 0,
+    "user": {
+      "id": 16842510,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%2857,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EP%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%2857,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EP%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%2857,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EP%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "piotrpawliszyn",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12243830,
+    "parent_id": null,
+    "root_id": 12243830,
+    "comment": "Thanks for sharing excavo. been following since 2018 brother. keep it up.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Thanks for sharing excavo. been following since 2018 brother. keep it up."
+      ]
+    },
+    "created_at": "2025-07-09T14:39:36.264364Z",
+    "editable_until": "2025-07-09T14:54:36.264364Z",
+    "likes_count": 2,
+    "user_vote": 0,
+    "user": {
+      "id": 3140912,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/3140912-he18.png",
+        "mid": "https://s3.tradingview.com/userpics/3140912-he18_mid.png",
+        "big": "https://s3.tradingview.com/userpics/3140912-he18_big.png",
+        "orig": "https://s3.tradingview.com/userpics/3140912-he18_orig.png"
+      },
+      "username": "Mihan_Crypto",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12244067,
+    "parent_id": 12243830,
+    "root_id": 12243830,
+    "comment": "@Mihan_Crypto, thx brother",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/Mihan_Crypto/",
+            "name": "Mihan_Crypto"
+          }
+        },
+        ", thx brother"
+      ]
+    },
+    "created_at": "2025-07-09T16:21:14.360857Z",
+    "editable_until": "2025-07-09T16:36:14.360857Z",
+    "likes_count": 2,
+    "user_vote": 0,
+    "user": {
+      "id": 436102,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/436102-0O7B.png",
+        "mid": "https://s3.tradingview.com/userpics/436102-0O7B_mid.png",
+        "big": "https://s3.tradingview.com/userpics/436102-0O7B_big.png",
+        "orig": "https://s3.tradingview.com/userpics/436102-0O7B_orig.png"
+      },
+      "username": "EXCAVO",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium_expert",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "tradingview_wizard",
+          "verbose_name": "TradingView Wizard"
+        },
+        {
+          "name": "pro:pro_premium_expert",
+          "verbose_name": "Ultimate"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12244690,
+    "parent_id": null,
+    "root_id": 12244690,
+    "comment": "Interesting take, but from my view, the breakout above 111K already shifted momentum in favor of the bulls. As long as price stays above that key level, I’m expecting continuation to the upside — not just in two months, but possibly much sooner. Structure’s already showing strength.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Interesting take, but from my view, the breakout above 111K already shifted momentum in favor of the bulls. As long as price stays above that key level, I’m expecting continuation to the upside — not just in two months, but possibly much sooner. Structure’s already showing strength."
+      ]
+    },
+    "created_at": "2025-07-09T21:04:03.680207Z",
+    "editable_until": "2025-07-09T21:19:03.680207Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 23873610,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/23873610-qUpk.png",
+        "mid": "https://s3.tradingview.com/userpics/23873610-qUpk_mid.png",
+        "big": "https://s3.tradingview.com/userpics/23873610-qUpk_big.png",
+        "orig": "https://s3.tradingview.com/userpics/23873610-qUpk_orig.png"
+      },
+      "username": "ArmanShabanTrading",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "ios",
+    "platform_link_url": "https://apps.apple.com/app/id1205990992?pt=118302550&ct=comments&mt=8",
+    "platform_link_text": "TradingView for iOS"
+  },
+  {
+    "id": 12244650,
+    "parent_id": null,
+    "root_id": 12244650,
+    "comment": "I’ve been following you for so long—I can’t even remember when! Please keep up the great work. I hope the world becomes a better place, full of prosperity and peace.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "I’ve been following you for so long—I can’t even remember when! Please keep up the great work. I hope the world becomes a better place, full of prosperity and peace."
+      ]
+    },
+    "created_at": "2025-07-09T20:40:22.248980Z",
+    "editable_until": "2025-07-09T20:55:22.248980Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 5069026,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28354,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EM%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28354,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EM%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28354,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EM%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "mmidreamme",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12244072,
+    "parent_id": null,
+    "root_id": 12244072,
+    "comment": "Thank you. Been with you since 2017 man.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Thank you. Been with you since 2017 man."
+      ]
+    },
+    "created_at": "2025-07-09T16:27:33.432935Z",
+    "editable_until": "2025-07-09T16:42:33.432935Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 1496299,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28141,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3ES%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28141,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3ES%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28141,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3ES%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "Snacks",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "ios",
+    "platform_link_url": "https://apps.apple.com/app/id1205990992?pt=118302550&ct=comments&mt=8",
+    "platform_link_text": "TradingView for iOS"
+  },
+  {
+    "id": 12244185,
+    "parent_id": 12244072,
+    "root_id": 12244072,
+    "comment": "@Snacks, wow We will soon celebrate our 10th anniversary",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/Snacks/",
+            "name": "Snacks"
+          }
+        },
+        ", wow We will soon celebrate our 10th anniversary"
+      ]
+    },
+    "created_at": "2025-07-09T17:16:30.056196Z",
+    "editable_until": "2025-07-09T17:31:30.056196Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 436102,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/436102-0O7B.png",
+        "mid": "https://s3.tradingview.com/userpics/436102-0O7B_mid.png",
+        "big": "https://s3.tradingview.com/userpics/436102-0O7B_big.png",
+        "orig": "https://s3.tradingview.com/userpics/436102-0O7B_orig.png"
+      },
+      "username": "EXCAVO",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium_expert",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "tradingview_wizard",
+          "verbose_name": "TradingView Wizard"
+        },
+        {
+          "name": "pro:pro_premium_expert",
+          "verbose_name": "Ultimate"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12243854,
+    "parent_id": null,
+    "root_id": 12243854,
+    "comment": "Let's hope we get that blow-off top that we've been waiting for for so long. If you had to play devil's advocate and say BTC turns here and doesn't make a new ATH and then think of yourself in the future looking back, what would have been the hindsight you could imagine seeing? The canary in the coal min if you will that leads to the next bear market?",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Let's hope we get that blow-off top that we've been waiting for for so long. If you had to play devil's advocate and say BTC turns here and doesn't make a new ATH and then think of yourself in the future looking back, what would have been the hindsight you could imagine seeing? The canary in the coal min if you will that leads to the next bear market?"
+      ]
+    },
+    "created_at": "2025-07-09T14:52:56.453397Z",
+    "editable_until": "2025-07-09T15:07:56.453397Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 16719471,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/16719471-fBex.png",
+        "mid": "https://s3.tradingview.com/userpics/16719471-fBex_mid.png",
+        "big": "https://s3.tradingview.com/userpics/16719471-fBex_big.png",
+        "orig": "https://s3.tradingview.com/userpics/16719471-fBex_orig.png"
+      },
+      "username": "Space_Hippie",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12243833,
+    "parent_id": null,
+    "root_id": 12243833,
+    "comment": "Thanks for your dedication. We really appreciate it. What about Ethereum? Also september as bearish mode or little later?",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Thanks for your dedication. We really appreciate it. What about Ethereum? Also september as bearish mode or little later?"
+      ]
+    },
+    "created_at": "2025-07-09T14:41:10.802528Z",
+    "editable_until": "2025-07-09T14:56:10.802528Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 1758487,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28195,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EJ%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28195,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EJ%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28195,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EJ%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "jpousadan",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12244570,
+    "parent_id": 12243833,
+    "root_id": 12243833,
+    "comment": "@jpousadan, I will sell all my portfolio in september",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/jpousadan/",
+            "name": "jpousadan"
+          }
+        },
+        ", I will sell all my portfolio in september"
+      ]
+    },
+    "created_at": "2025-07-09T19:59:05.931839Z",
+    "editable_until": "2025-07-09T20:14:05.931839Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 436102,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/436102-0O7B.png",
+        "mid": "https://s3.tradingview.com/userpics/436102-0O7B_mid.png",
+        "big": "https://s3.tradingview.com/userpics/436102-0O7B_big.png",
+        "orig": "https://s3.tradingview.com/userpics/436102-0O7B_orig.png"
+      },
+      "username": "EXCAVO",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium_expert",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "tradingview_wizard",
+          "verbose_name": "TradingView Wizard"
+        },
+        {
+          "name": "pro:pro_premium_expert",
+          "verbose_name": "Ultimate"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12244245,
+    "parent_id": null,
+    "root_id": 12244245,
+    "comment": "Thanks! For everything",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Thanks! For everything"
+      ]
+    },
+    "created_at": "2025-07-09T17:46:09.868303Z",
+    "editable_until": "2025-07-09T18:01:09.868303Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 21379191,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28315,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EI%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28315,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EI%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28315,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EI%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "ikkie",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "ios",
+    "platform_link_url": "https://apps.apple.com/app/id1205990992?pt=118302550&ct=comments&mt=8",
+    "platform_link_text": "TradingView for iOS"
+  },
+  {
+    "id": 12244014,
+    "parent_id": null,
+    "root_id": 12244014,
+    "comment": "Thank you. It's a very nice work. Thank you.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Thank you. It's a very nice work. Thank you."
+      ]
+    },
+    "created_at": "2025-07-09T16:05:47.643113Z",
+    "editable_until": "2025-07-09T16:20:47.643113Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 10390860,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/10390860-B8dI.png",
+        "mid": "https://s3.tradingview.com/userpics/10390860-B8dI_mid.png",
+        "big": "https://s3.tradingview.com/userpics/10390860-B8dI_big.png",
+        "orig": "https://s3.tradingview.com/userpics/10390860-B8dI_orig.png"
+      },
+      "username": "aytekus",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12243991,
+    "parent_id": null,
+    "root_id": 12243991,
+    "comment": "two month is not enough for ALT season, so we will probably wont have it",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "two month is not enough for ALT season, so we will probably wont have it"
+      ]
+    },
+    "created_at": "2025-07-09T15:57:20.418317Z",
+    "editable_until": "2025-07-09T16:12:20.418317Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 633280,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28348,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3ED%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28348,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3ED%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28348,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3ED%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "DonLeone",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": true
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12243912,
+    "parent_id": null,
+    "root_id": 12243912,
+    "comment": "Can you give examples on how you actively integrate artificial intelligence into your professional processes and everyday life?",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Can you give examples on how you actively integrate artificial intelligence into your professional processes and everyday life?"
+      ]
+    },
+    "created_at": "2025-07-09T15:19:44.326417Z",
+    "editable_until": "2025-07-09T15:34:44.326417Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 21635722,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28156,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EB%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28156,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EB%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28156,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EB%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "barakudinen",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12244576,
+    "parent_id": 12243912,
+    "root_id": 12243912,
+    "comment": "@barakudinen, Ai agents\nI have several AI agents now, for living. And for my work, researchers, parsers, optimizers, a trader's diary with AI. and much more, I will have a lot of time on the bear market to share my developments with you.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/barakudinen/",
+            "name": "barakudinen"
+          }
+        },
+        ", Ai agents\nI have several AI agents now, for living. And for my work, researchers, parsers, optimizers, a trader's diary with AI. and much more, I will have a lot of time on the bear market to share my developments with you."
+      ]
+    },
+    "created_at": "2025-07-09T20:01:58.786181Z",
+    "editable_until": "2025-07-09T20:16:58.786181Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 436102,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/436102-0O7B.png",
+        "mid": "https://s3.tradingview.com/userpics/436102-0O7B_mid.png",
+        "big": "https://s3.tradingview.com/userpics/436102-0O7B_big.png",
+        "orig": "https://s3.tradingview.com/userpics/436102-0O7B_orig.png"
+      },
+      "username": "EXCAVO",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium_expert",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "tradingview_wizard",
+          "verbose_name": "TradingView Wizard"
+        },
+        {
+          "name": "pro:pro_premium_expert",
+          "verbose_name": "Ultimate"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12243864,
+    "parent_id": null,
+    "root_id": 12243864,
+    "comment": "Warm thanks, excavo :-)",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Warm thanks, excavo :-)"
+      ]
+    },
+    "created_at": "2025-07-09T14:57:11.478716Z",
+    "editable_until": "2025-07-09T15:12:11.478716Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 5054586,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28117,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EE%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28117,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EE%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28117,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EE%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "eibbor",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "tvd",
+    "platform_link_url": null,
+    "platform_link_text": null
+  }
+]

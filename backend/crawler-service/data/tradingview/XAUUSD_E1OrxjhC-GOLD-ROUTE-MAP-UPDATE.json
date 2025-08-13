@@ -1,0 +1,232 @@
+[
+  {
+    "id": 12244056,
+    "parent_id": null,
+    "root_id": 12244056,
+    "comment": "Best and sustainable/consistent analysis",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Best and sustainable/consistent analysis"
+      ]
+    },
+    "created_at": "2025-07-09T16:17:13.137018Z",
+    "editable_until": "2025-07-09T16:32:13.137018Z",
+    "likes_count": 2,
+    "user_vote": 0,
+    "user": {
+      "id": 104573752,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28213,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EI%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28213,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EI%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28213,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EI%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "ibrahim_KAL",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro",
+          "verbose_name": "Essential"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12244117,
+    "parent_id": null,
+    "root_id": 12244117,
+    "comment": "Another amazing day! Thank you for the update, Mr Gold !🙏💯",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Another amazing day! Thank you for the update, Mr Gold !🙏💯"
+      ]
+    },
+    "created_at": "2025-07-09T16:53:03.566535Z",
+    "editable_until": "2025-07-09T17:08:03.566535Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 60351360,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/60351360-wYm2.png",
+        "mid": "https://s3.tradingview.com/userpics/60351360-wYm2_mid.png",
+        "big": "https://s3.tradingview.com/userpics/60351360-wYm2_big.png",
+        "orig": "https://s3.tradingview.com/userpics/60351360-wYm2_orig.png"
+      },
+      "username": "monica_nelia19795",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_realtime",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_realtime",
+          "verbose_name": "Plus"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12244070,
+    "parent_id": null,
+    "root_id": 12244070,
+    "comment": "Great, thanks...following closely!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Great, thanks...following closely!"
+      ]
+    },
+    "created_at": "2025-07-09T16:23:00.913800Z",
+    "editable_until": "2025-07-09T16:38:00.913800Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 81293561,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/81293561-2jgK.png",
+        "mid": "https://s3.tradingview.com/userpics/81293561-2jgK_mid.png",
+        "big": "https://s3.tradingview.com/userpics/81293561-2jgK_big.png",
+        "orig": "https://s3.tradingview.com/userpics/81293561-2jgK_orig.png"
+      },
+      "username": "deanwg4k3s",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "tvd",
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12244021,
+    "parent_id": null,
+    "root_id": 12244021,
+    "comment": "Another beautiful Morning! Mr. Gold is no Joke SONNNN!!!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Another beautiful Morning! Mr. Gold is no Joke SONNNN!!!"
+      ]
+    },
+    "created_at": "2025-07-09T16:08:05.466140Z",
+    "editable_until": "2025-07-09T16:23:05.466140Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 27236510,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/27236510-f9HS.png",
+        "mid": "https://s3.tradingview.com/userpics/27236510-f9HS_mid.png",
+        "big": "https://s3.tradingview.com/userpics/27236510-f9HS_big.png",
+        "orig": "https://s3.tradingview.com/userpics/27236510-f9HS_orig.png"
+      },
+      "username": "louieseven",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro",
+          "verbose_name": "Essential"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "tvd",
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12244629,
+    "parent_id": null,
+    "root_id": 12244629,
+    "comment": "Great post, thanks mate!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Great post, thanks mate!"
+      ]
+    },
+    "created_at": "2025-07-09T20:19:33.066037Z",
+    "editable_until": "2025-07-09T20:34:33.066037Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 52157267,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/52157267-mE9x.png",
+        "mid": "https://s3.tradingview.com/userpics/52157267-mE9x_mid.png",
+        "big": "https://s3.tradingview.com/userpics/52157267-mE9x_big.png",
+        "orig": "https://s3.tradingview.com/userpics/52157267-mE9x_orig.png"
+      },
+      "username": "petermichalides",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro",
+          "verbose_name": "Essential"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  }
+]

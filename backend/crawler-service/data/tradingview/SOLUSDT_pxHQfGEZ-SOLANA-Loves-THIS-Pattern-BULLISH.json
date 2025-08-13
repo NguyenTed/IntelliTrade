@@ -1,0 +1,2197 @@
+[
+  {
+    "id": 12242835,
+    "parent_id": null,
+    "root_id": 12242835,
+    "comment": "i think we may have some pullbacks on Solana!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "i think we may have some pullbacks on Solana!"
+      ]
+    },
+    "created_at": "2025-07-09T08:37:16.027621Z",
+    "editable_until": "2025-07-09T08:52:16.027621Z",
+    "likes_count": 2,
+    "user_vote": 0,
+    "user": {
+      "id": 28215102,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/28215102-K5XT.png",
+        "mid": "https://s3.tradingview.com/userpics/28215102-K5XT_mid.png",
+        "big": "https://s3.tradingview.com/userpics/28215102-K5XT_big.png",
+        "orig": "https://s3.tradingview.com/userpics/28215102-K5XT_orig.png"
+      },
+      "username": "JoeChampion",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12243823,
+    "parent_id": 12242835,
+    "root_id": 12242835,
+    "comment": "@JoeChampion, Interesting, always good to have another opinion!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/JoeChampion/",
+            "name": "JoeChampion"
+          }
+        },
+        ", Interesting, always good to have another opinion!"
+      ]
+    },
+    "created_at": "2025-07-09T14:36:56.791569Z",
+    "editable_until": "2025-07-09T14:51:56.791569Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12242374,
+    "parent_id": null,
+    "root_id": 12242374,
+    "comment": "Nice analysis on identifying a suitable buy zone, which the price has been respecting several times in the past. Let's see how the price responds to the level as it approaches it.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Nice analysis on identifying a suitable buy zone, which the price has been respecting several times in the past. Let's see how the price responds to the level as it approaches it."
+      ]
+    },
+    "created_at": "2025-07-09T04:56:26.155594Z",
+    "editable_until": "2025-07-09T05:11:26.155594Z",
+    "likes_count": 2,
+    "user_vote": 0,
+    "user": {
+      "id": 98211,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/98211-C9kc.png",
+        "mid": "https://s3.tradingview.com/userpics/98211-C9kc_mid.png",
+        "big": "https://s3.tradingview.com/userpics/98211-C9kc_big.png",
+        "orig": "https://s3.tradingview.com/userpics/98211-C9kc_orig.png"
+      },
+      "username": "ICmarkets",
+      "is_broker": true,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium_expert",
+      "broker_plan": "platinum",
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "broker:platinum",
+          "verbose_name": "Platinum partner"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12242482,
+    "parent_id": 12242374,
+    "root_id": 12242374,
+    "comment": "@ICmarkets, Indeed, the 4h is looking promising. Thanks.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/broker/ICmarkets/",
+            "name": "ICmarkets"
+          }
+        },
+        ", Indeed, the 4h is looking promising. Thanks."
+      ]
+    },
+    "created_at": "2025-07-09T06:23:15.419932Z",
+    "editable_until": "2025-07-09T06:38:15.419932Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12241394,
+    "parent_id": null,
+    "root_id": 12241394,
+    "comment": "Short 150\n Tp 115",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Short 150\n Tp 115"
+      ]
+    },
+    "created_at": "2025-07-08T16:57:52.234836Z",
+    "editable_until": "2025-07-08T17:12:52.234836Z",
+    "likes_count": 2,
+    "user_vote": 0,
+    "user": {
+      "id": 21988530,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/21988530-PhkI.png",
+        "mid": "https://s3.tradingview.com/userpics/21988530-PhkI_mid.png",
+        "big": "https://s3.tradingview.com/userpics/21988530-PhkI_big.png",
+        "orig": "https://s3.tradingview.com/userpics/21988530-PhkI_orig.png"
+      },
+      "username": "SEYED98",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12239623,
+    "parent_id": null,
+    "root_id": 12239623,
+    "comment": "Will history repeat as it so often does? Thanks for sharing this. Hope the trade goes in your favor. \n\nThis publication has been chosen for the Editor's Picks and will be featured on the Home Page as well as https://www.tradingview.com/ideas/editors-picks/ \n\nThank you for being an active part of the TradingView community — looking forward to seeing more of your ideas.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Will history repeat as it so often does? Thanks for sharing this. Hope the trade goes in your favor. \n\nThis publication has been chosen for the Editor's Picks and will be featured on the Home Page as well as ",
+        {
+          "type": "url",
+          "params": {
+            "url": "https://www.tradingview.com/ideas/editors-picks/",
+            "linkText": "tradingview.com/ideas/editors-picks/",
+            "relFollow": true
+          }
+        },
+        " \n\nThank you for being an active part of the TradingView community — looking forward to seeing more of your ideas."
+      ]
+    },
+    "created_at": "2025-07-08T03:24:50.012004Z",
+    "editable_until": "2025-07-08T03:39:50.012004Z",
+    "likes_count": 2,
+    "user_vote": 0,
+    "user": {
+      "id": 6171439,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/6171439-mFQX.png",
+        "mid": "https://s3.tradingview.com/userpics/6171439-mFQX_mid.png",
+        "big": "https://s3.tradingview.com/userpics/6171439-mFQX_big.png",
+        "orig": "https://s3.tradingview.com/userpics/6171439-mFQX_orig.png"
+      },
+      "username": "TradingView",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium_expert",
+      "broker_plan": null,
+      "is_moderator": true,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "employee",
+          "verbose_name": "TradingView employee"
+        },
+        {
+          "name": "moderator",
+          "verbose_name": "Moderator"
+        },
+        {
+          "name": "pro:pro_premium_expert",
+          "verbose_name": "Ultimate"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240711,
+    "parent_id": 12239623,
+    "root_id": 12239623,
+    "comment": "@TradingView, Thanks so much TradingView ! Hopefully we get that long anticipated altseason soon",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/TradingView/",
+            "name": "TradingView"
+          }
+        },
+        ", Thanks so much TradingView ! Hopefully we get that long anticipated altseason soon"
+      ]
+    },
+    "created_at": "2025-07-08T12:30:04.949817Z",
+    "editable_until": "2025-07-08T12:45:04.949817Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12239420,
+    "parent_id": null,
+    "root_id": 12239420,
+    "comment": "We're seeing a clear pattern here: SOL often mirrors ETH's movements! With ETH looking strong, we're expecting SOL to follow suit, shaking off that recent dip.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "We're seeing a clear pattern here: SOL often mirrors ETH's movements! With ETH looking strong, we're expecting SOL to follow suit, shaking off that recent dip."
+      ]
+    },
+    "created_at": "2025-07-07T23:08:28.530007Z",
+    "editable_until": "2025-07-07T23:23:28.530007Z",
+    "likes_count": 2,
+    "user_vote": 0,
+    "user": {
+      "id": 38378654,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/38378654-DWO4.png",
+        "mid": "https://s3.tradingview.com/userpics/38378654-DWO4_mid.png",
+        "big": "https://s3.tradingview.com/userpics/38378654-DWO4_big.png",
+        "orig": "https://s3.tradingview.com/userpics/38378654-DWO4_orig.png"
+      },
+      "username": "SwallowAcademy",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240716,
+    "parent_id": 12239420,
+    "root_id": 12239420,
+    "comment": "@SwallowAcademy, Indeed - thanks Swallow!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/SwallowAcademy/",
+            "name": "SwallowAcademy"
+          }
+        },
+        ", Indeed - thanks Swallow!"
+      ]
+    },
+    "created_at": "2025-07-08T12:31:10.602934Z",
+    "editable_until": "2025-07-08T12:46:10.602934Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12242529,
+    "parent_id": null,
+    "root_id": 12242529,
+    "comment": "Awesome pattern recognition! The historical context and ETH correlation make this especially compelling. Love the confidence in spotting a familiar SOL rhythm.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Awesome pattern recognition! The historical context and ETH correlation make this especially compelling. Love the confidence in spotting a familiar SOL rhythm."
+      ]
+    },
+    "created_at": "2025-07-09T06:45:16.710434Z",
+    "editable_until": "2025-07-09T07:00:16.710434Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 4732662,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/4732662-RMO7.png",
+        "mid": "https://s3.tradingview.com/userpics/4732662-RMO7_mid.png",
+        "big": "https://s3.tradingview.com/userpics/4732662-RMO7_big.png",
+        "orig": "https://s3.tradingview.com/userpics/4732662-RMO7_orig.png"
+      },
+      "username": "ultreosforex",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12242423,
+    "parent_id": null,
+    "root_id": 12242423,
+    "comment": "Nice pattern recognition. Clear sequence of higher lows and breakouts above neckline resistance.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Nice pattern recognition. Clear sequence of higher lows and breakouts above neckline resistance."
+      ]
+    },
+    "created_at": "2025-07-09T05:37:07.052133Z",
+    "editable_until": "2025-07-09T05:52:07.052133Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 53908079,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/53908079-z9Xr.png",
+        "mid": "https://s3.tradingview.com/userpics/53908079-z9Xr_mid.png",
+        "big": "https://s3.tradingview.com/userpics/53908079-z9Xr_big.png",
+        "orig": "https://s3.tradingview.com/userpics/53908079-z9Xr_orig.png"
+      },
+      "username": "EdgeTradingJourney",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240745,
+    "parent_id": null,
+    "root_id": 12240745,
+    "comment": "You have a great eye for finding very nice patterns , eccelent work on this SOL one. I will be looking to take a trade on this",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "You have a great eye for finding very nice patterns , eccelent work on this SOL one. I will be looking to take a trade on this"
+      ]
+    },
+    "created_at": "2025-07-08T12:44:05.902222Z",
+    "editable_until": "2025-07-08T12:59:05.902222Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 1802075,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/1802075-SL5I.png",
+        "mid": "https://s3.tradingview.com/userpics/1802075-SL5I_mid.png",
+        "big": "https://s3.tradingview.com/userpics/1802075-SL5I_big.png",
+        "orig": "https://s3.tradingview.com/userpics/1802075-SL5I_orig.png"
+      },
+      "username": "MartyBoots",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12241909,
+    "parent_id": 12240745,
+    "root_id": 12240745,
+    "comment": "@MartyBoots, Thank you!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/MartyBoots/",
+            "name": "MartyBoots"
+          }
+        },
+        ", Thank you!"
+      ]
+    },
+    "created_at": "2025-07-08T21:01:19.184494Z",
+    "editable_until": "2025-07-08T21:16:19.184494Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240697,
+    "parent_id": null,
+    "root_id": 12240697,
+    "comment": "I like SOL. It will be a good sign once it starts trading above the moving average.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "I like SOL. It will be a good sign once it starts trading above the moving average."
+      ]
+    },
+    "created_at": "2025-07-08T12:26:26.479684Z",
+    "editable_until": "2025-07-08T12:41:26.479684Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 11014391,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/11014391-uy9r.png",
+        "mid": "https://s3.tradingview.com/userpics/11014391-uy9r_mid.png",
+        "big": "https://s3.tradingview.com/userpics/11014391-uy9r_big.png",
+        "orig": "https://s3.tradingview.com/userpics/11014391-uy9r_orig.png"
+      },
+      "username": "BlockTechEv",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240705,
+    "parent_id": 12240697,
+    "root_id": 12240697,
+    "comment": "@BlockTechEv, Yes that is what we need to watch for.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/BlockTechEv/",
+            "name": "BlockTechEv"
+          }
+        },
+        ", Yes that is what we need to watch for."
+      ]
+    },
+    "created_at": "2025-07-08T12:29:02.034717Z",
+    "editable_until": "2025-07-08T12:44:02.034717Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240521,
+    "parent_id": null,
+    "root_id": 12240521,
+    "comment": "good",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "good"
+      ]
+    },
+    "created_at": "2025-07-08T11:01:30.332880Z",
+    "editable_until": "2025-07-08T11:16:30.332880Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 93360269,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/93360269-8QKX.png",
+        "mid": "https://s3.tradingview.com/userpics/93360269-8QKX_mid.png",
+        "big": "https://s3.tradingview.com/userpics/93360269-8QKX_big.png",
+        "orig": "https://s3.tradingview.com/userpics/93360269-8QKX_orig.png"
+      },
+      "username": "Henrybillion",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240704,
+    "parent_id": 12240521,
+    "root_id": 12240521,
+    "comment": "@Henrybillion, thanks",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/Henrybillion/",
+            "name": "Henrybillion"
+          }
+        },
+        ", thanks"
+      ]
+    },
+    "created_at": "2025-07-08T12:28:42.899929Z",
+    "editable_until": "2025-07-08T12:43:42.899929Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12239469,
+    "parent_id": null,
+    "root_id": 12239469,
+    "comment": "looking like legislation will massively help solana & co too",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "looking like legislation will massively help solana & co too"
+      ]
+    },
+    "created_at": "2025-07-08T00:10:56.025258Z",
+    "editable_until": "2025-07-08T00:25:56.025258Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 58992610,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/58992610-lL4s.png",
+        "mid": "https://s3.tradingview.com/userpics/58992610-lL4s_mid.png",
+        "big": "https://s3.tradingview.com/userpics/58992610-lL4s_big.png",
+        "orig": "https://s3.tradingview.com/userpics/58992610-lL4s_orig.png"
+      },
+      "username": "SoftQuant",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240715,
+    "parent_id": 12239469,
+    "root_id": 12239469,
+    "comment": "@SoftQuant, Yes for sure. Thanks softquant",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/SoftQuant/",
+            "name": "SoftQuant"
+          }
+        },
+        ", Yes for sure. Thanks softquant"
+      ]
+    },
+    "created_at": "2025-07-08T12:30:49.078285Z",
+    "editable_until": "2025-07-08T12:45:49.078285Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12239119,
+    "parent_id": null,
+    "root_id": 12239119,
+    "comment": "Great view, I like your analysis and explanation. Thanks",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Great view, I like your analysis and explanation. Thanks"
+      ]
+    },
+    "created_at": "2025-07-07T19:14:38.977845Z",
+    "editable_until": "2025-07-07T19:29:38.977845Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 38358977,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/38358977-eCTn.png",
+        "mid": "https://s3.tradingview.com/userpics/38358977-eCTn_mid.png",
+        "big": "https://s3.tradingview.com/userpics/38358977-eCTn_big.png",
+        "orig": "https://s3.tradingview.com/userpics/38358977-eCTn_orig.png"
+      },
+      "username": "TrendDiva",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "tvd",
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240703,
+    "parent_id": 12239119,
+    "root_id": 12239119,
+    "comment": "@TrendDiva, Thank you!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/TrendDiva/",
+            "name": "TrendDiva"
+          }
+        },
+        ", Thank you!"
+      ]
+    },
+    "created_at": "2025-07-08T12:28:18.993049Z",
+    "editable_until": "2025-07-08T12:43:18.993049Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12238916,
+    "parent_id": null,
+    "root_id": 12238916,
+    "comment": "Good idea to take buy now",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Good idea to take buy now"
+      ]
+    },
+    "created_at": "2025-07-07T17:55:14.184658Z",
+    "editable_until": "2025-07-07T18:10:14.184658Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 97678564,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/97678564-gz0l.png",
+        "mid": "https://s3.tradingview.com/userpics/97678564-gz0l_mid.png",
+        "big": "https://s3.tradingview.com/userpics/97678564-gz0l_big.png",
+        "orig": "https://s3.tradingview.com/userpics/97678564-gz0l_orig.png"
+      },
+      "username": "DOCTOR_PIPS05",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12240717,
+    "parent_id": 12238916,
+    "root_id": 12238916,
+    "comment": "@DOCTOR_PIPS05, Thanks for sharing your opinion PIPS05",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/DOCTOR_PIPS05/",
+            "name": "DOCTOR_PIPS05"
+          }
+        },
+        ", Thanks for sharing your opinion PIPS05"
+      ]
+    },
+    "created_at": "2025-07-08T12:31:25.636214Z",
+    "editable_until": "2025-07-08T12:46:25.636214Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12238896,
+    "parent_id": null,
+    "root_id": 12238896,
+    "comment": "What about stoploss ?",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "What about stoploss ?"
+      ]
+    },
+    "created_at": "2025-07-07T17:49:44.301412Z",
+    "editable_until": "2025-07-07T18:04:44.301412Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 9267409,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%286,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EN%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%286,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EN%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%286,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EN%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "Najah000",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "ios",
+    "platform_link_url": "https://apps.apple.com/app/id1205990992?pt=118302550&ct=comments&mt=8",
+    "platform_link_text": "TradingView for iOS"
+  },
+  {
+    "id": 12239212,
+    "parent_id": 12238896,
+    "root_id": 12238896,
+    "comment": "@Najah000 search for a local loser low and put the SL below",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/Najah000/",
+            "name": "Najah000"
+          }
+        },
+        " search for a local loser low and put the SL below"
+      ]
+    },
+    "created_at": "2025-07-07T20:20:44.028179Z",
+    "editable_until": "2025-07-07T20:35:44.028179Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 46838672,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/46838672-QZcc.png",
+        "mid": "https://s3.tradingview.com/userpics/46838672-QZcc_mid.png",
+        "big": "https://s3.tradingview.com/userpics/46838672-QZcc_big.png",
+        "orig": "https://s3.tradingview.com/userpics/46838672-QZcc_orig.png"
+      },
+      "username": "TopChartPatterns",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": "ios",
+    "platform_link_url": "https://apps.apple.com/app/id1205990992?pt=118302550&ct=comments&mt=8",
+    "platform_link_text": "TradingView for iOS"
+  },
+  {
+    "id": 12240718,
+    "parent_id": 12239212,
+    "root_id": 12238896,
+    "comment": "@TopChartPatterns, LOL that's a good way of looking at it",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/TopChartPatterns/",
+            "name": "TopChartPatterns"
+          }
+        },
+        ", LOL that's a good way of looking at it"
+      ]
+    },
+    "created_at": "2025-07-08T12:31:39.318884Z",
+    "editable_until": "2025-07-08T12:46:39.318884Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 2,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240719,
+    "parent_id": 12238896,
+    "root_id": 12238896,
+    "comment": "@Najah000, always use a stop loss. Thanks!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/Najah000/",
+            "name": "Najah000"
+          }
+        },
+        ", always use a stop loss. Thanks!"
+      ]
+    },
+    "created_at": "2025-07-08T12:31:54.096355Z",
+    "editable_until": "2025-07-08T12:46:54.096355Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12244599,
+    "parent_id": null,
+    "root_id": 12244599,
+    "comment": "Good analysis! Thanks",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Good analysis! Thanks"
+      ]
+    },
+    "created_at": "2025-07-09T20:10:12.799145Z",
+    "editable_until": "2025-07-09T20:25:12.799145Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 52157267,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/52157267-mE9x.png",
+        "mid": "https://s3.tradingview.com/userpics/52157267-mE9x_mid.png",
+        "big": "https://s3.tradingview.com/userpics/52157267-mE9x_big.png",
+        "orig": "https://s3.tradingview.com/userpics/52157267-mE9x_orig.png"
+      },
+      "username": "petermichalides",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro",
+          "verbose_name": "Essential"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12244363,
+    "parent_id": null,
+    "root_id": 12244363,
+    "comment": "great work I like it",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "great work I like it"
+      ]
+    },
+    "created_at": "2025-07-09T18:24:15.112243Z",
+    "editable_until": "2025-07-09T18:39:15.112243Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 93730348,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/93730348-Hw9m.png",
+        "mid": "https://s3.tradingview.com/userpics/93730348-Hw9m_mid.png",
+        "big": "https://s3.tradingview.com/userpics/93730348-Hw9m_big.png",
+        "orig": "https://s3.tradingview.com/userpics/93730348-Hw9m_orig.png"
+      },
+      "username": "mcfkyz",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12242989,
+    "parent_id": null,
+    "root_id": 12242989,
+    "comment": "nice analysis",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "nice analysis"
+      ]
+    },
+    "created_at": "2025-07-09T09:25:09.304224Z",
+    "editable_until": "2025-07-09T09:40:09.304224Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 93360269,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/93360269-8QKX.png",
+        "mid": "https://s3.tradingview.com/userpics/93360269-8QKX_mid.png",
+        "big": "https://s3.tradingview.com/userpics/93360269-8QKX_big.png",
+        "orig": "https://s3.tradingview.com/userpics/93360269-8QKX_orig.png"
+      },
+      "username": "Henrybillion",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12242952,
+    "parent_id": null,
+    "root_id": 12242952,
+    "comment": "interesting! solana has potentials but...",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "interesting! solana has potentials but..."
+      ]
+    },
+    "created_at": "2025-07-09T09:15:17.178097Z",
+    "editable_until": "2025-07-09T09:30:17.178097Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 21804266,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/21804266-Sohn.png",
+        "mid": "https://s3.tradingview.com/userpics/21804266-Sohn_mid.png",
+        "big": "https://s3.tradingview.com/userpics/21804266-Sohn_big.png",
+        "orig": "https://s3.tradingview.com/userpics/21804266-Sohn_orig.png"
+      },
+      "username": "melikatrader94",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12242669,
+    "parent_id": null,
+    "root_id": 12242669,
+    "comment": "looks like nasdaq, will shoot Up now and already Up before 9:30 an est",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "looks like nasdaq, will shoot Up now and already Up before 9:30 an est"
+      ]
+    },
+    "created_at": "2025-07-09T07:23:09.113468Z",
+    "editable_until": "2025-07-09T07:38:09.113468Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 26275069,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28165,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EM%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28165,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EM%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28165,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EM%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "mhiaca08",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro",
+          "verbose_name": "Essential"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "ios",
+    "platform_link_url": "https://apps.apple.com/app/id1205990992?pt=118302550&ct=comments&mt=8",
+    "platform_link_text": "TradingView for iOS"
+  },
+  {
+    "id": 12242480,
+    "parent_id": null,
+    "root_id": 12242480,
+    "comment": "Thank you for all the Comments and Boosts from the community ! 🏆",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Thank you for all the Comments and Boosts from the community ! 🏆"
+      ]
+    },
+    "created_at": "2025-07-09T06:22:04.522071Z",
+    "editable_until": "2025-07-09T06:37:04.522071Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12242079,
+    "parent_id": null,
+    "root_id": 12242079,
+    "comment": "looks like a massive head and shoulders to me",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "looks like a massive head and shoulders to me"
+      ]
+    },
+    "created_at": "2025-07-09T00:08:55.801414Z",
+    "editable_until": "2025-07-09T00:23:55.801414Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 98806546,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28345,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EM%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28345,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EM%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28345,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EM%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "markherdiech",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "ios",
+    "platform_link_url": "https://apps.apple.com/app/id1205990992?pt=118302550&ct=comments&mt=8",
+    "platform_link_text": "TradingView for iOS"
+  },
+  {
+    "id": 12241581,
+    "parent_id": null,
+    "root_id": 12241581,
+    "comment": "nice 👍",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "nice 👍"
+      ]
+    },
+    "created_at": "2025-07-08T18:20:40.923621Z",
+    "editable_until": "2025-07-08T18:35:40.923621Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 88835093,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/88835093-kz7Q.png",
+        "mid": "https://s3.tradingview.com/userpics/88835093-kz7Q_mid.png",
+        "big": "https://s3.tradingview.com/userpics/88835093-kz7Q_big.png",
+        "orig": "https://s3.tradingview.com/userpics/88835093-kz7Q_orig.png"
+      },
+      "username": "Stiven088",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12241912,
+    "parent_id": 12241581,
+    "root_id": 12241581,
+    "comment": "@Stiven088, Thank you Stiven",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/Stiven088/",
+            "name": "Stiven088"
+          }
+        },
+        ", Thank you Stiven"
+      ]
+    },
+    "created_at": "2025-07-08T21:01:56.202564Z",
+    "editable_until": "2025-07-08T21:16:56.202564Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12241552,
+    "parent_id": null,
+    "root_id": 12241552,
+    "comment": "It is about to break out. Alert on 158 -160. SL just below 155. This is not a financial advice.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "It is about to break out. Alert on 158 -160. SL just below 155. This is not a financial advice."
+      ]
+    },
+    "created_at": "2025-07-08T18:02:48.175074Z",
+    "editable_until": "2025-07-08T18:17:48.175074Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 28242955,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/28242955-KzTT.png",
+        "mid": "https://s3.tradingview.com/userpics/28242955-KzTT_mid.png",
+        "big": "https://s3.tradingview.com/userpics/28242955-KzTT_big.png",
+        "orig": "https://s3.tradingview.com/userpics/28242955-KzTT_orig.png"
+      },
+      "username": "gboer74",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "ios",
+    "platform_link_url": "https://apps.apple.com/app/id1205990992?pt=118302550&ct=comments&mt=8",
+    "platform_link_text": "TradingView for iOS"
+  },
+  {
+    "id": 12241911,
+    "parent_id": 12241552,
+    "root_id": 12241552,
+    "comment": "@gboer74, Also think so",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/gboer74/",
+            "name": "gboer74"
+          }
+        },
+        ", Also think so"
+      ]
+    },
+    "created_at": "2025-07-08T21:01:27.660049Z",
+    "editable_until": "2025-07-08T21:16:27.660049Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240479,
+    "parent_id": null,
+    "root_id": 12240479,
+    "comment": "I'm pretty bullish on Solana myself! Thanks for sharing this.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "I'm pretty bullish on Solana myself! Thanks for sharing this."
+      ]
+    },
+    "created_at": "2025-07-08T10:49:37.934876Z",
+    "editable_until": "2025-07-08T11:04:37.934876Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 63559211,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/63559211-aHm3.png",
+        "mid": "https://s3.tradingview.com/userpics/63559211-aHm3_mid.png",
+        "big": "https://s3.tradingview.com/userpics/63559211-aHm3_big.png",
+        "orig": "https://s3.tradingview.com/userpics/63559211-aHm3_orig.png"
+      },
+      "username": "King_BennyBag",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro",
+          "verbose_name": "Essential"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "tvd",
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240708,
+    "parent_id": 12240479,
+    "root_id": 12240479,
+    "comment": "@King_BennyBag, Happy to hear it thanks King",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/King_BennyBag/",
+            "name": "King_BennyBag"
+          }
+        },
+        ", Happy to hear it thanks King"
+      ]
+    },
+    "created_at": "2025-07-08T12:29:16.784256Z",
+    "editable_until": "2025-07-08T12:44:16.784256Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240746,
+    "parent_id": 12240479,
+    "root_id": 12240479,
+    "comment": "@King_BennyBag, Why are you bullish King ? Whats your thoughts ?",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/King_BennyBag/",
+            "name": "King_BennyBag"
+          }
+        },
+        ", Why are you bullish King ? Whats your thoughts ?"
+      ]
+    },
+    "created_at": "2025-07-08T12:45:06.040377Z",
+    "editable_until": "2025-07-08T13:00:06.040377Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 1802075,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/1802075-SL5I.png",
+        "mid": "https://s3.tradingview.com/userpics/1802075-SL5I_mid.png",
+        "big": "https://s3.tradingview.com/userpics/1802075-SL5I_big.png",
+        "orig": "https://s3.tradingview.com/userpics/1802075-SL5I_orig.png"
+      },
+      "username": "MartyBoots",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12239814,
+    "parent_id": null,
+    "root_id": 12239814,
+    "comment": "I don't think that's right.",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "I don't think that's right."
+      ]
+    },
+    "created_at": "2025-07-08T05:53:44.084727Z",
+    "editable_until": "2025-07-08T06:08:44.084727Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 30162438,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/30162438-IRND.png",
+        "mid": "https://s3.tradingview.com/userpics/30162438-IRND_mid.png",
+        "big": "https://s3.tradingview.com/userpics/30162438-IRND_big.png",
+        "orig": "https://s3.tradingview.com/userpics/30162438-IRND_orig.png"
+      },
+      "username": "Enddead",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240709,
+    "parent_id": 12239814,
+    "root_id": 12239814,
+    "comment": "@Enddead, why not?",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/Enddead/",
+            "name": "Enddead"
+          }
+        },
+        ", why not?"
+      ]
+    },
+    "created_at": "2025-07-08T12:29:33.617163Z",
+    "editable_until": "2025-07-08T12:44:33.617163Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12239517,
+    "parent_id": null,
+    "root_id": 12239517,
+    "comment": "Crypto starts bullish now",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Crypto starts bullish now"
+      ]
+    },
+    "created_at": "2025-07-08T01:34:25.049884Z",
+    "editable_until": "2025-07-08T01:49:25.049884Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 1125963,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/1125963-RZ6A.png",
+        "mid": "https://s3.tradingview.com/userpics/1125963-RZ6A_mid.png",
+        "big": "https://s3.tradingview.com/userpics/1125963-RZ6A_big.png",
+        "orig": "https://s3.tradingview.com/userpics/1125963-RZ6A_orig.png"
+      },
+      "username": "KABHI_TA_TRADING",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12240712,
+    "parent_id": 12239517,
+    "root_id": 12239517,
+    "comment": "@KABHI_TA_TRADING, Yes indeed!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/KABHI_TA_TRADING/",
+            "name": "KABHI_TA_TRADING"
+          }
+        },
+        ", Yes indeed!"
+      ]
+    },
+    "created_at": "2025-07-08T12:30:17.108600Z",
+    "editable_until": "2025-07-08T12:45:17.108600Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 7109841,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/7109841-3JcH.png",
+        "mid": "https://s3.tradingview.com/userpics/7109841-3JcH_mid.png",
+        "big": "https://s3.tradingview.com/userpics/7109841-3JcH_big.png",
+        "orig": "https://s3.tradingview.com/userpics/7109841-3JcH_orig.png"
+      },
+      "username": "Crypto-Check-",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  }
+]

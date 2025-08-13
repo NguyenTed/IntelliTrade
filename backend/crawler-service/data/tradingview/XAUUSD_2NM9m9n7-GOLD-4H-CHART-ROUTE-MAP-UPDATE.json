@@ -1,0 +1,968 @@
+[
+  {
+    "id": 12241356,
+    "parent_id": null,
+    "root_id": 12241356,
+    "comment": "watching the levels carefully. Thankyou",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "watching the levels carefully. Thankyou"
+      ]
+    },
+    "created_at": "2025-07-08T16:42:21.459366Z",
+    "editable_until": "2025-07-08T16:57:21.459366Z",
+    "likes_count": 2,
+    "user_vote": 0,
+    "user": {
+      "id": 55398949,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28267,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EH%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28267,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EH%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28267,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EH%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "Helenb5019",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro",
+          "verbose_name": "Essential"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12243035,
+    "parent_id": 12241356,
+    "root_id": 12241356,
+    "comment": "@Helenb5019 👊🏼",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/Helenb5019/",
+            "name": "Helenb5019"
+          }
+        },
+        " 👊🏼"
+      ]
+    },
+    "created_at": "2025-07-09T09:39:52.510583Z",
+    "editable_until": "2025-07-09T09:54:52.510583Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 27172399,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/27172399-UgXP.png",
+        "mid": "https://s3.tradingview.com/userpics/27172399-UgXP_mid.png",
+        "big": "https://s3.tradingview.com/userpics/27172399-UgXP_big.png",
+        "orig": "https://s3.tradingview.com/userpics/27172399-UgXP_orig.png"
+      },
+      "username": "Goldviewfx",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12241293,
+    "parent_id": null,
+    "root_id": 12241293,
+    "comment": "Thank you for the update, Mr Gold!🙏💯",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Thank you for the update, Mr Gold!🙏💯"
+      ]
+    },
+    "created_at": "2025-07-08T16:19:47.227003Z",
+    "editable_until": "2025-07-08T16:34:47.227003Z",
+    "likes_count": 2,
+    "user_vote": 0,
+    "user": {
+      "id": 60351360,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/60351360-wYm2.png",
+        "mid": "https://s3.tradingview.com/userpics/60351360-wYm2_mid.png",
+        "big": "https://s3.tradingview.com/userpics/60351360-wYm2_big.png",
+        "orig": "https://s3.tradingview.com/userpics/60351360-wYm2_orig.png"
+      },
+      "username": "monica_nelia19795",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_realtime",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_realtime",
+          "verbose_name": "Plus"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12243034,
+    "parent_id": 12241293,
+    "root_id": 12241293,
+    "comment": "@monica_nelia19795 👊🏼",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/monica_nelia19795/",
+            "name": "monica_nelia19795"
+          }
+        },
+        " 👊🏼"
+      ]
+    },
+    "created_at": "2025-07-09T09:39:45.965222Z",
+    "editable_until": "2025-07-09T09:54:45.965222Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 27172399,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/27172399-UgXP.png",
+        "mid": "https://s3.tradingview.com/userpics/27172399-UgXP_mid.png",
+        "big": "https://s3.tradingview.com/userpics/27172399-UgXP_big.png",
+        "orig": "https://s3.tradingview.com/userpics/27172399-UgXP_orig.png"
+      },
+      "username": "Goldviewfx",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12241283,
+    "parent_id": null,
+    "root_id": 12241283,
+    "comment": "Thanks Mr. Gold!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Thanks Mr. Gold!"
+      ]
+    },
+    "created_at": "2025-07-08T16:15:54.797840Z",
+    "editable_until": "2025-07-08T16:30:54.797840Z",
+    "likes_count": 2,
+    "user_vote": 0,
+    "user": {
+      "id": 84078506,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28246,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3ET%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28246,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3ET%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28246,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3ET%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "twolf123",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "ios",
+    "platform_link_url": "https://apps.apple.com/app/id1205990992?pt=118302550&ct=comments&mt=8",
+    "platform_link_text": "TradingView for iOS"
+  },
+  {
+    "id": 12243033,
+    "parent_id": 12241283,
+    "root_id": 12241283,
+    "comment": "@twolf123 👊🏼",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/twolf123/",
+            "name": "twolf123"
+          }
+        },
+        " 👊🏼"
+      ]
+    },
+    "created_at": "2025-07-09T09:39:40.285902Z",
+    "editable_until": "2025-07-09T09:54:40.285902Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 27172399,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/27172399-UgXP.png",
+        "mid": "https://s3.tradingview.com/userpics/27172399-UgXP_mid.png",
+        "big": "https://s3.tradingview.com/userpics/27172399-UgXP_big.png",
+        "orig": "https://s3.tradingview.com/userpics/27172399-UgXP_orig.png"
+      },
+      "username": "Goldviewfx",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12244337,
+    "parent_id": null,
+    "root_id": 12244337,
+    "comment": "will be a good timing for DXY downsides and Gold longs!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "will be a good timing for DXY downsides and Gold longs!"
+      ]
+    },
+    "created_at": "2025-07-09T18:18:18.929511Z",
+    "editable_until": "2025-07-09T18:33:18.929511Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 28215102,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/28215102-K5XT.png",
+        "mid": "https://s3.tradingview.com/userpics/28215102-K5XT_mid.png",
+        "big": "https://s3.tradingview.com/userpics/28215102-K5XT_big.png",
+        "orig": "https://s3.tradingview.com/userpics/28215102-K5XT_orig.png"
+      },
+      "username": "JoeChampion",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12242546,
+    "parent_id": null,
+    "root_id": 12242546,
+    "comment": "Clean and confident update! Love how the roadmap aligns with past behavior and levels—well done 👏",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Clean and confident update! Love how the roadmap aligns with past behavior and levels—well done 👏"
+      ]
+    },
+    "created_at": "2025-07-09T06:49:19.172609Z",
+    "editable_until": "2025-07-09T07:04:19.172609Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 4732662,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/4732662-RMO7.png",
+        "mid": "https://s3.tradingview.com/userpics/4732662-RMO7_mid.png",
+        "big": "https://s3.tradingview.com/userpics/4732662-RMO7_big.png",
+        "orig": "https://s3.tradingview.com/userpics/4732662-RMO7_orig.png"
+      },
+      "username": "ultreosforex",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": null,
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12243029,
+    "parent_id": 12242546,
+    "root_id": 12242546,
+    "comment": "@ultreosforex 🙏🏼",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/ultreosforex/",
+            "name": "ultreosforex"
+          }
+        },
+        " 🙏🏼"
+      ]
+    },
+    "created_at": "2025-07-09T09:39:24.642216Z",
+    "editable_until": "2025-07-09T09:54:24.642216Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 27172399,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/27172399-UgXP.png",
+        "mid": "https://s3.tradingview.com/userpics/27172399-UgXP_mid.png",
+        "big": "https://s3.tradingview.com/userpics/27172399-UgXP_big.png",
+        "orig": "https://s3.tradingview.com/userpics/27172399-UgXP_orig.png"
+      },
+      "username": "Goldviewfx",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12242067,
+    "parent_id": null,
+    "root_id": 12242067,
+    "comment": "Thank you for your update Mr. Gold",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Thank you for your update Mr. Gold"
+      ]
+    },
+    "created_at": "2025-07-08T23:44:48.837646Z",
+    "editable_until": "2025-07-08T23:59:48.837646Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 24737920,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28237,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3ES%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28237,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3ES%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28237,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3ES%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "sdurrani029",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": true
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12243030,
+    "parent_id": 12242067,
+    "root_id": 12242067,
+    "comment": "@sdurrani029 🙏🏼",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/sdurrani029/",
+            "name": "sdurrani029"
+          }
+        },
+        " 🙏🏼"
+      ]
+    },
+    "created_at": "2025-07-09T09:39:29.220838Z",
+    "editable_until": "2025-07-09T09:54:29.220838Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 27172399,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/27172399-UgXP.png",
+        "mid": "https://s3.tradingview.com/userpics/27172399-UgXP_mid.png",
+        "big": "https://s3.tradingview.com/userpics/27172399-UgXP_big.png",
+        "orig": "https://s3.tradingview.com/userpics/27172399-UgXP_orig.png"
+      },
+      "username": "Goldviewfx",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12241650,
+    "parent_id": null,
+    "root_id": 12241650,
+    "comment": "Used this today, again, thank you!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Used this today, again, thank you!"
+      ]
+    },
+    "created_at": "2025-07-08T18:55:43.950405Z",
+    "editable_until": "2025-07-08T19:10:43.950405Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 81293561,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/81293561-2jgK.png",
+        "mid": "https://s3.tradingview.com/userpics/81293561-2jgK_mid.png",
+        "big": "https://s3.tradingview.com/userpics/81293561-2jgK_big.png",
+        "orig": "https://s3.tradingview.com/userpics/81293561-2jgK_orig.png"
+      },
+      "username": "deanwg4k3s",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "tvd",
+    "platform_link_url": null,
+    "platform_link_text": null
+  },
+  {
+    "id": 12243032,
+    "parent_id": 12241650,
+    "root_id": 12241650,
+    "comment": "@deanwg4k3s 🙏🏼",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/deanwg4k3s/",
+            "name": "deanwg4k3s"
+          }
+        },
+        " 🙏🏼"
+      ]
+    },
+    "created_at": "2025-07-09T09:39:34.409657Z",
+    "editable_until": "2025-07-09T09:54:34.409657Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 27172399,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/27172399-UgXP.png",
+        "mid": "https://s3.tradingview.com/userpics/27172399-UgXP_mid.png",
+        "big": "https://s3.tradingview.com/userpics/27172399-UgXP_big.png",
+        "orig": "https://s3.tradingview.com/userpics/27172399-UgXP_orig.png"
+      },
+      "username": "Goldviewfx",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12241630,
+    "parent_id": null,
+    "root_id": 12241630,
+    "comment": "Superb!!",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Superb!!"
+      ]
+    },
+    "created_at": "2025-07-08T18:37:26.040193Z",
+    "editable_until": "2025-07-08T18:52:26.040193Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 71377400,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28150,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EB%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28150,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EB%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28150,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EB%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "bizgoals007",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12241528,
+    "parent_id": null,
+    "root_id": 12241528,
+    "comment": "Thanks a lot for your outstanding analyses. Mr.Gold 🙏👊👍",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Thanks a lot for your outstanding analyses. Mr.Gold 🙏👊👍"
+      ]
+    },
+    "created_at": "2025-07-08T17:48:17.756776Z",
+    "editable_until": "2025-07-08T18:03:17.756776Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 1189976,
+      "avatars": {
+        "small": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2239%22%20height=%2239%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28285,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EJ%3C/text%3E%3C/svg%3E",
+        "mid": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%2296%22%20height=%2296%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28285,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EJ%3C/text%3E%3C/svg%3E",
+        "big": "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220,0,20,20%22%20width=%22320%22%20height=%22320%22%3E%3Crect%20height=%2220%22%20width=%2220%22%20fill=%22hsl%28285,25%25,50%25%29%22/%3E%3Ctext%20fill=%22white%22%20x=%2210%22%20y=%2214.8%22%20font-size=%2214%22%20font-family=%22-apple-system,BlinkMacSystemFont,Trebuchet%20MS,Roboto,Ubuntu,sans-serif%22%20text-anchor=%22middle%22%3EJ%3C/text%3E%3C/svg%3E",
+        "orig": null
+      },
+      "username": "Jobus",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12243036,
+    "parent_id": 12241528,
+    "root_id": 12241528,
+    "comment": "@Jobus 👊🏼",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/Jobus/",
+            "name": "Jobus"
+          }
+        },
+        " 👊🏼"
+      ]
+    },
+    "created_at": "2025-07-09T09:39:59.450925Z",
+    "editable_until": "2025-07-09T09:54:59.450925Z",
+    "likes_count": 1,
+    "user_vote": 0,
+    "user": {
+      "id": 27172399,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/27172399-UgXP.png",
+        "mid": "https://s3.tradingview.com/userpics/27172399-UgXP_mid.png",
+        "big": "https://s3.tradingview.com/userpics/27172399-UgXP_big.png",
+        "orig": "https://s3.tradingview.com/userpics/27172399-UgXP_orig.png"
+      },
+      "username": "Goldviewfx",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12243037,
+    "parent_id": 12241528,
+    "root_id": 12241528,
+    "comment": "@Goldviewfx 👊🏼",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        {
+          "type": "user",
+          "params": {
+            "link": "/u/Goldviewfx/",
+            "name": "Goldviewfx"
+          }
+        },
+        " 👊🏼"
+      ]
+    },
+    "created_at": "2025-07-09T09:40:03.568082Z",
+    "editable_until": "2025-07-09T09:55:03.568082Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 27172399,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/27172399-UgXP.png",
+        "mid": "https://s3.tradingview.com/userpics/27172399-UgXP_mid.png",
+        "big": "https://s3.tradingview.com/userpics/27172399-UgXP_big.png",
+        "orig": "https://s3.tradingview.com/userpics/27172399-UgXP_orig.png"
+      },
+      "username": "Goldviewfx",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 1,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12244123,
+    "parent_id": null,
+    "root_id": 12244123,
+    "comment": "Amazing analysis",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "Amazing analysis"
+      ]
+    },
+    "created_at": "2025-07-09T16:55:39.529395Z",
+    "editable_until": "2025-07-09T17:10:39.529395Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 105304932,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/105304932-FlfZ.png",
+        "mid": "https://s3.tradingview.com/userpics/105304932-FlfZ_mid.png",
+        "big": "https://s3.tradingview.com/userpics/105304932-FlfZ_big.png",
+        "orig": "https://s3.tradingview.com/userpics/105304932-FlfZ_orig.png"
+      },
+      "username": "Liquidity_Gold_FX",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "ios",
+    "platform_link_url": "https://apps.apple.com/app/id1205990992?pt=118302550&ct=comments&mt=8",
+    "platform_link_text": "TradingView for iOS"
+  },
+  {
+    "id": 12243867,
+    "parent_id": null,
+    "root_id": 12243867,
+    "comment": "3 point tp 20 point sl",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "3 point tp 20 point sl"
+      ]
+    },
+    "created_at": "2025-07-09T14:57:38.238324Z",
+    "editable_until": "2025-07-09T15:12:38.238324Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 1199721,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/1199721-3zXp.png",
+        "mid": "https://s3.tradingview.com/userpics/1199721-3zXp_mid.png",
+        "big": "https://s3.tradingview.com/userpics/1199721-3zXp_big.png",
+        "orig": "https://s3.tradingview.com/userpics/1199721-3zXp_orig.png"
+      },
+      "username": "Rumy1983",
+      "is_broker": false,
+      "is_pro": false,
+      "is_paid_pro": false,
+      "pro_plan": "",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  },
+  {
+    "id": 12243244,
+    "parent_id": null,
+    "root_id": 12243244,
+    "comment": "clear setup thanks for sharing",
+    "comment_ast": {
+      "type": "root",
+      "children": [
+        "clear setup thanks for sharing"
+      ]
+    },
+    "created_at": "2025-07-09T10:44:29.964639Z",
+    "editable_until": "2025-07-09T10:59:29.964639Z",
+    "likes_count": 0,
+    "user_vote": 0,
+    "user": {
+      "id": 90886707,
+      "avatars": {
+        "small": "https://s3.tradingview.com/userpics/90886707-3n9K.png",
+        "mid": "https://s3.tradingview.com/userpics/90886707-3n9K_mid.png",
+        "big": "https://s3.tradingview.com/userpics/90886707-3n9K_big.png",
+        "orig": "https://s3.tradingview.com/userpics/90886707-3n9K_orig.png"
+      },
+      "username": "PriceActionMatrix",
+      "is_broker": false,
+      "is_pro": true,
+      "is_paid_pro": true,
+      "pro_plan": "pro_premium",
+      "broker_plan": null,
+      "is_moderator": false,
+      "is_trial": false,
+      "badges": [
+        {
+          "name": "pro:pro_premium",
+          "verbose_name": "Premium"
+        }
+      ],
+      "is_online": false
+    },
+    "spam_status": null,
+    "is_hidden": false,
+    "depth": 0,
+    "platform": "android",
+    "platform_link_url": "https://play.google.com/store/apps/details?id=com.tradingview.tradingviewapp&referrer=utm_source=Tradingview&utm_medium=site&utm_content=comments&utm_campaign=comments",
+    "platform_link_text": "TradingView for Android"
+  }
+]
