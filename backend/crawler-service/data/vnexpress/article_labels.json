@@ -1,8 +1,0 @@
-[
-  { "selector": "h1.title-detail", "label": "title" },
-  { "selector": ".Normal", "label": "content" },
-  {
-    "selector": "div.comment_item",
-    "label": "comment"
-  }
-]
