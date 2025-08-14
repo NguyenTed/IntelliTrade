@@ -8,6 +8,7 @@ import NewsContent from "./components/NewsContent";
 import RightInfo from "./components/RightInfo";
 import MetaRows from "./components/MetaRows";
 import { Comments } from "./components/Comments";
+import { ArticleContext } from "../../../contexts/ArticleContext";
 
 export default function NewsDetailPage() {
   const { slug = "" } = useParams();
@@ -16,20 +17,21 @@ export default function NewsDetailPage() {
   const [err, setErr] = useState<string | null>(null);
 
   useEffect(() => {
-    let mounted = true;
-    setLoading(true);
-    getArticleBySlug(slug)
-      .then((res) => {
-        if (mounted) {
-          setData(res);
-          setErr(null);
-        }
-      })
-      .catch((e) => setErr(e?.message ?? "Failed to load article"))
-      .finally(() => mounted && setLoading(false));
-    return () => {
-      mounted = false;
+    const loadArticle = async () => {
+      try {
+        setLoading(true);
+        setErr(null);
+
+        const res = await getArticleBySlug(slug);
+        setData(res);
+      } catch (e: any) {
+        setErr(e?.message ?? "Failed to load article");
+      } finally {
+        setLoading(false);
+      }
     };
+
+    loadArticle();
   }, [slug]);
 
   if (loading) {
@@ -63,22 +65,24 @@ export default function NewsDetailPage() {
   }
 
   return (
-    <div className="w-full h-auto mx-auto px-[32px] md:px-[42px] xl:px-[100px] py-6">
-      <NewsHeader data={data} />
+    <ArticleContext.Provider value={data.id}>
+      <div className="w-full h-auto mx-auto px-[32px] md:px-[42px] xl:px-[100px] py-6">
+        <NewsHeader data={data} />
 
-      <div className="mt-6 xl:px-[10%]">
-        <MetaRows data={data} />
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 ">
-          {/* content */}
-          <div className="lg:col-span-8 xl:col-span-9">
-            <NewsContent content={data.content} />
-            <Comments comments={data.comments} />
+        <div className="mt-6 xl:px-[10%]">
+          <MetaRows data={data} />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 ">
+            {/* content */}
+            <div className="lg:col-span-8 xl:col-span-9">
+              <NewsContent content={data.content} />
+              <Comments comments={data.comments} />
+            </div>
+
+            {/* right info */}
+            <RightInfo tags={data.tags} />
           </div>
-
-          {/* right info */}
-          <RightInfo tags={data.tags} />
         </div>
       </div>
-    </div>
+    </ArticleContext.Provider>
   );
 }

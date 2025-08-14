@@ -8,10 +8,12 @@ export default function CommentItem({
   comment,
   isReplyBoxOpen = false,
   onToggleReply,
+  onSave,
 }: {
   comment: IComment;
   isReplyBoxOpen: boolean;
   onToggleReply: () => void;
+  onSave: (text: string) => void;
 }) {
   const [reply, setReply] = useState(`@${comment.author}, `);
   return (
@@ -52,7 +54,13 @@ export default function CommentItem({
             }}
           />
           <div className="mt-2 flex gap-2">
-            <button className="px-3 py-1.5 text-sm rounded-lg bg-black text-white hover:opacity-90">
+            <button
+              onClick={() => {
+                onSave(reply);
+                setReply(`@${comment.author}, `);
+              }}
+              className="px-3 py-1.5 text-sm rounded-lg bg-black text-white hover:opacity-90"
+            >
               Send
             </button>
             <button
