@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import numpy as np
 import pandas as pd
 import re
-from ultils.get_tag_depth import get_depth
+from utils.get_tag_depth import get_depth
 from app.schemas.predicted_article_schema import PredictedArticleSchema
 from app.schemas.article_schema import ArticleSchema
 from app.schemas.predicted_article_schema import PredictedArticleSchema

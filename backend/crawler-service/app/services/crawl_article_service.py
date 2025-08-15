@@ -66,6 +66,7 @@ class CrawlArticleService:
                     ) for c in full_comments
                 ],
                 tradeSide=p.tradeSide,
+                contentHtml=p.contentHtml,
                 tags=p.tags,
                 symbols=[symbols],
                 sections=p.sections,
@@ -167,6 +168,7 @@ class CrawlArticleService:
                 ) for c in full_comments
             ],
             tradeSide=predicted.tradeSide,
+            contentHtml=predicted.contentHtml,
             tags=predicted.tags,
             symbols=[symbols],
             sections=predicted.sections,

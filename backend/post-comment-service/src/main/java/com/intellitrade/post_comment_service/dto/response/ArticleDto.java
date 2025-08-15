@@ -16,6 +16,7 @@ public class ArticleDto {
     private String url;
     private String slug;
     private String tradeSide;
+    private String contentHtml;
     private List<String> tags;
     private List<SymbolDto> symbols;
     private List<Object> sections;

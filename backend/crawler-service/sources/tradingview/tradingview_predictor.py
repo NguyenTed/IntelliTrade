@@ -2,7 +2,8 @@ from sources.base import BasePredictor
 from bs4 import BeautifulSoup
 import numpy as np
 import pandas as pd
-from ultils.get_tag_depth import get_depth
+from utils.get_tag_depth import get_depth
+from utils.html_to_jsx import html_to_jsx
 from enums.ArticleType import ArticleType
 from app.schemas.predicted_article_schema import PredictedArticleSchema
 from app.schemas.article_schema import ArticleSchema
@@ -82,13 +83,24 @@ class TradingViewPredictor(BasePredictor):
                     result.tradeSide = "short"
                 elif tag.get("class") and any(c.startswith("long-") for c in tag["class"]):
                     result.tradeSide = "long"
+            elif label == "contentHtml":
+                try:
+                    fragment = str(tag)
+                    jsx_string = html_to_jsx(fragment)
+                    result.contentHtml = jsx_string
+                except Exception:
+                    # fallback: lưu nguyên HTML nếu có lỗi convert
+                    result.contentHtml = str(tag)
+
+                    id: ObjectId = insert_symbol(symbol)
+                    result.symbols.append(id)
 
         id: ObjectId = insert_symbol(symbol)
         result.symbols.append(id)
 
         # Handle comment
         raw_comment = article.raw_comment
-        if raw_comment:
+        if raw_comment and isinstance(raw_comment, list):
             for item in raw_comment:
                 comment_obj = CommentSchema(
                     comment_id=item.get("id"),
