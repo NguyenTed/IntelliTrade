@@ -64,6 +64,8 @@ services:
       - MONGO_DB=${MONGO_DB}
     ports:
       - "5000:5000"
+    volumes:
+      - crawler_state:/var/lib/crawler
 
 volumes:
   mysql-data:
@@ -71,3 +73,4 @@ volumes:
   neo4j-logs:
   kafka_data:
   mongo_data:
+  crawler_state:

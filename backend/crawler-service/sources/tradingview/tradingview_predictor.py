@@ -28,12 +28,13 @@ class TradingViewPredictor(BasePredictor):
         result = PredictedArticleSchema(url=article.url)
         soup = BeautifulSoup(html, "lxml")
         tags = soup.find_all(True)
-        
+        symbol: SymbolSchema = SymbolSchema(name="", source=ArticleType.TRADINGVIEW.value)
+
         for tag in tags:
             if tag.name in IGNORE_TAGS:
                 continue
             text = tag.get_text(strip=True)
-            if not text:
+            if not text and tag.name != "img": 
                 continue
 
             tag_name = tag.name
@@ -56,15 +57,34 @@ class TradingViewPredictor(BasePredictor):
                     if child_text:
                         result.content.append(child_text)
             elif label == "symbol":
-                result.symbols.append(text)
-                # Save symbol to db
-                symbol = SymbolSchema(name=text, source=ArticleType.TRADINGVIEW.value)
-                insert_symbol(symbol)
+                symbol.name = text
+            elif label == "symbolImage":
+                src = tag.get("src")
+                if not src:
+                    continue
+
+                # ✅ Kiểm tra nếu thẻ cha có class bắt đầu bằng 'header-'
+                has_header_parent = any(
+                    parent for parent in tag.find_parents()
+                    if parent.has_attr("class") and any(c.startswith("header-") for c in parent["class"])
+                )
+
+                if has_header_parent and src not in symbol.symbolImgs:
+                    symbol.symbolImgs.append(src)
             elif label == "tag":
-                result.tags.append(text)
-                # Save tag to db
+                if text not in result.tags:
+                    result.tags.append(text)
                 tag = TagSchema(name=text, source=ArticleType.TRADINGVIEW.value)
                 insert_tag(tag)
+                
+            elif label == "tradeSide":
+                if tag.get("class") and any(c.startswith("short-") for c in tag["class"]):
+                    result.tradeSide = "short"
+                elif tag.get("class") and any(c.startswith("long-") for c in tag["class"]):
+                    result.tradeSide = "long"
+
+        id: ObjectId = insert_symbol(symbol)
+        result.symbols.append(id)
 
         # Handle comment
         raw_comment = article.raw_comment

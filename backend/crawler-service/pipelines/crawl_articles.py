@@ -15,8 +15,9 @@ tradingview_source = TradingViewCrawler()
 
 def crawl_urls_and_covered_imgs():
     # [{"url": ..., "imgUrl": ...}]
-    articles = vnexpress_source.get_article_urls_and_covered_imgs()
-    articles.extend(tradingview_source.get_article_urls_and_covered_imgs())
+    # articles = vnexpress_source.get_article_urls_and_covered_imgs()
+    # articles.extend(tradingview_source.get_article_urls_and_covered_imgs())
+    articles = tradingview_source.get_article_urls_and_covered_imgs()
     
     covered_images = []
     for article in articles:

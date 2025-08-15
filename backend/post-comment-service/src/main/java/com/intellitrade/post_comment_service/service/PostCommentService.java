@@ -20,4 +20,8 @@ public class PostCommentService {
     public PageResponseDto<ArticleDto> getVnExpressArticles(PageRequestDto pageRequestDto) {
         return crawlerInterface.getVnExpressArticles(pageRequestDto.getPage(), pageRequestDto.getSize(), pageRequestDto.getSortBy(), pageRequestDto.getSortDirection());
     }
+
+    public ArticleDto getArticleBySlug(String slug) {
+        return crawlerInterface.getArticleBySlug(slug);
+    }
 }

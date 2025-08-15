@@ -4,6 +4,7 @@ import com.intellitrade.post_comment_service.dto.request.CommentRequest;
 import com.intellitrade.post_comment_service.dto.response.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -35,4 +36,7 @@ public interface CrawlerInterface {
 
     @GetMapping("/tag/search")
     List<SymbolDto> getSymbolsByKeyword(@RequestParam("keyword") String keyword);
+
+    @GetMapping("/{slug}")
+    ArticleDto getArticleBySlug(@PathVariable String slug);
 }

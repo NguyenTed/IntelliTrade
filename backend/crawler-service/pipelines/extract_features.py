@@ -41,7 +41,7 @@ class FeatureExtractor:
                 continue
 
             text = tag.get_text(strip=True)
-            if not text:
+            if not text and tag.name != "img": 
                 continue
 
             label = self.get_label(tag, article.source)
