@@ -1,5 +1,7 @@
+import type { TradeSide } from "../enums/TradeSide";
 import type { IComment } from "./IComments";
 import type { ISection } from "./ISection";
+import type { ISymbol } from "./ISymbol";
 
 export interface INews {
   id: string;
@@ -11,8 +13,9 @@ export interface INews {
   url: string;
   slug: string;
   html: string;
+  tradeSide: TradeSide;
   tags: string[];
-  symbols: string[];
+  symbols: ISymbol[];
   sections: ISection[];
   createdAt?: string | null;
   updatedAt?: string | null;

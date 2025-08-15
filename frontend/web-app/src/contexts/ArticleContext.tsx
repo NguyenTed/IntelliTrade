@@ -1,4 +1,3 @@
-// src/contexts/ArticleContext.tsx
 import { createContext, useContext } from "react";
 
 export const ArticleContext = createContext<string | null>(null);

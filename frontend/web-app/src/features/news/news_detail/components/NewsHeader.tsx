@@ -1,15 +1,26 @@
 import type { INews } from "../../../../interfaces/INews";
 import LinkOutlinedIcon from "@mui/icons-material/LinkOutlined";
+import SymbolImages from "../../components/SymbolImages";
+import TradeSideBadge from "./TradeSideBadge";
 const fallbackImg = "https://placehold.co/1200x630/png?text=No+Image";
 export default function NewsHeader({ data }: { data: INews }) {
   const img = data.imgUrl || fallbackImg;
   return (
     <div>
-      {data.symbols?.length > 0 && (
-        <div className="text-[20px] mb-2 font-medium">
-          {data.symbols.join(", ")}
-        </div>
-      )}
+      <div className="flex gap-4 items-center">
+        <SymbolImages
+          imgs={data.symbols[0].symbolImgs}
+          size1={10}
+          size2={8}
+          iconGap={4}
+        />
+        {data.symbols.length > 0 && (
+          <div className="text-[25px] font-medium">{data.symbols[0].name}</div>
+        )}
+
+        <TradeSideBadge tradeSide={data.tradeSide} />
+      </div>
+
       <div className="flex items-end justify-between mb-3">
         <h1 className="text-2xl md:text-3xl font-bold leading-tight">
           {data.title}
