@@ -61,6 +61,7 @@ export default function NewsPage() {
             )
         )}
       </div>
+
       <Pagination
         currentPage={page}
         totalPages={data.totalPages}

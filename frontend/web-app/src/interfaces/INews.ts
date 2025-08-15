@@ -14,6 +14,7 @@ export interface INews {
   slug: string;
   html: string;
   tradeSide: TradeSide;
+  contentHtml: string;
   tags: string[];
   symbols: ISymbol[];
   sections: ISection[];

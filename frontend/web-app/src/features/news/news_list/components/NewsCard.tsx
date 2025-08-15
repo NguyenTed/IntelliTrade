@@ -22,7 +22,12 @@ export function NewsCard({ item }: { item: INews }) {
 
         <div className="flex justify-between items-center mt-3">
           <div className="flex gap-2 items-center">
-            <SymbolImages imgs={symbolImgs} size1={8} size2={6} iconGap={2} />
+            <SymbolImages
+              imgs={symbolImgs}
+              size1={26}
+              size2={24}
+              iconGap={10}
+            />
             {item.tradeSide == TradeSide.LONG ? (
               <div className="w-6 h-6 rounded-full bg-[#22AB94] flex items-center justify-center">
                 <svg

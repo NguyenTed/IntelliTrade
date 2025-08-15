@@ -10,9 +10,9 @@ export default function NewsHeader({ data }: { data: INews }) {
       <div className="flex gap-4 items-center">
         <SymbolImages
           imgs={data.symbols[0].symbolImgs}
-          size1={10}
-          size2={8}
-          iconGap={4}
+          size1={30}
+          size2={28}
+          iconGap={12}
         />
         {data.symbols.length > 0 && (
           <div className="text-[25px] font-medium">{data.symbols[0].name}</div>
