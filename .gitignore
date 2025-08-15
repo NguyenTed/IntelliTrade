@@ -39,8 +39,6 @@ out/
 .vscode/
 
 # Docker
-**/.dockerignore
-**/Dockerfile
 docker-compose.override.yml
 
 # Environment variables
