@@ -8,10 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("post-comment")
@@ -25,6 +22,12 @@ public class PostCommentController {
         if (articles.getContent().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else return new ResponseEntity<>(articles, HttpStatus.OK);
+    }
+
+    @GetMapping("{slug}")
+    public ResponseEntity<ArticleDto> getArticleBySlug(@PathVariable String slug) {
+        ArticleDto articles = postCommentService.getArticleBySlug(slug);
+        return new ResponseEntity<>(articles, HttpStatus.OK);
     }
 
     @GetMapping("vnexpress")

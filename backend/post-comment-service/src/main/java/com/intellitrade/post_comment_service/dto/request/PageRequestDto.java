@@ -11,7 +11,7 @@ public class PageRequestDto {
 
     @Min(0)
     @Max(100)
-    private int size = 10;
+    private int size = 12;
 
     private String sortBy = "createdAt";
     private String sortDirection = "desc";

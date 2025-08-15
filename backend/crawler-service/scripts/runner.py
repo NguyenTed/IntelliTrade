@@ -1,5 +1,3 @@
-# Crawling initial data
-
 from pipelines.crawl_articles import crawl_urls_and_covered_imgs, crawl_raw_articles
 from pipelines.extract_features import FeatureExtractor
 from db.mongo import db
@@ -10,8 +8,22 @@ from db.models.article_model import find_all_articles
 from app.schemas.article_label_schema import ArticleLabelSchema
 from enums.ArticleType import ArticleType
 from sources.predict_manager import PredictManager
+from datetime import datetime
+from db.mongo import db
+from datetime import datetime, timezone
+flags_collection = db["system_flags"]
 
-article_label_rules = tradingview_article_label_rules + vnexpress_article_label_rules
+def is_initialized():
+    return flags_collection.find_one({"_id": "runner_initialized"}) is not None
+
+def set_initialized():
+    flags_collection.insert_one({
+        "_id": "runner_initialized",
+        "timestamp": datetime.now(timezone.utc)
+    })
+
+
+article_label_rules = tradingview_article_label_rules #+ vnexpress_article_label_rules
 
 url_collection = db["urls"]
 article_collection = db["articles"]
@@ -45,8 +57,14 @@ def save_predicted_articles():
             
 
 if __name__ == "__main__":
-    fetch_url_and_covered_imgs_to_db()
-    fetch_raw_articles_to_db()
-    fetch_article_labels_to_db()
-    extract_labeled_data_to_db()
-    save_predicted_articles()
+    if is_initialized():
+        print("🕒 Skipping runner (already initialized in DB)")
+    else:
+        print("🚀 Running initial crawler...")
+        fetch_url_and_covered_imgs_to_db()
+        fetch_raw_articles_to_db()
+        fetch_article_labels_to_db()
+        extract_labeled_data_to_db()
+        save_predicted_articles()
+        set_initialized()
+        print("✅ Runner init done!")

@@ -5,6 +5,7 @@ from app.schemas.article_schema import ArticleSchema
 from app.schemas.predicted_article_schema import PredictedArticleSchema
 from enums.ArticleType import ArticleType
 from app.requests.page_request import PageRequest
+from typing import Optional
 
 collection = db["articles"]
 
@@ -38,7 +39,7 @@ def find_vnexpress_articles(page_request: PageRequest) -> List[ArticleSchema]:
     return [ArticleSchema(**doc) for doc in cursor]
 
 def find_tradingview_articles(page_request: PageRequest) -> List[ArticleSchema]:
-    skip = page_request.page * page_request.size
+    skip = (page_request.page - 1) * page_request.size
     sort_field = page_request.sortBy
     sort_order = 1 if page_request.sortDirection == "asc" else -1
     
@@ -66,7 +67,7 @@ def update_predicted_article(article_id: ObjectId, predicted_id: ObjectId):
     return result.modified_count
 
 def find_vnexpress_predicted_articles(page_request: PageRequest) -> list[PredictedArticleSchema]:
-    skip = page_request.page * page_request.size
+    skip = (page_request.page - 1) * page_request.size
     sort_field = page_request.sortBy
     sort_order = 1 if page_request.sortDirection == "asc" else -1
 
@@ -96,8 +97,11 @@ def find_vnexpress_predicted_articles(page_request: PageRequest) -> list[Predict
     docs = collection.aggregate(pipeline)
     return [PredictedArticleSchema(**doc) for doc in docs]
 
+
+
+
 def find_tradingview_predicted_articles(page_request: PageRequest) -> list[PredictedArticleSchema]:
-    skip = page_request.page * page_request.size
+    skip = (page_request.page - 1) * page_request.size
     sort_field = page_request.sortBy
     sort_order = 1 if page_request.sortDirection == "asc" else -1
 
@@ -133,3 +137,6 @@ def count_articles_base_on_type(type: ArticleType) -> int:
         "predicted": {"$type": "objectId"}
     })
 
+def find_article_by_slug(slug: str) -> Optional[ArticleSchema]:
+    cursor = collection.find_one({"slug": slug})
+    return ArticleSchema(**cursor) if cursor else None

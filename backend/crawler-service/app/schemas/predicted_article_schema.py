@@ -14,8 +14,9 @@ class PredictedArticleSchema(BaseModel):
     content: Optional[List[str]] = []
     comments: Optional[List[ObjectId]] = []
     url: str
+    tradeSide: Optional[str] = ""
     tags: Optional[List[str]] = []
-    symbols: Optional[List[str]] = []
+    symbols: Optional[List[ObjectId]] = []
     sections: Optional[List[SectionSchema]] = []
     createdAt: Optional[datetime] = None
     updatedAt: Optional[datetime] = None
