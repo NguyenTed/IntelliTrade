@@ -12,7 +12,3 @@ def save_comment():
     comment = CommentService.save_comment(comment_request)
     data = comment.model_dump(by_alias=True)
     return jsonify(data), 201
-    
-    
-
-

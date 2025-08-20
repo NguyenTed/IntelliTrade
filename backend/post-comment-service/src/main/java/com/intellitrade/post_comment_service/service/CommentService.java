@@ -11,7 +11,7 @@ public class CommentService {
     @Autowired
     CrawlerInterface crawlerInterface;
 
-    public CommentDto saveComment(CommentRequest request) {
-        return crawlerInterface.saveComment(request);
+    public CommentDto saveIdeasComment(CommentRequest request) {
+        return crawlerInterface.saveIdeasComment(request);
     }
 }

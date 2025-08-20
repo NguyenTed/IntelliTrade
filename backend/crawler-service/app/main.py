@@ -1,6 +1,6 @@
 from flask import Flask
 from app.controllers.comment_controller import comment_bp
-from app.controllers.crawl_article_controller import crawler_bp
+from app.controllers.crawl_controller import crawler_bp
 from app.controllers.tag_controller import tag_bp
 from app.controllers.symbol_controller import symbol_bp
 

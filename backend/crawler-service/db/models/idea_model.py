@@ -1,17 +1,17 @@
 from bson import ObjectId
 from db.mongo import db
 from typing import List
-from app.schemas.article_schema import ArticleSchema
+from app.schemas.idea_schema import IdeaSchema
 from app.schemas.predicted_article_schema import PredictedArticleSchema
 from enums.ArticleType import ArticleType
 from app.requests.page_request import PageRequest
 from typing import Optional
 
-collection = db["articles"]
+collection = db["ideas"]
 
-def insert_articles(articles: List[ArticleSchema]):
-    for article in articles:
-        data = article.model_dump(by_alias=True)
+def insert_ideas(ideas: List[IdeaSchema]):
+    for idea in ideas:
+        data = idea.model_dump(by_alias=True)
         data.pop("_id") 
         slug = data["slug"]
 
@@ -21,11 +21,11 @@ def insert_articles(articles: List[ArticleSchema]):
             upsert=True           
         )
 
-def find_all_articles() -> List[ArticleSchema]:
+def find_all_ideas() -> List[IdeaSchema]:
     cursor = collection.find()
-    return [ArticleSchema(**doc) for doc in cursor]
+    return [IdeaSchema(**doc) for doc in cursor]
 
-def find_vnexpress_articles(page_request: PageRequest) -> List[ArticleSchema]:
+def find_vnexpress_ideas(page_request: PageRequest) -> List[IdeaSchema]:
     skip = page_request.page * page_request.size
     sort_field = page_request.sortBy
     sort_order = 1 if page_request.sortDirection == "asc" else -1
@@ -36,9 +36,9 @@ def find_vnexpress_articles(page_request: PageRequest) -> List[ArticleSchema]:
         .skip(skip)
         .limit(page_request.size)
         )
-    return [ArticleSchema(**doc) for doc in cursor]
+    return [IdeaSchema(**doc) for doc in cursor]
 
-def find_tradingview_articles(page_request: PageRequest) -> List[ArticleSchema]:
+def find_tradingview_ideas(page_request: PageRequest) -> List[IdeaSchema]:
     skip = (page_request.page - 1) * page_request.size
     sort_field = page_request.sortBy
     sort_order = 1 if page_request.sortDirection == "asc" else -1
@@ -49,24 +49,24 @@ def find_tradingview_articles(page_request: PageRequest) -> List[ArticleSchema]:
         .skip(skip)
         .limit(page_request.size)
         )
-    return [ArticleSchema(**doc) for doc in cursor]
+    return [IdeaSchema(**doc) for doc in cursor]
 
-def find_article_by_id(id: ObjectId) -> ArticleSchema:
+def find_idea_by_id(id: ObjectId) -> IdeaSchema:
     cursor = collection.find_one({"_id": id})
-    return ArticleSchema(**cursor)
+    return IdeaSchema(**cursor)
 
-def find_article_by_url(url: str) -> ArticleSchema:
+def find_idea_by_url(url: str) -> IdeaSchema:
     cursor = collection.find_one({"url": url})
-    return ArticleSchema(**cursor)
+    return IdeaSchema(**cursor)
 
-def update_predicted_article(article_id: ObjectId, predicted_id: ObjectId):
+def update_predicted_idea(idea_id: ObjectId, predicted_id: ObjectId):
     result = collection.update_one(
-        {"_id": article_id}, 
+        {"_id": idea_id}, 
         {"$set": {"predicted": predicted_id}}
     )
     return result.modified_count
 
-def find_vnexpress_predicted_articles(page_request: PageRequest) -> list[PredictedArticleSchema]:
+def find_vnexpress_predicted_ideas(page_request: PageRequest) -> list[PredictedArticleSchema]:
     skip = (page_request.page - 1) * page_request.size
     sort_field = page_request.sortBy
     sort_order = 1 if page_request.sortDirection == "asc" else -1
@@ -80,7 +80,7 @@ def find_vnexpress_predicted_articles(page_request: PageRequest) -> list[Predict
     },
     {
         "$lookup": {
-            "from": "predicted_articles",
+            "from": "predicted_ideas",
             "localField": "predicted",
             "foreignField": "_id",
             "as": "predicted_info"
@@ -100,7 +100,7 @@ def find_vnexpress_predicted_articles(page_request: PageRequest) -> list[Predict
 
 
 
-def find_tradingview_predicted_articles(page_request: PageRequest) -> list[PredictedArticleSchema]:
+def find_tradingview_predicted_ideas(page_request: PageRequest) -> list[PredictedArticleSchema]:
     skip = (page_request.page - 1) * page_request.size
     sort_field = page_request.sortBy
     sort_order = 1 if page_request.sortDirection == "asc" else -1
@@ -114,7 +114,7 @@ def find_tradingview_predicted_articles(page_request: PageRequest) -> list[Predi
         },
         {
             "$lookup": {
-                "from": "predicted_articles",
+                "from": "predicted_ideas",
                 "localField": "predicted",
                 "foreignField": "_id",
                 "as": "predicted_info"
@@ -131,12 +131,12 @@ def find_tradingview_predicted_articles(page_request: PageRequest) -> list[Predi
     docs = collection.aggregate(pipeline)
     return [PredictedArticleSchema(**doc) for doc in docs]
 
-def count_articles_base_on_type(type: ArticleType) -> int:
+def count_ideas_base_on_type(type: ArticleType) -> int:
     return collection.count_documents({
         "source": type,
         "predicted": {"$type": "objectId"}
     })
 
-def find_article_by_slug(slug: str) -> Optional[ArticleSchema]:
+def find_idea_by_slug(slug: str) -> Optional[IdeaSchema]:
     cursor = collection.find_one({"slug": slug})
-    return ArticleSchema(**cursor) if cursor else None
+    return IdeaSchema(**cursor) if cursor else None

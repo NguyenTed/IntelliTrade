@@ -2,18 +2,21 @@ from db.mongo import db
 from app.schemas.predicted_article_schema import PredictedArticleSchema
 from bson import ObjectId
 from typing import List
-from app.schemas.article_schema import ArticleSchema
+from app.schemas.idea_schema import IdeaSchema
 from typing import Union
 
 
 collection = db["predicted_articles"]
 
-def find_predicted_articles_from_articles(articles: List[ArticleSchema]) -> List[PredictedArticleSchema]:
-    predicted_ids = [
-        article.predicted
-        for article in articles
-        if article.predicted
-    ]
+def find_predicted_articles_from_ids(ids: List[ObjectId]) -> List[PredictedArticleSchema]:
+    if not ids:
+        return []
+
+    cursor = collection.find({
+        "_id": {"$in": ids}
+    })
+
+    return [PredictedArticleSchema(**doc) for doc in cursor]
 
     if not predicted_ids:
         return []
@@ -25,13 +28,13 @@ def find_predicted_articles_from_articles(articles: List[ArticleSchema]) -> List
 
     return [PredictedArticleSchema(**doc) for doc in cursor]
 
-def find_predicted_article_from_article(article: ArticleSchema) -> PredictedArticleSchema:
-    cursor = collection.find_one({"_id": article.predicted})
+def find_predicted_article_from_id(id: ObjectId) -> PredictedArticleSchema:
+    cursor = collection.find_one({"_id": id})
     return PredictedArticleSchema(**cursor) 
 
 
-def insert_predicted_article(predicted_article: PredictedArticleSchema) -> ObjectId:
-    data = predicted_article.model_dump(by_alias=True)
+def insert_predicted_article(predicted_idea: PredictedArticleSchema) -> ObjectId:
+    data = predicted_idea.model_dump(by_alias=True)
     data.pop("_id")
 
     result = collection.insert_one(data)
@@ -49,7 +52,7 @@ def add_comment(article_id: str, comment_id: ObjectId):
         )
     
 
-# def _find_with_symbols(match_filter: dict, many: bool = False) -> Union[PredictedArticleSchema, List[PredictedArticleSchema]]:
+# def _find_with_symbols(match_filter: dict, many: bool = False) -> Union[PredictedIdeaSchema, List[PredictedIdeaSchema]]:
 #     pipeline = [
 #         {"$match": match_filter},
 #         {
@@ -67,7 +70,7 @@ def add_comment(article_id: str, comment_id: ObjectId):
 #         return [] if many else None
 
 #     if many:
-#         return [PredictedArticleSchema(**doc) for doc in results]
+#         return [PredictedIdeaSchema(**doc) for doc in results]
 #     else:
-#         return PredictedArticleSchema(**results[0])
+#         return PredictedIdeaSchema(**results[0])
     

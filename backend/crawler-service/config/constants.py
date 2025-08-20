@@ -8,6 +8,8 @@ TRADINGVIEW_BASE_URL = "https://www.tradingview.com"
 TRADINGVIEW_IDEAS_URL = "https://www.tradingview.com/ideas"
 TRADINGVIEW_DIR = "data/tradingview"
 
+TRADINGVIEW_NEWS_URL = "https://www.tradingview.com/news"
+
 DEFAULT_HEADERS = {
     "User-Agent": "Mozilla/5.0",
     "Accept": "text/html"

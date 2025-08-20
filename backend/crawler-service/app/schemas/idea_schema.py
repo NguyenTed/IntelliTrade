@@ -5,7 +5,7 @@ from enums.ArticleType import ArticleType
 from typing import Dict, Any, List, Union
 
 
-class ArticleSchema(BaseModel):
+class IdeaSchema(BaseModel):
     id: Optional[ObjectId] = Field(default=None, alias="_id")
     slug: str
     html: str

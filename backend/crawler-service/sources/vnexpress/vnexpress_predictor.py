@@ -6,10 +6,10 @@ import pandas as pd
 import re
 from utils.get_tag_depth import get_depth
 from app.schemas.predicted_article_schema import PredictedArticleSchema
-from app.schemas.article_schema import ArticleSchema
+from app.schemas.idea_schema import IdeaSchema
 from app.schemas.predicted_article_schema import PredictedArticleSchema
 from app.schemas.comment_schema import CommentSchema
-from db.models.article_model import find_article_by_id
+from db.models.idea_model import find_idea_by_id
 from db.models.comment_model import insert_comment
 from bson import ObjectId
 
@@ -19,8 +19,8 @@ IGNORE_TAGS = {'script', 'style', 'meta', 'link', 'noscript', 'svg'}
 
 class VnExpressPredictor(BasePredictor):
 
-    def predict(self, id: ObjectId) -> PredictedArticleSchema:
-        article: ArticleSchema = find_article_by_id(id)
+    def predict_idea(self, id: ObjectId) -> PredictedArticleSchema:
+        article: IdeaSchema = find_idea_by_id(id)
 
         html = article.html
         result = PredictedArticleSchema(url=article.url)
