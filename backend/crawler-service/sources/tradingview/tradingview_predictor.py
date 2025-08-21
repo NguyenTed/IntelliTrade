@@ -7,6 +7,7 @@ from utils.html_to_jsx import html_to_jsx
 from enums.ArticleType import ArticleType
 from app.schemas.predicted_article_schema import PredictedArticleSchema
 from app.schemas.idea_schema import IdeaSchema
+from app.schemas.news_chema import NewsSchema
 from app.schemas.predicted_article_schema import PredictedArticleSchema
 from app.schemas.comment_schema import CommentSchema
 from app.schemas.symbol_schema import SymbolSchema
@@ -85,16 +86,18 @@ class TradingViewPredictor(BasePredictor):
                 elif tag.get("class") and any(c.startswith("long-") for c in tag["class"]):
                     result.tradeSide = "long"
             elif label == "contentHtml":
-                try:
-                    fragment = str(tag)
-                    jsx_string = html_to_jsx(fragment)
-                    result.contentHtml = jsx_string
-                except Exception:
-                    # fallback: lưu nguyên HTML nếu có lỗi convert
-                    result.contentHtml = str(tag)
+                parent = tag.parent
+                parent_classes = (parent.get("class") or []) if parent else []
+                is_content_parent = any(cls.startswith("content-") for cls in parent_classes)
 
-                    id: ObjectId = insert_symbol(symbol)
-                    result.symbols.append(id)
+                if is_content_parent:
+                    fragment = str(tag) 
+                    try:
+                        jsx = html_to_jsx(fragment)
+                    except Exception:
+                        jsx = fragment  
+                    result.contentHtml = jsx
+
 
         id: ObjectId = insert_symbol(symbol)
         result.symbols.append(id)
@@ -114,10 +117,11 @@ class TradingViewPredictor(BasePredictor):
                     inserted_id = insert_comment(comment_obj)
                     result.comments.append(inserted_id)
 
+        if not result.contentHtml: return None
         return result
     
     def predict_news(self, id: ObjectId) -> PredictedArticleSchema:
-        news: IdeaSchema = find_news_by_id(id)
+        news: NewsSchema = find_news_by_id(id)
 
         html = news.html
         result = PredictedArticleSchema(url=news.url)
@@ -173,23 +177,33 @@ class TradingViewPredictor(BasePredictor):
                     result.tags.append(text)
                 tag = TagSchema(name=text, source=ArticleType.TRADINGVIEW.value)
                 insert_tag(tag)
-            elif label == "contentHtml":
-                try:
-                    fragment = str(tag)
-                    jsx_string = html_to_jsx(fragment)
-                    result.contentHtml = jsx_string
-                except Exception:
-                    # fallback: lưu nguyên HTML nếu có lỗi convert
-                    result.contentHtml = str(tag)
+            elif label == "newsContentHtml":
+                if result.url == "https://www.tradingview.com/news/DJN_DN20250820010620:0/":
+                    print(f"{tag}")
+                # parent = tag.parent
+                # parent_classes = parent.get("class", []) if parent else []
 
-                    id: ObjectId = insert_symbol(symbol)
-                    result.symbols.append(id)
+                # is_content_parent = any(cls.startswith("content-") for cls in parent_classes)
+
+                # if is_content_parent:
+                fragment = str(tag)
+                try:
+                    jsx_string = html_to_jsx(fragment)
+                    if result.contentHtml:
+                        result.contentHtml += "\n" + jsx_string
+                    else:
+                        result.contentHtml = jsx_string
+                except Exception:
+                    result.contentHtml = fragment
+
+
             elif label == "createdDate":
+                print(f"a")
                 datetime_attr = tag.get("datetime")
                 if datetime_attr:
                     result.createdAt = datetime_attr
-
         for symbol in symbols:
             id: ObjectId = insert_symbol(symbol)
             result.symbols.append(id)
-        return result    
+        if not result.contentHtml: return None
+        return result  

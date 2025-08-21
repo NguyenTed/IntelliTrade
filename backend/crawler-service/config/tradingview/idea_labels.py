@@ -8,5 +8,5 @@ idea_label_rules = [
     { "selector": "img[class*='logo-']", "label": "symbolImage", "source": ArticleType.TRADINGVIEW.value},
     { "selector": "span[class*='short-']", "label": "tradeSide", "source": ArticleType.TRADINGVIEW.value},
     { "selector": "span[class*='long-']", "label": "tradeSide", "source": ArticleType.TRADINGVIEW.value},
-    { "selector": "div[class*='timeline-']", "label": "contentHtml", "source": ArticleType.TRADINGVIEW.value},
+    { "selector": "div[class*='description-']", "label": "contentHtml", "source": ArticleType.TRADINGVIEW.value},
 ]

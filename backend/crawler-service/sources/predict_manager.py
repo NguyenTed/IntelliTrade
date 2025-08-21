@@ -34,7 +34,8 @@ class PredictManager():
             predictor = self.get_predictor(ArticleType.TRADINGVIEW)
 
             predicted_idea: PredictedArticleSchema  = predictor.predict_idea(idea.id)
-
+            if predicted_idea is None:
+                continue
             predicted_id = insert_predicted_article(predicted_idea)
             
             update_predicted_idea(idea.id, predicted_id)
@@ -43,7 +44,8 @@ class PredictManager():
             predictor = self.get_predictor(ArticleType.TRADINGVIEW)
 
             predicted_news: PredictedArticleSchema  = predictor.predict_news(new_item.id)
-
+            if predicted_news is None:
+                continue
             predicted_id = insert_predicted_article(predicted_news)
 
             update_predicted_news(new_item.id, predicted_id)
