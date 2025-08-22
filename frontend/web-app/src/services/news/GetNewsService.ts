@@ -12,3 +12,8 @@ export const getNewsPaged = async (
   );
   return res.data;
 };
+
+export const getNewsBySlug = async (slug: string): Promise<IArticles> => {
+  const res = await api.get<IArticles>(`/post-comment/news/${slug}`);
+  return res.data;
+};
