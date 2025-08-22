@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { IComment } from "../../../../interfaces/IComments";
 import CommentItem from "./CommentItem";
 import type { CreateCommentDto } from "../../../../interfaces/request/CreateCommentDto";
-import { saveComment } from "../../../../services/news/SaveComment";
+import { saveComment } from "../../../../services/ideas/SaveComment";
 import { useArticleId } from "../../../../contexts/ArticleContext";
 
 type CommentMap = Record<number, IComment & { replies?: IComment[] }>;

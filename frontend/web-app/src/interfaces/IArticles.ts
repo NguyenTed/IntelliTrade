@@ -3,7 +3,7 @@ import type { IComment } from "./IComments";
 import type { ISection } from "./ISection";
 import type { ISymbol } from "./ISymbol";
 
-export interface INews {
+export interface IArticles {
   id: string;
   title: string;
   description: string;

@@ -1,4 +1,4 @@
-export default function NewsContent({ contentHtml }: { contentHtml: string }) {
+export default function IdeasContent({ contentHtml }: { contentHtml: string }) {
   const correctedHtml = contentHtml.replace(/className=/g, "class=");
 
   return (

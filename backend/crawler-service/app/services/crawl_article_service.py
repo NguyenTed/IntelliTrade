@@ -12,7 +12,7 @@ from app.responses.predicted_article_response import PredictedArticleResponse
 from enums.ArticleType import ArticleType
 from enums.ArticleCategory import ArticleCategory
 
-class CrawlIdeaService:
+class CrawlArticleService:
     @staticmethod
     def get_vnexpress_predicted_articles():
         return find_vnexpress_predicted_ideas()
@@ -55,7 +55,7 @@ class CrawlIdeaService:
             full_comments = []
             if (ArticleCategory.IDEA == category):
                 full_comments = find_comments_by_ids(p.comments or [])
-            symbols = find_symbol_by_id(p.symbols[0]) if p.symbols else None
+            symbols = [find_symbol_by_id(symbol) for symbol in p.symbols] if p.symbols else None
             article_info = article_map.get(str(p.id), {})
 
             content.append(PredictedArticleResponse(
@@ -79,7 +79,7 @@ class CrawlIdeaService:
                 tradeSide=p.tradeSide,
                 contentHtml=p.contentHtml,
                 tags=p.tags,
-                symbols=[symbols],
+                symbols=symbols,
                 sections=p.sections,
                 createdAt=p.createdAt,
                 updatedAt=p.updatedAt
@@ -159,7 +159,7 @@ class CrawlIdeaService:
         predicted = find_predicted_article_from_id(article.predicted)
 
         full_comments = find_comments_by_ids(predicted.comments or [])
-        symbols = find_symbol_by_id(predicted.symbols[0]) if predicted.symbols else None
+        symbols = [find_symbol_by_id(symbol) for symbol in predicted.symbols] if predicted.symbols else None
         response = PredictedArticleResponse(
             id=str(predicted.id),
             url=predicted.url,
@@ -181,7 +181,7 @@ class CrawlIdeaService:
             tradeSide=predicted.tradeSide,
             contentHtml=predicted.contentHtml,
             tags=predicted.tags,
-            symbols=[symbols],
+            symbols=symbols,
             sections=predicted.sections,
             createdAt=predicted.createdAt,
             updatedAt=predicted.updatedAt
@@ -194,7 +194,7 @@ class CrawlIdeaService:
         article = find_news_by_slug(slug)
         predicted = find_predicted_article_from_id(article.predicted)
 
-        symbols = find_symbol_by_id(predicted.symbols[0]) if predicted.symbols else None
+        symbols = [find_symbol_by_id(symbol) for symbol in predicted.symbols] if predicted.symbols else None
         response = PredictedArticleResponse(
             id=str(predicted.id),
             url=predicted.url,
@@ -207,7 +207,7 @@ class CrawlIdeaService:
             tradeSide=predicted.tradeSide,
             contentHtml=predicted.contentHtml,
             tags=predicted.tags,
-            symbols=[symbols],
+            symbols=symbols,
             sections=predicted.sections,
             createdAt=predicted.createdAt,
             updatedAt=predicted.updatedAt

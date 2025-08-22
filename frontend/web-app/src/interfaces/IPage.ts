@@ -8,7 +8,7 @@ export type PageResponse<T> = {
   hasPrevious: boolean;
 };
 
-export type NewsQuery = {
+export type ArticlesQuery = {
   page?: number;
   size?: number;
   q?: string;

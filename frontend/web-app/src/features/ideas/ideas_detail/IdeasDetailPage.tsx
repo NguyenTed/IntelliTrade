@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getArticleBySlug } from "../../../services/news/GetNewsService";
-import type { INews } from "../../../interfaces/INews";
-import NewsHeader from "./components/NewsHeader";
+import { getIdeaBySlug } from "../../../services/ideas/GetIdeasService";
+import type { IArticles } from "../../../interfaces/IArticles";
+import IdeasHeader from "./components/IdeasHeader";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
-import NewsContent from "./components/NewsContent";
+import IdeasContent from "./components/IdeasContent";
 import RightInfo from "./components/RightInfo";
 import MetaRows from "./components/MetaRows";
 import { Comments } from "./components/Comments";
 import { ArticleContext } from "../../../contexts/ArticleContext";
 
-export default function NewsDetailPage() {
+export default function IdeasDetailPage() {
   const { slug = "" } = useParams();
-  const [data, setData] = useState<INews | null>(null);
+  const [data, setData] = useState<IArticles | null>(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
 
@@ -22,7 +22,7 @@ export default function NewsDetailPage() {
         setLoading(true);
         setErr(null);
 
-        const res = await getArticleBySlug(slug);
+        const res = await getIdeaBySlug(slug);
         setData(res);
       } catch (e: any) {
         setErr(e?.message ?? "Failed to load article");
@@ -54,7 +54,7 @@ export default function NewsDetailPage() {
         <p className="text-red-600 font-medium">Không tải được bài viết.</p>
         {err && <p className="text-gray-600 mt-2 text-sm">{err}</p>}
         <Link
-          to="/news"
+          to="/ideas"
           className="inline-flex items-center gap-2 text-blue-600 hover:underline mt-4"
         >
           <ArrowBackIosNewRoundedIcon sx={{ fontSize: 16 }} /> Quay lại danh
@@ -67,14 +67,14 @@ export default function NewsDetailPage() {
   return (
     <ArticleContext.Provider value={data.id}>
       <div className="w-full h-auto mx-auto px-[32px] md:px-[42px] xl:px-[100px] py-6">
-        <NewsHeader data={data} />
+        <IdeasHeader data={data} />
 
         <div className="mt-6 xl:px-[10%]">
           <MetaRows data={data} />
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 ">
             {/* content */}
             <div className="lg:col-span-8 xl:col-span-9">
-              <NewsContent contentHtml={data.contentHtml} />
+              <IdeasContent contentHtml={data.contentHtml} />
               <Comments comments={data.comments} />
             </div>
 

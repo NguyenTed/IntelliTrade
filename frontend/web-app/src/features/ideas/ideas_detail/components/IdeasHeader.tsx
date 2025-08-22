@@ -1,9 +1,9 @@
-import type { INews } from "../../../../interfaces/INews";
+import type { IArticles } from "../../../../interfaces/IArticles";
 import LinkOutlinedIcon from "@mui/icons-material/LinkOutlined";
 import SymbolImages from "../../components/SymbolImages";
 import TradeSideBadge from "./TradeSideBadge";
 const fallbackImg = "https://placehold.co/1200x630/png?text=No+Image";
-export default function NewsHeader({ data }: { data: INews }) {
+export default function IdeasHeader({ data }: { data: IArticles }) {
   const img = data.imgUrl || fallbackImg;
   return (
     <div>

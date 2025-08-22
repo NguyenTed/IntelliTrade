@@ -1,15 +1,15 @@
+import { Link, useSearchParams } from "react-router-dom";
+import type { IArticles } from "../../../interfaces/IArticles";
 import { useEffect, useState } from "react";
-import type { INews } from "../../../interfaces/INews";
-import { NewsCard } from "./components/NewsCard";
-import { useSearchParams } from "react-router-dom";
 import type { PageResponse } from "../../../interfaces/IPage";
-import { getTradingViewArticlesPaged } from "../../../services/news/GetNewsService";
+import { getNewsPaged } from "../../../services/news/GetNewsService";
+import NewsCard from "./components/NewsCard";
 import { Pagination } from "../../../views/components/Pagination";
 
 export default function NewsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [data, setData] = useState<PageResponse<INews>>(
-    {} as PageResponse<INews>
+  const [data, setData] = useState<PageResponse<IArticles>>(
+    {} as PageResponse<IArticles>
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,12 +21,10 @@ export default function NewsPage() {
       setLoading(true);
       setError(null);
       try {
-        const res: PageResponse<INews> = await getTradingViewArticlesPaged({
-          page,
-        });
+        const res: PageResponse<IArticles> = await getNewsPaged({ page });
         setData(res);
       } catch (err: any) {
-        setError(err?.message ?? "Failed to fetch articles");
+        setError(err?.message ?? "Failed to fetch news");
       } finally {
         setLoading(false);
       }
@@ -36,41 +34,58 @@ export default function NewsPage() {
 
   return (
     <div className="max-w-full mx-auto px-[20px] py-8">
-      <h1 className="text-[50px] font-bold mb-4 text-center ">News</h1>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {(loading ? Array.from({ length: 8 }) : data.content).map(
-          (item: any, idx) =>
-            loading ? (
-              <div
-                key={idx}
-                className="animate-pulse bg-gray-100 rounded shadow overflow-hidden"
-              >
-                <div className="h-40 bg-gray-300" />
-                <div className="p-4 space-y-2">
-                  <div className="h-4 bg-gray-300 w-3/4 rounded" />
-                  <div className="h-3 bg-gray-300 w-full rounded" />
-                  <div className="h-3 bg-gray-300 w-5/6 rounded" />
-                </div>
-              </div>
-            ) : (
-              <div>
-                <NewsCard key={item.id} item={item} />
-              </div>
-            )
-        )}
+      <div className="my-20 text-center">
+        <h1 className="text-[50px] font-bold mb-4">News</h1>
+        <h3 className="text-[30px] font-medium">
+          Don't miss a trick with global real-time updates.
+        </h3>
       </div>
 
-      <Pagination
-        currentPage={page}
-        totalPages={data.totalPages}
-        onPageChange={(newPage) =>
-          setSearchParams({ page: newPage.toString() })
-        }
-        hasNext={data.hasNext}
-        hasPrevious={data.hasPrevious}
-      />
+      {/* Error */}
+      {error && (
+        <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-red-700">
+          {error}
+        </div>
+      )}
+
+      {/* Loading skeleton */}
+      {loading ? (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div
+              key={i}
+              className="animate-pulse rounded-2xl border bg-white/5 p-4"
+            >
+              <div className="mb-3 flex gap-2">
+                <div className="h-6 w-6 rounded-full bg-gray-300" />
+                <div className="h-6 w-16 rounded-full bg-gray-300" />
+                <div className="h-6 w-6 rounded-full bg-gray-300" />
+                <div className="h-6 w-20 rounded-full bg-gray-300" />
+              </div>
+              <div className="h-6 w-3/4 rounded bg-gray-300" />
+              <div className="mt-2 h-6 w-2/3 rounded bg-gray-200" />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {data.content?.map((item) => (
+              <NewsCard key={item.id} item={item} />
+            ))}
+          </div>
+
+          <Pagination
+            currentPage={page}
+            totalPages={data.totalPages}
+            onPageChange={(newPage) =>
+              setSearchParams({ page: newPage.toString() })
+            }
+            hasNext={data.hasNext}
+            hasPrevious={data.hasPrevious}
+          />
+        </div>
+      )}
     </div>
   );
 }

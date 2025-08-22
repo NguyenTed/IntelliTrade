@@ -41,15 +41,17 @@ def find_vnexpress_ideas(page_request: PageRequest) -> List[IdeaSchema]:
 def find_tradingview_ideas(page_request: PageRequest) -> List[IdeaSchema]:
     skip = (page_request.page - 1) * page_request.size
     sort_field = page_request.sortBy
-    sort_order = 1 if page_request.sortDirection == "asc" else -1
-    
+    sort_order = -1 if page_request.sortDirection == "desc" else 1
+
+
     cursor = (
         collection.find({"source": ArticleType.TRADINGVIEW.value})
         .sort(sort_field, sort_order)
         .skip(skip)
         .limit(page_request.size)
-        )
+    )
     return [IdeaSchema(**doc) for doc in cursor]
+
 
 def find_idea_by_id(id: ObjectId) -> IdeaSchema:
     cursor = collection.find_one({"_id": id})

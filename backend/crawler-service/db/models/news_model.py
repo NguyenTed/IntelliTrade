@@ -38,7 +38,7 @@ def update_predicted_news(new_id: ObjectId, predicted_id: ObjectId):
 def find_tradingview_news(page_request: PageRequest) -> List[NewsSchema]:
     skip = (page_request.page - 1) * page_request.size
     sort_field = page_request.sortBy
-    sort_order = 1 if page_request.sortDirection == "asc" else -1
+    sort_order = -1 if page_request.sortDirection == "desc" else 1
     
     cursor = (
         collection.find({"source": ArticleType.TRADINGVIEW.value})

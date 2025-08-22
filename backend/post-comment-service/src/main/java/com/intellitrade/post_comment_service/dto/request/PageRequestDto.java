@@ -13,6 +13,6 @@ public class PageRequestDto {
     @Max(100)
     private int size = 12;
 
-    private String sortBy = "createdAt";
-    private String sortDirection = "desc";
+    private String sortBy;
+    private String sortDirection;
 }
