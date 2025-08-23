@@ -1,4 +1,4 @@
-import api from "../../api/axiosConfig";
+import api from "../../../../api/axiosConfig"
 import type { IComment } from "../../interfaces/IComments";
 import type { CreateCommentDto } from "../../interfaces/request/CreateCommentDto";
 

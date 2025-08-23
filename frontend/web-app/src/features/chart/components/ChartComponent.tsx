@@ -187,7 +187,7 @@
 import { ChartContainer } from "../components/ChartContainer";
 import { CandlestickSeriesComponent } from "../components/CandleStickSeries";
 import { VolumeSeriesComponent } from "../components/VolumeSeries";
-import { generateCandlestickData } from "../../../mocks/CandleStickData";
+import { generateCandlestickData } from "../mocks/CandleStickData";
 
 const candles = generateCandlestickData();
 const volume = candles.map((d) => ({

@@ -1,4 +1,4 @@
-import type { ArticleTypes } from "../enums/ArticleType";
+import type { ArticleTypes } from "../features/news/enums/ArticleType";
 
 export interface ISymbol {
   id: string;

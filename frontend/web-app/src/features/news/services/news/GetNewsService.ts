@@ -1,4 +1,4 @@
-import api from "../../api/axiosConfig";
+import api from "../../../../api/axiosConfig";
 import type { INews } from "../../interfaces/INews";
 import type { NewsQuery, PageResponse } from "../../interfaces/IPage";
 

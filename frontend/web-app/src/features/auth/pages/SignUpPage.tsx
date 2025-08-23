@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signup } from "@/features/auth/api/authApi";
 
 // --- Schema
 const SignupSchema = z
@@ -41,11 +42,6 @@ const SignupSchema = z
 
 type SignupValues = z.infer<typeof SignupSchema>;
 
-async function fakeSignupApi(values: SignupValues) {
-  await new Promise((r) => setTimeout(r, 900));
-  return { ok: true, userId: "u_123" } as const;
-}
-
 export const SignUpPage = () => {
   const {
     register,
@@ -68,11 +64,29 @@ export const SignUpPage = () => {
 
   const onSubmit = async (values: SignupValues) => {
     try {
-      const res = await fakeSignupApi(values);
-      if (!res.ok) throw new Error("Sign up failed");
-      window.alert(`Signed up! userId=${res.userId} (replace with navigation)`);
+      const res = await signup({
+        email: values.email,
+        username: values.username,
+        password: values.password,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        dateOfBirth: values.dateOfBirth, // yyyy-mm-dd from input
+      });
+
+      if (res.autoLoggedIn) {
+        // If backend auto-logged-in, route to app home/dashboard
+        window.location.href = "/"; // replace with your router navigate
+      } else {
+        // Otherwise, send to login
+        window.location.href = "/login"; // replace with your router navigate
+      }
     } catch (err: any) {
-      setError("username", { message: err?.message ?? "Sign up failed" });
+      // Display server-provided message if present
+      const msg: string = err?.message ?? "Sign up failed";
+      // Heuristics: map duplicate/validation messages to specific fields if you want
+      if (/username/i.test(msg)) setError("username", { message: msg });
+      else if (/email/i.test(msg)) setError("email", { message: msg });
+      else setError("confirmPassword", { message: msg });
     }
   };
 

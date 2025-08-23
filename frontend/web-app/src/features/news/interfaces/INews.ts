@@ -1,4 +1,4 @@
-import type { TradeSide } from "../enums/TradeSide";
+import type { TradeSide } from "../features/news/enums/TradeSide";
 import type { IComment } from "./IComments";
 import type { ISection } from "./ISection";
 import type { ISymbol } from "./ISymbol";
