@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("post-comment/comment")
+@RequestMapping("post-comment/ideas/comment")
 public class CommentController {
     @Autowired
     private CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<CommentDto> addComment(@RequestBody CommentRequest commentRequest) {
-        CommentDto savedComment = commentService.saveComment(commentRequest);
+    public ResponseEntity<CommentDto> addIdeasComment(@RequestBody CommentRequest commentRequest) {
+        CommentDto savedComment = commentService.saveIdeasComment(commentRequest);
         return ResponseEntity.ok(savedComment);
     }
 }

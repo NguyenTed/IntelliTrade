@@ -10,11 +10,11 @@ class PredictedArticleSchema(BaseModel):
     id: Optional[ObjectId] = Field(default=None, alias="_id")
     title: Optional[str] = ""
     description: Optional[str] = ""
-    imgUrl: Optional[str] = ""
     content: Optional[List[str]] = []
     comments: Optional[List[ObjectId]] = []
     url: str
     tradeSide: Optional[str] = ""
+    contentHtml: Optional[str] = ""
     tags: Optional[List[str]] = []
     symbols: Optional[List[ObjectId]] = []
     sections: Optional[List[SectionSchema]] = []

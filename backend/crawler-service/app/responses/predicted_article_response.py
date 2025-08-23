@@ -18,7 +18,8 @@ class PredictedArticleResponse(BaseModel):
     comments: Optional[List[CommentResponse]] = []
     url: str
     tags: Optional[List[str]] = []
-    tradeSide: Optional[str] = ""
+    tradeSide: Optional[str] = "",
+    contentHtml: Optional[str] = ""
     symbols: Optional[List[SymbolSchema]] = []
     sections: Optional[List[SectionSchema]] = []
     createdAt: Optional[datetime] = None

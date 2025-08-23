@@ -42,7 +42,8 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             "/users/registration",
             "/notification/email/send",
             "/crawler/.*",
-            "/post-comment/.*"
+            "/post-comment/.*",
+            "/market/.*"
     };
 
     @Value("${app.api-prefix}")

@@ -14,6 +14,7 @@ export const App = () => {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/vnpay/callback" element={<VNPayCallback />} />
         <Route path="/payment/subscription" element={<SubscriptionPlans />} />
+        <Route path="/payment/subscription" element={<SubscriptionPlans />} />
       </Routes>
     </Router>
   );

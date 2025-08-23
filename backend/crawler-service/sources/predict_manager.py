@@ -7,10 +7,12 @@ from config.constants import PREDICT_FILE
 from sources.vnexpress.vnexpress_crawler import VnExpressCrawler
 from sources.tradingview.tradingview_crawler import TradingViewCrawler
 from enums.ArticleType import ArticleType
-from app.schemas.article_schema import ArticleSchema
+from app.schemas.idea_schema import IdeaSchema
+from app.schemas.news_chema import NewsSchema
 from app.schemas.predicted_article_schema import PredictedArticleSchema
-from db.models.article_model import find_all_articles, update_predicted_article
-from db.models.predicted_article_model import insert_predicted_article
+from db.models.idea_model import find_all_ideas, update_predicted_idea
+from db.models.news_model import find_all_news, update_predicted_news
+from db.models.predicted_idea_model import insert_predicted_article
 
 class PredictManager():
     def get_predictor(self, source: ArticleType):
@@ -21,25 +23,37 @@ class PredictManager():
         raise ValueError("Unknown source")
 
     def save_all_predicted_articles_to_db(self):
-        articles: List[ArticleSchema] = find_all_articles()
+        ideas: List[IdeaSchema] = find_all_ideas()
+        news: List[NewsSchema] = find_all_news()
         predictor = BasePredictor()
 
-        for article in articles:
-            if article.source == ArticleType.VNEXPRESS.value:
-                predictor = self.get_predictor(ArticleType.VNEXPRESS)
-            elif article.source == ArticleType.TRADINGVIEW.value:
-                predictor = self.get_predictor(ArticleType.TRADINGVIEW)
+        for idea in ideas:
+            # if idea.source == ArticleType.VNEXPRESS.value:
+            #     predictor = self.get_predictor(ArticleType.VNEXPRESS)
+            # elif idea.source == ArticleType.TRADINGVIEW.value:
+            predictor = self.get_predictor(ArticleType.TRADINGVIEW)
 
-            predicted_article: PredictedArticleSchema  = predictor.predict(article.id)
-
-            predicted_id = insert_predicted_article(predicted_article)
+            predicted_idea: PredictedArticleSchema  = predictor.predict_idea(idea.id)
+            if predicted_idea is None:
+                continue
+            predicted_id = insert_predicted_article(predicted_idea)
             
-            update_predicted_article(article.id, predicted_id)
+            update_predicted_idea(idea.id, predicted_id)
+
+        for new_item in news:
+            predictor = self.get_predictor(ArticleType.TRADINGVIEW)
+
+            predicted_news: PredictedArticleSchema  = predictor.predict_news(new_item.id)
+            if predicted_news is None:
+                continue
+            predicted_id = insert_predicted_article(predicted_news)
+
+            update_predicted_news(new_item.id, predicted_id)
 
 
 
 
-    def load_all_predicted_articles() -> List[dict]:
+    def load_all_predicted_ideas() -> List[dict]:
         if not os.path.exists(PREDICT_FILE):
             return []
 
