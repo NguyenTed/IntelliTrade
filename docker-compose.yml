@@ -63,7 +63,7 @@ services:
       - MONGO_URI=${MONGO_URI}
       - MONGO_DB=${MONGO_DB}
     ports:
-      - "5000:5000"
+      - "5002:5002"
     volumes:
       - crawler_state:/var/lib/crawler
 
