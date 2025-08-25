@@ -2,7 +2,7 @@ export default function IdeasContent({ contentHtml }: { contentHtml: string }) {
   const correctedHtml = contentHtml.replace(/className=/g, "class=");
 
   return (
-    <article className="lg:col-span-8 relative">
+    <article className="lg:col-span-8">
       {/* Timeline CSS */}
       <style>{`
         [class^="timeline-"] {

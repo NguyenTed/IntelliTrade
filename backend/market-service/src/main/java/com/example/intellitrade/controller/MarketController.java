@@ -3,6 +3,7 @@ package com.example.intellitrade.controller;
 import com.example.intellitrade.dto.request.StartStreamRequest;
 import com.example.intellitrade.dto.response.CandleDto;
 import com.example.intellitrade.service.BinanceWebSocketReactiveService;
+import com.example.intellitrade.service.CandleCacheService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import reactor.core.publisher.Flux;
 public class MarketController {
 
     private final BinanceWebSocketReactiveService wsService;
+    private final CandleCacheService cacheService;
 
     /**
      * FE gọi để bắt đầu stream (tuỳ chọn — nếu FE subscribe SSE thì tự động ensure).
@@ -45,9 +47,18 @@ public class MarketController {
     public Flux<CandleDto> history(@RequestParam String symbol,
                                    @RequestParam String interval,
                                    @RequestParam(defaultValue = "1000") int limit,
-                                   @RequestParam(required = false) Long endTime // milliseconds
-    ) {
-        return wsService.fetchHistory(symbol, interval, limit, endTime);
+                                   @RequestParam(required = false) Long startTime,
+                                   @RequestParam(required = false) Long endTime) {
+        return cacheService.getCache(symbol, interval, limit, startTime, endTime)
+                .filter(list -> list != null && !list.isEmpty())
+                .flatMapMany(Flux::fromIterable)
+                .switchIfEmpty(
+                        wsService.fetchHistory(symbol, interval, limit, startTime, endTime)
+                                .collectList()
+                                .flatMap(candles -> cacheService.setCache(symbol, interval, limit, startTime, endTime, candles)
+                                        .thenReturn(candles))
+                                .flatMapMany(Flux::fromIterable)
+                );
     }
 
     /**

@@ -108,14 +108,15 @@ public class BinanceWebSocketReactiveService {
     }
 
     /** Lấy lịch sử nến từ Binance REST */
-    public Flux<CandleDto> fetchHistory(String symbol, String interval, int limit, Long endTimeMs) {
-        // /api/v3/klines?symbol=BTCUSDT&interval=1m&limit=1000[&endTime=...]
+    public Flux<CandleDto> fetchHistory(String symbol, String interval, int limit,
+                                        Long startTimeMs, Long endTimeMs) {
         return webClient.get()
                 .uri(uri -> {
                     var b = uri.path("/api/v3/klines")
                             .queryParam("symbol", symbol.toUpperCase())
                             .queryParam("interval", interval)
-                            .queryParam("limit", Math.min(Math.max(limit, 1), 1000)); // Binance max 1000/req
+                            .queryParam("limit", Math.min(Math.max(limit, 1), 1000));
+                    if (startTimeMs != null) b.queryParam("startTime", startTimeMs);
                     if (endTimeMs != null) b.queryParam("endTime", endTimeMs);
                     return b.build();
                 })
@@ -124,16 +125,16 @@ public class BinanceWebSocketReactiveService {
                 .bodyToMono(List.class)
                 .flatMapMany(list -> Flux.fromIterable((List<?>) list))
                 .map(row -> {
-                    // mỗi item là List<Object> theo thứ tự Binance
                     List<?> a = (List<?>) row;
                     long openTime = ((Number) a.get(0)).longValue();
-                    double open = Double.parseDouble(String.valueOf(a.get(1)));
-                    double high = Double.parseDouble(String.valueOf(a.get(2)));
-                    double low  = Double.parseDouble(String.valueOf(a.get(3)));
-                    double close= Double.parseDouble(String.valueOf(a.get(4)));
+                    double open   = Double.parseDouble(String.valueOf(a.get(1)));
+                    double high   = Double.parseDouble(String.valueOf(a.get(2)));
+                    double low    = Double.parseDouble(String.valueOf(a.get(3)));
+                    double close  = Double.parseDouble(String.valueOf(a.get(4)));
                     double volume = Double.parseDouble(String.valueOf(a.get(5)));
-                    boolean isClose = true; // lịch sử luôn đóng nến
-                    return new CandleDto(symbol.toUpperCase(), interval, openTime, open, high, low, close, volume, isClose);
+                    return new CandleDto(symbol.toUpperCase(), interval, openTime,
+                            open, high, low, close, volume, true);
                 });
     }
+
 }

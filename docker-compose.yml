@@ -55,6 +55,20 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - mongo_data:/data/db
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+  market-service:
+    build: ./backend/market-service
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
+    depends_on:
+      - redis
   crawler-service:
     build: ./backend/crawler-service
     depends_on:
