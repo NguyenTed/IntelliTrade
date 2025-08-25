@@ -15,6 +15,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -51,26 +52,25 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.info("Enter authentication filter....");
+        var request = exchange.getRequest();
 
-        if (isPublicEndpoint(exchange.getRequest()))
+        // Allow preflight through
+        if (request.getMethod() == HttpMethod.OPTIONS) {
             return chain.filter(exchange);
+        }
 
-        // Get token from authorization header
-        List<String> authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION);
-        if (CollectionUtils.isEmpty(authHeader))
+        if (isPublicEndpoint(request)) return chain.filter(exchange);
+
+        var authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return unauthenticated(exchange.getResponse());
+        }
+        var token = authHeader.substring("Bearer ".length());
+        var introspectRequest = IntrospectRequest.builder().accessToken(token).build();
 
-        String token = authHeader.getFirst().replace("Bearer ", "");
-
-        IntrospectRequest introspectRequest = IntrospectRequest.builder().accessToken(token).build();
-
-        return authService.introspect(introspectRequest).flatMap(introspectResponse -> {
-            if (introspectResponse.getResult().valid())
-                return chain.filter(exchange);
-            else
-                return unauthenticated(exchange.getResponse());
-        }).onErrorResume(throwable -> unauthenticated(exchange.getResponse()));
+        return authService.introspect(introspectRequest)
+                .flatMap(r -> r.getResult().valid() ? chain.filter(exchange) : unauthenticated(exchange.getResponse()))
+                .onErrorResume(e -> unauthenticated(exchange.getResponse()));
     }
 
     @Override

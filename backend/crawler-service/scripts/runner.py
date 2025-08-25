@@ -60,9 +60,9 @@ def save_predicted_articles():
             
 
 if __name__ == "__main__":
-    # if is_initialized():
-    #     print("🕒 Skipping runner (already initialized in DB)")
-    # else:
+    if is_initialized():
+        print("🕒 Skipping runner (already initialized in DB)")
+    else:
         print("🚀 Running initial crawler...")
         fetch_url_and_covered_imgs_to_db()
         fetch_raw_articles_to_db()

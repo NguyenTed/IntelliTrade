@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { Spin, Result, Button } from "antd";
-import { createSubscription } from "../../services/SubscriptionApiService";
+import { createSubscription } from "./api/SubscriptionApiService";
 
 const VNPayCallback: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -10,24 +10,24 @@ const VNPayCallback: React.FC = () => {
   const [status, setStatus] = useState<"success" | "error" | null>(null);
 
   useEffect(() => {
-  const verifyPayment = async () => {
-    setLoading(true);
+    const verifyPayment = async () => {
+      setLoading(true);
 
-    const queryParams = Object.fromEntries(searchParams.entries());
-    console.log("paymentId:", queryParams.paymentId);
-    console.log("subscriptionType:", queryParams.subscriptionType);
+      const queryParams = Object.fromEntries(searchParams.entries());
+      console.log("paymentId:", queryParams.paymentId);
+      console.log("subscriptionType:", queryParams.subscriptionType);
 
-    handleUpdateSubscriptions(
-      queryParams.paymentId,
-      queryParams.vnp_TransactionNo,
-      queryParams.vnp_PayDate,
-      queryParams.vnp_TransactionStatus,
-      queryParams.subscriptionType
-    );
-  };
+      handleUpdateSubscriptions(
+        queryParams.paymentId,
+        queryParams.vnp_TransactionNo,
+        queryParams.vnp_PayDate,
+        queryParams.vnp_TransactionStatus,
+        queryParams.subscriptionType
+      );
+    };
 
-  verifyPayment();
-}, []); 
+    verifyPayment();
+  }, []);
 
   const handleUpdateSubscriptions = async (
     paymentId: string,
@@ -43,7 +43,6 @@ const VNPayCallback: React.FC = () => {
         vnp_PayDate,
         vnp_TransactionStatus,
         subscriptionType
-
       );
       console.log("res: ", res);
       if (res && res.statusCode === 200) {

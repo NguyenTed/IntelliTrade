@@ -22,16 +22,19 @@ public class WebClientConfiguration {
     }
 
     @Bean
-    CorsWebFilter corsWebFilter(){
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(List.of("*"));
-        corsConfiguration.setAllowedHeaders(List.of("*"));
-        corsConfiguration.setAllowedMethods(List.of("*"));
+    public CorsWebFilter corsWebFilter() {
+        CorsConfiguration c = new CorsConfiguration();
+        // EXACT origins (credentials require no '*')
+        c.setAllowedOrigins(List.of("http://localhost:5173", "http://127.0.0.1:5173"));
+        c.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
+        c.setAllowedHeaders(List.of("Authorization","Content-Type","X-CSRF-Token","X-Requested-With"));
+        c.setExposedHeaders(List.of("Authorization","Set-Cookie"));
+        c.setAllowCredentials(true);
+        c.setMaxAge(3600L);
 
-        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
-
-        return new CorsWebFilter(urlBasedCorsConfigurationSource);
+        UrlBasedCorsConfigurationSource src = new UrlBasedCorsConfigurationSource();
+        src.registerCorsConfiguration("/**", c);
+        return new CorsWebFilter(src);
     }
 
     @Bean
