@@ -1,6 +1,6 @@
 
 from db.models.comment_model import insert_comment, find_one_comment_by_id
-from db.models.predicted_article_model import add_comment
+from db.models.predicted_idea_model import add_comment
 from app.schemas.comment_schema import CommentSchema
 from enums.ArticleType import ArticleType
 from app.requests.comment_request import CommentRequest

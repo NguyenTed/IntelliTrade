@@ -14,7 +14,11 @@ public class ArticleDto {
     private List<String> content;
     private List<CommentDto> comments;
     private String url;
+    private String slug;
+    private String tradeSide;
+    private String contentHtml;
     private List<String> tags;
+    private List<SymbolDto> symbols;
     private List<Object> sections;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

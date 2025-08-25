@@ -2,9 +2,11 @@ from bs4 import BeautifulSoup
 import soupsieve as sv
 from config.constants import VNEXPRESS_DIR, TRADINGVIEW_DIR
 from db.models.article_label_model import find_all_article_labels
-from db.models.article_model import find_all_articles
+from db.models.idea_model import find_all_ideas
+from db.models.news_model import find_all_news
 from db.models.labeled_data_model import insert_labeled_datas
-from app.schemas.article_schema import ArticleSchema
+from app.schemas.idea_schema import IdeaSchema
+from app.schemas.news_chema import NewsSchema
 from app.schemas.article_label_schema import ArticleLabelSchema
 from app.schemas.labeled_data_schema import LabeledDataSchema
 from typing import List
@@ -31,7 +33,7 @@ class FeatureExtractor:
             depth += 1
         return depth
 
-    def extract_features_from_html(self, article: ArticleSchema) -> List[LabeledDataSchema]:
+    def extract_features_from_html(self, article: IdeaSchema) -> List[LabeledDataSchema]:
         html = article.html
         soup = BeautifulSoup(html, "lxml")
         datas = []
@@ -41,7 +43,7 @@ class FeatureExtractor:
                 continue
 
             text = tag.get_text(strip=True)
-            if not text:
+            if not text and tag.name != "img": 
                 continue
 
             label = self.get_label(tag, article.source)
@@ -63,10 +65,14 @@ class FeatureExtractor:
     def extract_all_labels_to_db(self):
         all_data: List[LabeledDataSchema] = []
 
-        articles: List[ArticleSchema] = find_all_articles()
+        ideas: List[IdeaSchema] = find_all_ideas()
+        news: List[NewsSchema] = find_all_news()
 
-        for article in articles:
-            features = self.extract_features_from_html(article)
+        for idea in ideas:
+            features = self.extract_features_from_html(idea)
+            all_data.extend(features)
+        for news_item in news:
+            features = self.extract_features_from_html(news_item)
             all_data.extend(features)
         
         insert_labeled_datas(all_data)
