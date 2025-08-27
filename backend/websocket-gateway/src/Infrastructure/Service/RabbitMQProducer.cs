@@ -7,7 +7,7 @@ using websocket.gateway.Infrastructure.Service.shared;
 
 public class RabbitMQProducer : IMassageProducer, IAsyncDisposable
 {
-    private readonly IMassageBrokerConnection _massageBrokerConnection;
+    private readonly IMassageBrokerConnection? _massageBrokerConnection;
     private readonly MQProducerOptions _options;
     private IChannel? _channel;
 
@@ -17,12 +17,14 @@ public class RabbitMQProducer : IMassageProducer, IAsyncDisposable
     {
         _massageBrokerConnection = massageBrokerConnection;
         _options = options.Value;
-
     }
 
     public async Task Initialize()
     {
         if (_channel != null) return;
+
+        if (_massageBrokerConnection == null || _massageBrokerConnection.Connection == null)
+            return;
 
         _channel = await _massageBrokerConnection.Connection.CreateChannelAsync();
 
@@ -56,6 +58,8 @@ public class RabbitMQProducer : IMassageProducer, IAsyncDisposable
     public async Task SendMassage<T>(T message, string routingKey)
     {
         await Initialize();
+
+        Console.WriteLine("Sended message");
 
         var json = JsonSerializer.Serialize(message);
         var body = Encoding.UTF8.GetBytes(json);

@@ -7,11 +7,13 @@ namespace websocket.gateway.Shared
     {
         private readonly ConcurrentDictionary<string, TickerGroup> _tickers;
         private readonly IMassageProducer _massageProducer;
+        private readonly IMessageConsumer _massageConsumer;
 
-        public TickerManager(IMassageProducer _massageProducer)
+        public TickerManager(IMassageProducer _massageProducer, IMessageConsumer massageConsumer)
         {
             _tickers = new();
             this._massageProducer = _massageProducer;
+            _massageConsumer = massageConsumer;
         }
 
         private static string GetKey(string ticker, string interval)
@@ -25,13 +27,14 @@ namespace websocket.gateway.Shared
                 return;
 
             var key = GetKey(ticker, interval);
-            bool IsSend = false;
+            bool isNew = false;
 
+            // Sử dụng AddOrUpdate và trả về trạng thái isNew
             _tickers.AddOrUpdate(
                 key,
                 _ =>
                 {
-                    IsSend = true;
+                    isNew = true; // Đánh dấu là tạo mới
                     return new TickerGroup(ticker, interval);
                 },
                 (_, existingGroup) =>
@@ -41,13 +44,18 @@ namespace websocket.gateway.Shared
                 }
             );
 
-            if (IsSend)
+            // Thêm await Task.Yield() để đảm bảo lambda executed trước
+            await Task.Yield();
+
+            if (isNew)
             {
+                Console.WriteLine($"🚀 Sending SUB message for: {ticker} - {interval}");
+                await _massageConsumer.AddNewTicket(ticker, interval);
                 await _massageProducer.SendMassage<TickerJointStock>(new TickerJointStock(ticker, interval), "sub");
             }
         }
 
-        public void RemoveConnection(string ticker, string interval)
+        public async Task RemoveConnection(string ticker, string interval)
         {
             if (string.IsNullOrWhiteSpace(ticker) || string.IsNullOrWhiteSpace(interval))
                 return;
@@ -58,6 +66,12 @@ namespace websocket.gateway.Shared
             {
                 if (group.NumberofConnections > 0)
                     group.NumberofConnections--;
+
+                if (group.NumberofConnections == 0)
+                {
+                    await _massageConsumer.RemoveTicket(ticker, interval);
+                    await _massageProducer.SendMassage<TickerJointStock>(new TickerJointStock(ticker, interval), "unsub");
+                }
             }
         }
 

@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Reactive.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using finance_Socket.Realtime.shared;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
@@ -15,16 +16,18 @@ namespace finance_Socket.Realtime.Updater.Provider
         private readonly string _baseUrl = "wss://stream.binance.com:9443/ws";
         private WebsocketClient _client;
         private HashSet<string> _currentStreams = new();
+        private readonly IMassageProducer _massageProducer;
 
         public BinanceFeedUpdater(
             TickerManager tickerManager,
             ISendTracker sendTracker,
-            IHubContext<StocksFeedHub, IStockUpdateClient> hubContext,
             IOptions<StockUpdateOptions> options,
-            ILogger<StocksFeedUpdater> logger)
-            : base(tickerManager, sendTracker, hubContext, options, logger)
+            ILogger<StocksFeedUpdater> logger,
+            IMassageProducer producer)
+            : base(tickerManager, sendTracker, options, logger)
         {
             Provider = TickerDataProvider.WEBSOCKETBINANCE;
+            _massageProducer = producer;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -35,7 +38,7 @@ namespace finance_Socket.Realtime.Updater.Provider
 
             _client.MessageReceived
                 .Where(msg => !string.IsNullOrEmpty(msg.Text))
-                .Subscribe(HandleMessage);
+                .Subscribe(async msg => await HandleMessage(msg));
 
             await _client.Start();
 
@@ -100,7 +103,7 @@ namespace finance_Socket.Realtime.Updater.Provider
             Logger.LogInformation($"==============================");
         }
 
-        private void HandleMessage(ResponseMessage msg)
+        private async Task HandleMessage(ResponseMessage msg)
         {
             try
             {
@@ -138,7 +141,7 @@ namespace finance_Socket.Realtime.Updater.Provider
                 };
 
                 Logger.LogInformation($"Sending update for {symbol}-{interval} at {eventDateTime:HH:mm:ss} (Final: {isFinal})");
-                SendToGroupAsync($"{symbol.ToLower()}:{interval.ToLower()}", update).Wait();
+                await _massageProducer.SendMassage<StockPriceUpdate>(update, $"{update.Symbol.ToLower()}.{update.Interval.ToLower()}");
             }
             catch (Exception ex)
             {

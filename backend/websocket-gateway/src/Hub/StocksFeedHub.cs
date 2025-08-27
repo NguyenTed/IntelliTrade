@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.SignalR;
 using websocket.gateway.Shared;
 using websocket.Gateway.Hub;
@@ -38,7 +39,7 @@ public class StocksFeedHub : Hub<IStockUpdateClient>
     {
         string group = $"{ticker.ToLower()}:{interval.ToLower()}";
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, group);
-        _tickerManager.RemoveConnection(ticker, interval);
+        await _tickerManager.RemoveConnection(ticker, interval);
 
         lock (_connections)
         {
@@ -55,6 +56,7 @@ public class StocksFeedHub : Hub<IStockUpdateClient>
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
         Console.WriteLine($"Client {Context.ConnectionId} disconnected");
+        List<TickerJointStock> removed = new List<TickerJointStock>();
 
         lock (_connections)
         {
@@ -62,11 +64,16 @@ public class StocksFeedHub : Hub<IStockUpdateClient>
             {
                 foreach (var (ticker, interval) in list)
                 {
-                    _tickerManager.RemoveConnection(ticker, interval);
+                    removed.Add(new TickerJointStock(ticker, interval));
                 }
 
                 _connections.Remove(Context.ConnectionId);
             }
+        }
+
+        foreach (var item in removed)
+        {
+            await _tickerManager.RemoveConnection(item.Symbol, item.Interval);
         }
 
         await base.OnDisconnectedAsync(exception);

@@ -1,11 +1,11 @@
 public class TickerJointStock
 {
-  public string ticker { get; set; }
-  public string interval { get; set; }
+  public string Symbol { get; set; }
+  public string Interval { get; set; }
 
   public TickerJointStock(string ticker, string interval)
   {
-    this.ticker = ticker;
-    this.interval = interval;
+    this.Symbol = ticker;
+    this.Interval = interval;
   }
 }
