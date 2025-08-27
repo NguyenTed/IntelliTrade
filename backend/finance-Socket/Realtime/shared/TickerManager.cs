@@ -35,8 +35,8 @@ namespace finance_Socket.Realtime.shared
                 }
             );
         }
- 
-        public void RemoveConnection(string ticker, string interval)
+
+        public void RemoveConnection(string ticker, string interval, TickerDataProvider provider = TickerDataProvider.WEBSOCKETBINANCE)
         {
             if (string.IsNullOrWhiteSpace(ticker) || string.IsNullOrWhiteSpace(interval))
                 return;

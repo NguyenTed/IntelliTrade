@@ -1,14 +1,24 @@
 package com.example.intellitrade.controller;
 
+import com.example.intellitrade.dto.request.PageRequestDto;
 import com.example.intellitrade.dto.request.StartStreamRequest;
 import com.example.intellitrade.dto.response.CandleDto;
+import com.example.intellitrade.dto.response.PageResponseDto;
+import com.example.intellitrade.model.Symbol;
 import com.example.intellitrade.service.BinanceWebSocketReactiveService;
 import com.example.intellitrade.service.CandleCacheService;
+import com.example.intellitrade.service.SymbolService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/market")
@@ -17,6 +27,8 @@ public class MarketController {
 
     private final BinanceWebSocketReactiveService wsService;
     private final CandleCacheService cacheService;
+    @Autowired
+    private final SymbolService symbolService;
 
     /**
      * FE gọi để bắt đầu stream (tuỳ chọn — nếu FE subscribe SSE thì tự động ensure).
@@ -69,5 +81,13 @@ public class MarketController {
         wsService.stop(req.getSymbol(), req.getInterval());
         return ResponseEntity.ok("Stopped stream for " + req.getSymbol().toUpperCase()
                 + "@" + req.getInterval());
+    }
+
+    @GetMapping("/symbols")
+    public ResponseEntity<PageResponseDto<Symbol>> getSymbols(@Valid PageRequestDto pageRequestDto) {
+        PageResponseDto<Symbol> symbols = symbolService.getSymbols(pageRequestDto);
+        if (symbols.getContent().isEmpty()) {
+            return new ResponseEntity<>(symbols, HttpStatus.NO_CONTENT);
+        } else return new ResponseEntity<>(symbols, HttpStatus.OK);
     }
 }
