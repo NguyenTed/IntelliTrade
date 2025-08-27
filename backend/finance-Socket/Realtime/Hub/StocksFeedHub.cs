@@ -1,75 +1,75 @@
-using finance_Socket.Realtime.shared;
-using Microsoft.AspNetCore.SignalR;
+// using finance_Socket.Realtime.shared;
+// using Microsoft.AspNetCore.SignalR;
 
-namespace Stocks.Realtime.Api.Realtime;
+// namespace Stocks.Realtime.Api.Realtime;
 
-public class StocksFeedHub : Hub<IStockUpdateClient>
-{
-    private readonly TickerManager _tickerManager;
+// public class StocksFeedHub : Hub<IStockUpdateClient>
+// {
+//     private readonly TickerManager _tickerManager;
 
-    // Để theo dõi nhóm đã tham gia
-    private static readonly Dictionary<string, List<(string ticker, string interval)>> _connections =
-        new();
+//     // Để theo dõi nhóm đã tham gia
+//     private static readonly Dictionary<string, List<(string ticker, string interval)>> _connections =
+//         new();
 
-    public StocksFeedHub(TickerManager tickerManager)
-    {
-        _tickerManager = tickerManager;
-    }
+//     public StocksFeedHub(TickerManager tickerManager)
+//     {
+//         _tickerManager = tickerManager;
+//     }
 
-    public async Task JoinStockGroup(string ticker, string interval = "1m")
-    {
-        if (ticker == null) return;
+//     public async Task JoinStockGroup(string ticker, string interval = "1m")
+//     {
+//         if (ticker == null) return;
 
-        string group = $"{ticker.ToLower()}:{interval.ToLower()}";
-        await Groups.AddToGroupAsync(Context.ConnectionId, group);
-        _tickerManager.AddTicker(ticker, interval);
+//         string group = $"{ticker.ToLower()}:{interval.ToLower()}";
+//         await Groups.AddToGroupAsync(Context.ConnectionId, group);
+//         _tickerManager.AddTicker(ticker, interval);
 
-        lock (_connections)
-        {
-            if (!_connections.ContainsKey(Context.ConnectionId))
-                _connections[Context.ConnectionId] = new();
-            _connections[Context.ConnectionId].Add((ticker, interval));
-        }
+//         lock (_connections)
+//         {
+//             if (!_connections.ContainsKey(Context.ConnectionId))
+//                 _connections[Context.ConnectionId] = new();
+//             _connections[Context.ConnectionId].Add((ticker, interval));
+//         }
 
-        Console.WriteLine($"Client {Context.ConnectionId} joined group {group}");
-    }
+//         Console.WriteLine($"Client {Context.ConnectionId} joined group {group}");
+//     }
 
-    public async Task LeaveStockGroup(string ticker, string interval = "1m")
-    {
-        string group = $"{ticker.ToLower()}:{interval.ToLower()}";
-        await Groups.RemoveFromGroupAsync(Context.ConnectionId, group);
-        _tickerManager.RemoveConnection(ticker, interval);
+//     public async Task LeaveStockGroup(string ticker, string interval = "1m")
+//     {
+//         string group = $"{ticker.ToLower()}:{interval.ToLower()}";
+//         await Groups.RemoveFromGroupAsync(Context.ConnectionId, group);
+//         _tickerManager.RemoveConnection(ticker, interval);
 
-        lock (_connections)
-        {
-            if (_connections.TryGetValue(Context.ConnectionId, out var list))
-            {
-                list.RemoveAll(x => x.ticker == ticker && x.interval == interval);
-                if (list.Count == 0) _connections.Remove(Context.ConnectionId);
-            }
-        }
+//         lock (_connections)
+//         {
+//             if (_connections.TryGetValue(Context.ConnectionId, out var list))
+//             {
+//                 list.RemoveAll(x => x.ticker == ticker && x.interval == interval);
+//                 if (list.Count == 0) _connections.Remove(Context.ConnectionId);
+//             }
+//         }
 
-        Console.WriteLine($"Client {Context.ConnectionId} left group {group}");
-    }
+//         Console.WriteLine($"Client {Context.ConnectionId} left group {group}");
+//     }
 
-    public override async Task OnDisconnectedAsync(Exception? exception)
-    {
-        Console.WriteLine($"Client {Context.ConnectionId} disconnected");
+//     public override async Task OnDisconnectedAsync(Exception? exception)
+//     {
+//         Console.WriteLine($"Client {Context.ConnectionId} disconnected");
 
-        lock (_connections)
-        {
-            if (_connections.TryGetValue(Context.ConnectionId, out var list))
-            {
-                foreach (var (ticker, interval) in list)
-                {
-                    _tickerManager.RemoveConnection(ticker, interval);
-                }
+//         lock (_connections)
+//         {
+//             if (_connections.TryGetValue(Context.ConnectionId, out var list))
+//             {
+//                 foreach (var (ticker, interval) in list)
+//                 {
+//                     _tickerManager.RemoveConnection(ticker, interval);
+//                 }
 
-                _connections.Remove(Context.ConnectionId);
-            }
-        }
+//                 _connections.Remove(Context.ConnectionId);
+//             }
+//         }
 
-        await base.OnDisconnectedAsync(exception);
-    }
-}
+//         await base.OnDisconnectedAsync(exception);
+//     }
+// }
 
