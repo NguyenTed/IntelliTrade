@@ -39,6 +39,8 @@ namespace websocket.gateway.Shared
                 },
                 (_, existingGroup) =>
                 {
+                    if (existingGroup.NumberofConnections <= 0)
+                        isNew = true;
                     existingGroup.NumberofConnections++;
                     return existingGroup;
                 }
