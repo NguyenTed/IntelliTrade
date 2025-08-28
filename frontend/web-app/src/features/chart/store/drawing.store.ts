@@ -4,20 +4,21 @@ import type { Shape, Tool } from "../types/drawing";
 
 const EMPTY: Shape[] = Object.freeze([]);
 
-type DrawingKey = string; // `${symbol}:${interval}`
+type DrawingKey = string; // `${symbol}::panel-${chartId}:${interval}`
 
 type DrawingState = {
-  activeTool: Tool | null;
+  activeTool: Tool | "select" | "deleteAll" | null;
   selectedId: string | null;
   shapes: Record<DrawingKey, Shape[]>;
 
-  setActiveTool: (t: Tool | null) => void;
+  setActiveTool: (t: Tool | "select" | "deleteAll" | null) => void;
   select: (id: string | null) => void;
 
   load: (key: DrawingKey, items: Shape[]) => void;
   upsert: (key: DrawingKey, s: Shape) => void;
   remove: (key: DrawingKey, id: string) => void;
   replaceAll: (key: DrawingKey, items: Shape[]) => void;
+  clearAll: (key: DrawingKey) => void;
   getList: (key: DrawingKey) => Shape[];
   deleteSelected: (key: DrawingKey) => void;
   updateById: (
@@ -29,7 +30,7 @@ type DrawingState = {
 };
 
 export const useDrawingStore = create<DrawingState>((set, get) => ({
-  activeTool: null,
+  activeTool: null as Tool | "select" | "deleteAll" | null,
   selectedId: null,
   shapes: {},
 
@@ -51,32 +52,36 @@ export const useDrawingStore = create<DrawingState>((set, get) => ({
   remove: (key, id) =>
     set((st) => {
       const next = (st.shapes[key] ?? []).filter((x) => x.id !== id);
-      return { shapes: { ...st.shapes, [key]: next } };
+      const selCleared = st.selectedId === id ? null : st.selectedId;
+      return { shapes: { ...st.shapes, [key]: next }, selectedId: selCleared };
     }),
 
   replaceAll: (key, items) =>
     set((st) => ({ shapes: { ...st.shapes, [key]: items } })),
+
+  clearAll: (key) =>
+    set((st) => ({ shapes: { ...st.shapes, [key]: [] }, selectedId: null })),
 
   getList: (key) => get().shapes[key] ?? EMPTY,
 
   deleteSelected: (key) =>
     set((st) => {
       const sel = st.selectedId;
-      if (!sel) return st as any;
+      if (!sel) return st;
       const list = st.shapes[key] ?? EMPTY;
       const next = list.filter((x) => x.id !== sel);
       return {
         ...st,
         shapes: { ...st.shapes, [key]: next },
         selectedId: st.selectedId === sel ? null : st.selectedId,
-      } as any;
+      };
     }),
 
   updateById: (key, id, updater) =>
     set((st) => {
       const list = st.shapes[key] ?? EMPTY;
       const next = list.map((x) => (x.id === id ? updater(x) : x));
-      return { shapes: { ...st.shapes, [key]: next } } as any;
+      return { shapes: { ...st.shapes, [key]: next } };
     }),
 
   getSelected: (key) => {

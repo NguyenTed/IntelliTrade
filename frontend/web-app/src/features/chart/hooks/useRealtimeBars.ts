@@ -13,24 +13,41 @@ export function useRealtimeBars(
   useEffect(() => {
     let unsub: (() => void) | null = null;
     let raf = 0;
+    let timer: number | null = null;
     let pending: (Candle & { isFinal: boolean }) | null = null;
 
+    const flush = () => {
+      if (raf) cancelAnimationFrame(raf);
+      if (timer != null) window.clearTimeout(timer);
+      raf = 0;
+      timer = null;
+      const p = pending;
+      pending = null;
+      if (p) onBarRef.current(p);
+    };
+
+    const schedule = () => {
+      // Use rAF when visible; fall back to a timer when hidden so updates still flow
+      if (document.hidden) {
+        if (timer == null) timer = window.setTimeout(flush, 150);
+      } else if (!raf) {
+        raf = requestAnimationFrame(flush);
+      }
+    };
+
     const handle = (u: Candle & { isFinal: boolean }) => {
-      // Debug: log incoming messages (toggle off by setting window.__log_rt__ = false)
       if ((window as any).__log_rt__ !== false) {
         console.debug("[RT] msg", { symbol, interval, u });
       }
-      // throttle to animation frame to avoid spamming chart updates
       pending = u;
-      if (!raf) {
-        raf = requestAnimationFrame(() => {
-          raf = 0;
-          const p = pending;
-          pending = null;
-          if (p) onBarRef.current(p);
-        });
-      }
+      schedule();
     };
+
+    const onVis = () => {
+      // When returning to the tab, apply the latest pending update immediately
+      if (!document.hidden) flush();
+    };
+    document.addEventListener("visibilitychange", onVis);
 
     (async () => {
       try {
@@ -48,6 +65,8 @@ export function useRealtimeBars(
 
     return () => {
       if (raf) cancelAnimationFrame(raf);
+      if (timer != null) window.clearTimeout(timer);
+      document.removeEventListener("visibilitychange", onVis);
       try {
         unsub && unsub();
       } catch {}

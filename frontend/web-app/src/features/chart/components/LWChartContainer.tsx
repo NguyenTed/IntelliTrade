@@ -23,6 +23,7 @@ import { useRealtimeBars } from "../hooks/useRealtimeBars";
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
 
 type Props = {
+  chartId: number | string; // NEW: stable per-panel id
   symbol: string;
   interval: Interval;
   showEMA20: boolean;
@@ -50,6 +51,7 @@ function toSec(ts: unknown): number {
 }
 
 export default function LWChartContainer({
+  chartId,
   symbol,
   interval,
   showEMA20,
@@ -648,6 +650,7 @@ export default function LWChartContainer({
       {/* Drawing overlay (only when projector is ready) */}
       {projectorReady && projectorRef.current && (
         <DrawingLayer
+          chartId={chartId}
           symbol={symbol}
           interval={interval}
           projector={projectorRef.current}
