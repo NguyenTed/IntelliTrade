@@ -16,7 +16,11 @@ export function useRealtimeBars(
     let pending: (Candle & { isFinal: boolean }) | null = null;
 
     const handle = (u: Candle & { isFinal: boolean }) => {
-      // throttle to animation frame
+      // Debug: log incoming messages (toggle off by setting window.__log_rt__ = false)
+      if ((window as any).__log_rt__ !== false) {
+        console.debug("[RT] msg", { symbol, interval, u });
+      }
+      // throttle to animation frame to avoid spamming chart updates
       pending = u;
       if (!raf) {
         raf = requestAnimationFrame(() => {
@@ -29,12 +33,27 @@ export function useRealtimeBars(
     };
 
     (async () => {
-      unsub = await realtimeClient.join(symbol, interval, handle);
+      try {
+        if ((window as any).__log_rt__ !== false) {
+          console.debug("[RT] join->", { symbol, interval });
+        }
+        unsub = await realtimeClient.join(symbol, interval, handle);
+        if ((window as any).__log_rt__ !== false) {
+          console.debug("[RT] joined", { symbol, interval, ok: !!unsub });
+        }
+      } catch (err: any) {
+        console.error("[RT] join error", err?.message ?? err);
+      }
     })();
 
     return () => {
       if (raf) cancelAnimationFrame(raf);
-      if (unsub) unsub();
+      try {
+        unsub && unsub();
+      } catch {}
+      if ((window as any).__log_rt__ !== false) {
+        console.debug("[RT] left", { symbol, interval });
+      }
     };
   }, [symbol, interval]);
 }

@@ -4,6 +4,8 @@ import type { Interval, Candle } from "../types/market"
 
 const HUB_URL = import.meta.env.VITE_STOCKS_HUB_URL ?? "/stocks-feed";
 
+const RT_LOG = () => (window as any).__log_rt__ !== false;
+
 type GroupKey = string; // `${symbol}:${interval}`
 type Subscriber = (u: Candle & { isFinal: boolean }) => void;
 
@@ -12,7 +14,10 @@ function keyOf(symbol: string, interval: Interval): GroupKey {
 }
 
 function toUTCSec(t: string | number | Date): number {
-  if (typeof t === "number") return Math.floor(t / 1000); // assume ms
+  if (typeof t === "number") {
+    // if looks like ms epoch (>1e12), convert to seconds; else assume seconds
+    return t > 1_000_000_000_000 ? Math.floor(t / 1000) : Math.floor(t);
+  }
   const d = t instanceof Date ? t : new Date(t);
   return Math.floor(d.getTime() / 1000);
 }
@@ -28,6 +33,7 @@ class RealtimeClient {
     if (this.ready) return this.ready;
     this.ready = new Promise(async (resolve, reject) => {
       try {
+        if (RT_LOG()) console.debug("[RT] building connection", HUB_URL);
         const c = new HubConnectionBuilder()
           .withUrl(HUB_URL /* , { accessTokenFactory: () => authStore.getState().accessToken ?? "" } */)
           .withAutomaticReconnect()
@@ -35,12 +41,28 @@ class RealtimeClient {
           .build();
 
         c.on("ReceiveStockPriceUpdate", (raw: any) => this.onRawUpdate(raw));
-        c.onreconnected(() => this.rejoinAll());
+
+        c.onreconnecting((err) => {
+          if (RT_LOG()) console.warn("[RT] reconnecting", err?.message ?? "");
+        });
+        c.onreconnected((id) => {
+          if (RT_LOG()) console.info("[RT] reconnected", id);
+          this.rejoinAll();
+        });
+        c.onclose((err) => {
+          if (RT_LOG()) console.warn("[RT] closed", err?.message ?? "");
+          this.conn = null;
+          this.ready = null;
+        });
+
         this.conn = c;
+        if (RT_LOG()) console.debug("[RT] starting connection…");
         await c.start();
+        if (RT_LOG()) console.debug("[RT] started");
         resolve();
       } catch (e) {
         this.ready = null;
+        if (RT_LOG()) console.error("[RT] start error", (e as any)?.message ?? e);
         reject(e);
       }
     });
@@ -48,8 +70,8 @@ class RealtimeClient {
   }
 
   private normalize(raw: any): Candle & { symbol: string; interval: Interval; isFinal: boolean } {
-    const symbol = raw.Symbol ?? raw.symbol;
-    const interval = (raw.Interval ?? raw.interval) as Interval;
+    const symbol = String(raw.Symbol ?? raw.symbol);
+    const interval = String(raw.Interval ?? raw.interval) as Interval;
     const open = Number(raw.Open ?? raw.open);
     const high = Number(raw.High ?? raw.high);
     const low = Number(raw.Low ?? raw.low);
@@ -61,22 +83,37 @@ class RealtimeClient {
   }
 
   private onRawUpdate(raw: any) {
-    const u = this.normalize(raw);
-    const k = keyOf(u.symbol, u.interval);
-    const listeners = this.subs.get(k);
-    if (!listeners?.size) return;
-    const payload: Candle & { isFinal: boolean } = {
-      time: u.time, open: u.open, high: u.high, low: u.low, close: u.close, volume: u.volume, isFinal: u.isFinal,
-    };
-    // fan-out
-    for (const fn of listeners) fn(payload);
+    try {
+      if (RT_LOG()) console.debug("[RT] recv", raw);
+      const u = this.normalize(raw);
+      const k = keyOf(u.symbol, u.interval);
+      const listeners = this.subs.get(k);
+      if (!listeners?.size) return;
+      const payload: Candle & { isFinal: boolean } = {
+        time: u.time,
+        open: u.open,
+        high: u.high,
+        low: u.low,
+        close: u.close,
+        volume: u.volume,
+        isFinal: u.isFinal,
+      };
+      for (const fn of listeners) fn(payload);
+    } catch (e) {
+      if (RT_LOG()) console.error("[RT] onRawUpdate error", (e as any)?.message ?? e, raw);
+    }
   }
 
   private async rejoinAll() {
     if (!this.conn) return;
     for (const k of this.refs.keys()) {
       const [symbol, interval] = k.split(":");
-      try { await this.conn.invoke("JoinStockGroup", symbol, interval); } catch {}
+      try {
+        if (RT_LOG()) console.debug("[RT] rejoin", { symbol, interval });
+        await this.conn.invoke("JoinStockGroup", symbol, interval);
+      } catch (e) {
+        if (RT_LOG()) console.error("[RT] rejoin error", (e as any)?.message ?? e);
+      }
     }
   }
 
@@ -84,7 +121,7 @@ class RealtimeClient {
     await this.ensureStarted();
     const k = keyOf(symbol, interval);
 
-    // subscribe
+    // subscribe cb
     if (!this.subs.has(k)) this.subs.set(k, new Set());
     this.subs.get(k)!.add(cb);
 
@@ -92,22 +129,38 @@ class RealtimeClient {
     const count = (this.refs.get(k) ?? 0) + 1;
     this.refs.set(k, count);
     if (count === 1) {
-      try { await this.conn!.invoke("JoinStockGroup", symbol, interval); } catch (e) { /* surface/log if needed */ }
+      try {
+        if (RT_LOG()) console.debug("[RT] JoinStockGroup", { symbol, interval });
+        await this.conn!.invoke("JoinStockGroup", symbol, interval);
+        if (RT_LOG()) console.debug("[RT] joined group", { symbol, interval });
+      } catch (e) {
+        if (RT_LOG()) console.error("[RT] JoinStockGroup error", (e as any)?.message ?? e);
+      }
+    } else {
+      if (RT_LOG()) console.debug("[RT] ref++", { k, count });
     }
 
-    // return unsubscribe
     return async () => {
       // unsubscribe cb
       const set = this.subs.get(k);
-      if (set) { set.delete(cb); if (set.size === 0) this.subs.delete(k); }
+      if (set) {
+        set.delete(cb);
+        if (set.size === 0) this.subs.delete(k);
+      }
 
       // reduce refs and leave group if zero
       const next = (this.refs.get(k) ?? 1) - 1;
       if (next <= 0) {
         this.refs.delete(k);
-        try { await this.conn?.invoke("LeaveStockGroup", symbol, interval); } catch {}
+        try {
+          if (RT_LOG()) console.debug("[RT] LeaveStockGroup", { symbol, interval });
+          await this.conn?.invoke("LeaveStockGroup", symbol, interval);
+        } catch (e) {
+          if (RT_LOG()) console.error("[RT] LeaveStockGroup error", (e as any)?.message ?? e);
+        }
       } else {
         this.refs.set(k, next);
+        if (RT_LOG()) console.debug("[RT] ref--", { k, next });
       }
     };
   }

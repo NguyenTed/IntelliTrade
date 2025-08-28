@@ -82,6 +82,7 @@ export default function ChartPanel({
           showSMA50={showSMA50}
           showVolume={showVolume}
           onHover={setHover}
+          editable={active}
         />
       </div>
     </div>

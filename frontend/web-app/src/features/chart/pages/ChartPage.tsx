@@ -26,6 +26,7 @@ function initialPanels(n: number): PanelState[] {
     { id: 2, symbol: "LINKUSDT", interval: "1m" },
     { id: 3, symbol: "SOLUSDT", interval: "1m" },
   ];
+
   return Array.from({ length: n }).map((_, i) => ({
     id: i,
     symbol: seeds[i]?.symbol ?? seeds[0].symbol,
