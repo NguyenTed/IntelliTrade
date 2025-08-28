@@ -16,9 +16,9 @@ type ChartState = {
 export const useChartState = create<ChartState>((set) => ({
   symbol: "BTCUSDT",
   interval: "1m",
-  showEMA20: true,
-  showSMA50: true,
-  showVolume: true,
+  showEMA20: false,
+  showSMA50: false,
+  showVolume: false,
   setSymbol: (symbol) => set({ symbol }),
   setInterval: (interval) => set({ interval }),
   toggle: (key) => set((s) => ({ ...s, [key]: !s[key] })),

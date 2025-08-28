@@ -22,7 +22,7 @@ type Props = {
   onChangeActiveChartType: (t: ChartType) => void;
 };
 
-const FRAMES: Interval[] = ["1m", "5m", "15m", "1h", "4h", "1D", "1W", "1M"];
+const FRAMES: Interval[] = ["1m", "5m", "15m", "1h", "4h", "1d", "1w", "1M"];
 const TYPES: ChartType[] = ["candles", "bars", "line", "area", "baseline"];
 
 export default function AppHeader({

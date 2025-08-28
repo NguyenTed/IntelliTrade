@@ -15,6 +15,7 @@ import {
 import type { HoverInfo } from "./InfoStrip";
 import type { Interval } from "../store/chart.store";
 import { useMarketData } from "../hooks/useMarketData";
+import { useRealtimeBars } from "../hooks/useRealTimeBars";
 
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
 
@@ -42,6 +43,19 @@ export default function LWChartContainer({
   onHover,
 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const mainSeriesRef = useRef<ISeriesApi<any> | null>(null);
+  const volumeSeriesRef = useRef<ISeriesApi<"Histogram"> | null>(null);
+  const candlesRef = useRef(
+    [] as {
+      time: number;
+      open: number;
+      high: number;
+      low: number;
+      close: number;
+      volume: number;
+    }[]
+  );
+  const indexByTimeRef = useRef<Map<number, number>>(new Map());
   const { data, loading, error } = useMarketData(symbol, interval);
 
   const candles = useMemo(
@@ -101,6 +115,8 @@ export default function LWChartContainer({
           close: c.close,
         }))
       );
+      mainSeriesRef.current = mainSeries;
+      candlesRef.current = candles.map((c) => ({ ...c }));
     } else if (chartType === "bars") {
       mainSeries = chart.addSeries(BarSeries, {
         upColor: "#10b981",
@@ -115,16 +131,22 @@ export default function LWChartContainer({
           close: c.close,
         }))
       );
+      mainSeriesRef.current = mainSeries;
+      candlesRef.current = candles.map((c) => ({ ...c }));
     } else if (chartType === "line") {
       mainSeries = chart.addSeries(LineSeries, { lineWidth: 2 });
       mainSeries.setData(
         candles.map((c) => ({ time: c.time, value: c.close }))
       );
+      mainSeriesRef.current = mainSeries;
+      candlesRef.current = candles.map((c) => ({ ...c }));
     } else if (chartType === "area") {
       mainSeries = chart.addSeries(AreaSeries, { lineWidth: 2 });
       mainSeries.setData(
         candles.map((c) => ({ time: c.time, value: c.close }))
       );
+      mainSeriesRef.current = mainSeries;
+      candlesRef.current = candles.map((c) => ({ ...c }));
     } else {
       // baseline
       const base = candles[candles.length - 1]?.close ?? 0;
@@ -134,16 +156,19 @@ export default function LWChartContainer({
       mainSeries.setData(
         candles.map((c) => ({ time: c.time, value: c.close }))
       );
+      mainSeriesRef.current = mainSeries;
+      candlesRef.current = candles.map((c) => ({ ...c }));
     }
 
     // Helper: emit hover info for a specific candle index
     const emitForIndex = (idx: number) => {
-      if (idx < 0 || idx >= candles.length) {
+      const arr = candlesRef.current;
+      if (!arr.length || idx < 0 || idx >= arr.length) {
         onHover?.(null);
         return;
       }
-      const bar = candles[idx];
-      const prevClose = idx > 0 ? candles[idx - 1].close : bar.close;
+      const bar = arr[idx];
+      const prevClose = idx > 0 ? arr[idx - 1].close : bar.close;
       const change = bar.close - prevClose;
       const changePct = prevClose !== 0 ? (change / prevClose) * 100 : 0;
       onHover?.({
@@ -160,19 +185,23 @@ export default function LWChartContainer({
     // Initialize the info strip with the LAST candle
     emitForIndex(candles.length - 1);
 
-    const indexByTime = new Map<number, number>();
-    for (let i = 0; i < candles.length; i++)
-      indexByTime.set(Number(candles[i].time), i);
+    const initialIndexByTime = new Map<number, number>();
+    for (let i = 0; i < candles.length; i++) {
+      initialIndexByTime.set(Number(candles[i].time), i);
+    }
+    indexByTimeRef.current = initialIndexByTime;
 
     const handleMove = (param: any) => {
       if (!param?.time) {
-        emitForIndex(candles.length - 1);
+        const n = candlesRef.current.length;
+        emitForIndex(n - 1);
         return;
       }
       const tNum = Number(param.time);
-      const idx = indexByTime.get(tNum);
+      const idx = indexByTimeRef.current.get(tNum);
       if (idx === undefined) {
-        emitForIndex(candles.length - 1);
+        const n = candlesRef.current.length;
+        emitForIndex(n - 1);
         return;
       }
       emitForIndex(idx);
@@ -197,6 +226,7 @@ export default function LWChartContainer({
       volumeSeries.setData(
         candles.map((c) => ({ time: c.time, value: c.volume }))
       );
+      volumeSeriesRef.current = volumeSeries;
     }
 
     // Simple EMA/SMA overlays (computed locally)
@@ -271,9 +301,66 @@ export default function LWChartContainer({
     return () => {
       ro.disconnect();
       chart.unsubscribeCrosshairMove(handleMove);
+      mainSeriesRef.current = null;
+      volumeSeriesRef.current = null;
       chart.remove();
     };
   }, [candles, chartType, showEMA20, showSMA50, showVolume, onHover]);
+
+  useRealtimeBars(symbol, interval, (u) => {
+    if (!mainSeriesRef.current) return;
+    const arr = candlesRef.current;
+    const last = arr[arr.length - 1];
+
+    if (!last || u.time > last.time) {
+      arr.push({ ...u });
+      indexByTimeRef.current.set(Number(u.time), arr.length - 1);
+    } else if (u.time === last.time) {
+      Object.assign(last, u);
+    } else {
+      // older tick; ignore or splice by time if you prefer
+      return;
+    }
+
+    // Update main price series according to chart type
+    if (chartType === "candles" || chartType === "bars") {
+      mainSeriesRef.current?.update({
+        time: u.time,
+        open: u.open,
+        high: u.high,
+        low: u.low,
+        close: u.close,
+      } as any);
+    } else {
+      mainSeriesRef.current?.update({
+        time: u.time as any,
+        value: u.close,
+      } as any);
+    }
+
+    // Volume
+    volumeSeriesRef.current?.update({
+      time: u.time as any,
+      value: u.volume,
+    } as any);
+
+    // Refresh InfoStrip default when not hovering (latest bar)
+    if (onHover) {
+      const idx = arr.length - 1;
+      const prevClose = idx > 0 ? arr[idx - 1].close : arr[idx].close;
+      const change = arr[idx].close - prevClose;
+      const changePct = prevClose ? (change / prevClose) * 100 : 0;
+      onHover({
+        time: u.time,
+        open: arr[idx].open,
+        high: arr[idx].high,
+        low: arr[idx].low,
+        close: arr[idx].close,
+        change,
+        changePct,
+      });
+    }
+  });
 
   if (loading)
     return (
