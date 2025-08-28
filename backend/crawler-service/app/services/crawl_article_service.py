@@ -3,7 +3,7 @@ from db.models.idea_model import find_vnexpress_predicted_ideas, find_vnexpress_
 from db.models.news_model import find_tradingview_news, count_news, find_news_by_slug
 from db.models.comment_model import find_comments_by_ids
 from db.models.symbol_model import find_symbol_by_id
-from db.models.predicted_idea_model import find_predicted_articles_from_ids, find_predicted_article_from_id
+from db.models.predicted_article_model import find_predicted_articles_from_ids, find_predicted_article_from_id
 from app.requests.page_request import PageRequest
 from app.responses.page_response import PageResponse
 from app.responses.comment_response import CommentResponse

@@ -5,6 +5,7 @@ from datetime import datetime
 from app.schemas.section_schema import SectionSchema
 from app.schemas.symbol_schema import SymbolSchema
 from app.schemas.tag_schema import TagSchema
+from app.schemas.sentiment_schema import SentimentSchema
 
 class PredictedArticleSchema(BaseModel):
     id: Optional[ObjectId] = Field(default=None, alias="_id")
@@ -18,6 +19,7 @@ class PredictedArticleSchema(BaseModel):
     tags: Optional[List[str]] = []
     symbols: Optional[List[ObjectId]] = []
     sections: Optional[List[SectionSchema]] = []
+    sentiment: Optional[SentimentSchema] = None 
     createdAt: Optional[datetime] = None
     updatedAt: Optional[datetime] = None
 

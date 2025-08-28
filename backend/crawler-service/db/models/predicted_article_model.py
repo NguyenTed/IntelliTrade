@@ -18,13 +18,13 @@ def find_predicted_articles_from_ids(ids: List[ObjectId]) -> List[PredictedArtic
 
     return [PredictedArticleSchema(**doc) for doc in cursor]
 
-    if not predicted_ids:
-        return []
+    # if not predicted_ids:
+    #     return []
 
-    cursor = collection.find({
-        "_id": {"$in": predicted_ids}
-    })
-    # return _find_with_symbols({"_id": {"$in": predicted_ids}}, many=True)
+    # cursor = collection.find({
+    #     "_id": {"$in": predicted_ids}
+    # })
+    # # return _find_with_symbols({"_id": {"$in": predicted_ids}}, many=True)
 
     return [PredictedArticleSchema(**doc) for doc in cursor]
 
@@ -74,3 +74,13 @@ def add_comment(article_id: str, comment_id: ObjectId):
 #     else:
 #         return PredictedIdeaSchema(**results[0])
     
+def find_predicted_articles() -> List[PredictedArticleSchema]:
+    cursor = collection.find()
+    return [PredictedArticleSchema(**doc) for doc in cursor]
+
+
+def update_sentiment(article_id: ObjectId, sentiment: dict):
+    collection.update_one(
+        {"_id": article_id},
+        {"$set": {"sentiment": sentiment}}
+    )

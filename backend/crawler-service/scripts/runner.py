@@ -1,5 +1,6 @@
 from pipelines.crawl_articles import crawl_urls_and_covered_imgs, crawl_raw_ideas, crawl_raw_news
 from pipelines.extract_features import FeatureExtractor
+from pipelines.predict_sentiments import run_predict_sentiments
 from db.mongo import db
 from config.tradingview.idea_labels import idea_label_rules as tradingview_idea_label_rules
 from config.tradingview.new_labels import new_label_rules as tradingview_new_label_rules
@@ -60,14 +61,15 @@ def save_predicted_articles():
             
 
 if __name__ == "__main__":
-    if is_initialized():
-        print("🕒 Skipping runner (already initialized in DB)")
-    else:
-        print("🚀 Running initial crawler...")
-        fetch_url_and_covered_imgs_to_db()
-        fetch_raw_articles_to_db()
-        fetch_article_labels_to_db()
-        extract_labeled_data_to_db()
-        save_predicted_articles()
-        set_initialized()
-        print("✅ Runner init done!")
+    # if is_initialized():
+    #     print("🕒 Skipping runner (already initialized in DB)")
+    # else:
+        # print("🚀 Running initial crawler...")
+        # fetch_url_and_covered_imgs_to_db()
+        # fetch_raw_articles_to_db()
+        # fetch_article_labels_to_db()
+        # extract_labeled_data_to_db()
+        # save_predicted_articles()
+        run_predict_sentiments()
+        # set_initialized()
+        # print("✅ Runner init done!")
