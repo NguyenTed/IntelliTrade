@@ -45,7 +45,7 @@ public class MarketController {
      * SSE realtime: FE subscribe endpoint này để nhận nến liên tục.
      * Ví dụ: GET /api/market/stream?symbol=BTCUSDT&interval=1m
      */
-    @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/stream/{symbol}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<CandleDto> stream(@RequestParam String symbol,
                                   @RequestParam String interval) {
         return wsService.stream(symbol, interval);
@@ -55,8 +55,8 @@ public class MarketController {
      * Lịch sử nến: mặc định 1000 nến, có thể truyền endTime (ms) để phân trang lùi.
      * Ví dụ: GET /api/market/history?symbol=BTCUSDT&interval=1m&limit=1000
      */
-    @GetMapping("/history")
-    public Flux<CandleDto> history(@RequestParam String symbol,
+    @GetMapping("/history/{symbol}")
+    public Flux<CandleDto> history(@PathVariable String symbol,
                                    @RequestParam String interval,
                                    @RequestParam(defaultValue = "1000") int limit,
                                    @RequestParam(required = false) Long startTime,
