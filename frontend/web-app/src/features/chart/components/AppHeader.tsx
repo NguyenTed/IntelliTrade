@@ -21,6 +21,8 @@ type Props = {
   // Chart type control for the ACTIVE chart
   activeChartType: ChartType;
   onChangeActiveChartType: (t: ChartType) => void;
+
+  onRequestOpenBacktest?: () => void;
 };
 
 const FRAMES: Interval[] = ["1m", "5m", "15m", "1h", "4h", "1d", "1w", "1M"];
@@ -38,6 +40,7 @@ export default function AppHeader({
   onToggleIndicator,
   activeChartType,
   onChangeActiveChartType,
+  onRequestOpenBacktest,
 }: Props) {
   return (
     <div className="sticky top-0 z-40 flex items-center gap-4 px-4 pt-1 pb-3 bg-white/80 backdrop-blur">
@@ -206,6 +209,16 @@ export default function AppHeader({
           </MenuButton>
         </div>
       </Dropdown>
+
+      {/* Backtest trigger */}
+      <button
+        onClick={onRequestOpenBacktest}
+        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800 shadow-sm"
+        title="Run backtest on active chart"
+      >
+        <IconPlay className="shrink-0" />
+        Backtest
+      </button>
     </div>
   );
 }
@@ -741,4 +754,18 @@ function frameIcon(f: Interval) {
   if (f === "1d") return <IconTimeDay />;
   if (f === "1w") return <IconTimeWeek />;
   return <IconTimeMonth />; // 1M
+}
+
+function IconPlay(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="currentColor"
+      {...props}
+    >
+      <path d="M8 5v14l11-7z" />
+    </svg>
+  );
 }
