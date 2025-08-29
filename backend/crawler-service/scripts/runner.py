@@ -61,15 +61,15 @@ def save_predicted_articles():
             
 
 if __name__ == "__main__":
-    # if is_initialized():
-    #     print("🕒 Skipping runner (already initialized in DB)")
-    # else:
-        # print("🚀 Running initial crawler...")
-        # fetch_url_and_covered_imgs_to_db()
-        # fetch_raw_articles_to_db()
-        # fetch_article_labels_to_db()
-        # extract_labeled_data_to_db()
-        # save_predicted_articles()
+    if is_initialized():
+        print("🕒 Skipping runner (already initialized in DB)")
+    else:
+        print("🚀 Running initial crawler...")
+        fetch_url_and_covered_imgs_to_db()
+        fetch_raw_articles_to_db()
+        fetch_article_labels_to_db()
+        extract_labeled_data_to_db()
+        save_predicted_articles()
         run_predict_sentiments()
-        # set_initialized()
-        # print("✅ Runner init done!")
+        set_initialized()
+        print("✅ Runner init done!")

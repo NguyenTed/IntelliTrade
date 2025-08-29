@@ -1,14 +1,17 @@
 import math
+from collections import Counter
 from db.models.idea_model import find_vnexpress_predicted_ideas, find_vnexpress_ideas, find_tradingview_predicted_ideas, find_tradingview_ideas, count_ideas_base_on_type, find_idea_by_slug
 from db.models.news_model import find_tradingview_news, count_news, find_news_by_slug
 from db.models.comment_model import find_comments_by_ids
-from db.models.symbol_model import find_symbol_by_id
-from db.models.predicted_article_model import find_predicted_articles_from_ids, find_predicted_article_from_id
+from db.models.symbol_model import find_symbol_by_id, find_symbols_by_name
+from db.models.predicted_article_model import find_predicted_articles_from_ids, find_predicted_article_from_id, find_tradingview_sentiment_articles, collection, find_predicted_from_symbol
 from app.requests.page_request import PageRequest
 from app.responses.page_response import PageResponse
 from app.responses.comment_response import CommentResponse
+from app.responses.sentiment_article_response import SentimentArticleResponse
 from app.schemas.comment_schema import CommentSchema
 from app.responses.predicted_article_response import PredictedArticleResponse
+from app.responses.sentiment_aggregate_response import SentimentAggregateResponse
 from enums.ArticleType import ArticleType
 from enums.ArticleCategory import ArticleCategory
 
@@ -215,4 +218,71 @@ class CrawlArticleService:
 
         return response
 
+    @staticmethod
+    def get_tradingview_sentiment(page_request: PageRequest) -> PageResponse[SentimentArticleResponse]:
+        articles = find_tradingview_sentiment_articles(page_request)
+        total = collection.count_documents({})
 
+        content = []
+        for article in articles:
+            symbols = []
+            if article.symbols:
+                symbols = [find_symbol_by_id(symbol_id) for symbol_id in article.symbols]
+
+            content.append(
+                SentimentArticleResponse(
+                    id=str(article.id),
+                    title=article.title,
+                    content=article.content,
+                    url=article.url,
+                    tags=article.tags,
+                    tradeSide=article.tradeSide,
+                    symbols=symbols, 
+                    sentiment=article.sentiment,
+                    createdAt=article.createdAt,
+                    updatedAt=article.updatedAt
+                )
+            )
+
+        total_pages = (total + page_request.size - 1) // page_request.size
+
+        return PageResponse[SentimentArticleResponse](
+            content=content,
+            currentPage=page_request.page,
+            pageSize=page_request.size,
+            totalElements=total,
+            totalPages=total_pages,
+            hasNext=page_request.page < total_pages,
+            hasPrevious=page_request.page > 1
+        )
+    
+    @staticmethod
+    def get_sentiment_by_symbol(symbolName: str) -> SentimentAggregateResponse:
+        symbol = find_symbols_by_name(symbolName)
+        if not symbol:
+            return None
+
+        predicted_articles = find_predicted_from_symbol(symbol.id)
+        if not predicted_articles:
+            return None
+
+        labels = []
+        scores = []
+
+        for article in predicted_articles:
+            if article.sentiment:
+                labels.append(article.sentiment.label)
+                scores.append(article.sentiment.score)
+
+        if not labels or not scores:
+            return None
+
+        most_common_label = Counter(labels).most_common(1)[0][0]
+        avg_score = sum(scores) / len(scores)
+
+        return SentimentAggregateResponse(
+            symbol=symbol,
+            label=most_common_label,
+            score=round(avg_score, 4),
+            count=len(scores)
+        )

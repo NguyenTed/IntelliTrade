@@ -3,9 +3,8 @@ from db.models.predicted_article_model import (
     update_sentiment
 )
 from transformers import pipeline
-from typing import List, Dict
+from typing import List
 from pydantic import BaseModel
-from bson import ObjectId
 import os
 
 # ⚙️ CONFIG

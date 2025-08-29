@@ -25,6 +25,10 @@ def find_symbols_by_keyword(keyword: str) -> List[SymbolSchema]:
     cursor = collection.find({"name": {"$regex": keyword, "$options": "i"}})
     return [SymbolSchema(**doc) for doc in cursor]
 
+def find_symbols_by_name(name: str) -> SymbolSchema:
+    cursor = collection.find_one({"name": name})
+    return SymbolSchema(**cursor) if cursor else None
+    
 def find_symbol_by_id(symbol_id: str) -> SymbolSchema:
     cursor = collection.find_one({"_id": ObjectId(symbol_id)})
     return SymbolSchema(**cursor) if cursor else None

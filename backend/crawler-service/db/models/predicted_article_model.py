@@ -1,9 +1,11 @@
 from db.mongo import db
+from typing import List, Tuple
 from app.schemas.predicted_article_schema import PredictedArticleSchema
 from bson import ObjectId
 from typing import List
 from app.schemas.idea_schema import IdeaSchema
 from typing import Union
+from app.requests.page_request import PageRequest
 
 
 collection = db["predicted_articles"]
@@ -78,9 +80,26 @@ def find_predicted_articles() -> List[PredictedArticleSchema]:
     cursor = collection.find()
     return [PredictedArticleSchema(**doc) for doc in cursor]
 
+def find_tradingview_sentiment_articles(page_request: PageRequest) -> List[PredictedArticleSchema]:
+    skip = (page_request.page - 1) * page_request.size
+    sort_field = page_request.sortBy or "createdAt"
+    sort_order = -1 if page_request.sortDirection == "desc" else 1
+
+    cursor = (
+        collection.find()
+        .sort(sort_field, sort_order)
+        .skip(skip)
+        .limit(page_request.size)
+    )
+
+    return [PredictedArticleSchema(**doc) for doc in cursor]
 
 def update_sentiment(article_id: ObjectId, sentiment: dict):
     collection.update_one(
         {"_id": article_id},
         {"$set": {"sentiment": sentiment}}
     )
+
+def find_predicted_from_symbol(symbolId: ObjectId) -> List[PredictedArticleSchema]:
+    cursor = collection.find({"symbols": symbolId})
+    return [PredictedArticleSchema(**doc) for doc in cursor]
