@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
-import axios from 'axios';
+import { getVNPayUrl } from '../api/SubscriptionApiService';
 
 const SubscriptionPlans = () => {
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [userId] = useState("user123"); // Replace with real userId from auth/session
+  // For demo, use a hardcoded userId
+  const userId = "user123";
   const contentRef = useRef<HTMLDivElement>(null);
 
   const handleSubscribe = (plan: 'Community' | 'Pro') => {
@@ -13,14 +14,15 @@ const SubscriptionPlans = () => {
   };
 
   const handleConfirm = async () => {
-    
     if (!selectedPlan) return;
-    const subscriptionType = selectedPlan.toUpperCase();
     try {
-      const response = await axios.get<string>(
-        `http://localhost:8085/payment/api/v1/payment/vnpay/url/${subscriptionType}/${userId}`
-      );
-      window.location.href = response.data; // redirect to VNPay URL
+      // Assuming getVNPayUrl expects a plan id, you may need to map plan name to id
+      // For demo, let's use: Community = 1, Pro = 2
+  const planId = selectedPlan === 'Community' ? 1 : 2;
+  // If your API needs userId, you can append it to the URL or pass as param
+  // For now, just use planId as before
+  const result = await getVNPayUrl(planId);
+      window.location.href = result.url; // redirect to VNPay URL
     } catch (error) {
       console.error("Payment URL fetch error:", error);
       alert("Failed to get payment URL");

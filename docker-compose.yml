@@ -90,6 +90,20 @@ services:
 
     depends_on:
       - redis
+  
+  
+  backtest-service:
+    build: ./backend/backtest-service
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/backtest-service:/app   # chỉ mount thư mục service
+    environment:
+      - PORT=5000
+      - FLASK_ENV=development
+      - MARKET_BASE_URL=http://market-service:8085
+    depends_on:
+      - market-service
   crawler-service:
     build: ./backend/crawler-service
     depends_on:
