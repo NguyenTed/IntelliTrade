@@ -6,6 +6,7 @@ import type { Interval } from "../store/chart.store";
 import type { LayoutMode } from "../components/LayoutToggle";
 import RightSidebar from "../components/RightSideBar";
 import SymbolModal from "../components/SymbolModal";
+import { fetchSymbols, type MarketSymbol } from "../api/market";
 
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
 
@@ -87,6 +88,29 @@ export default function ChartPage() {
   const [activeId, setActiveId] = useState(0);
   const activePanel = panels.find((p) => p.id === activeId) ?? panels[0];
   const [isSymbolModalOpen, setSymbolModalOpen] = useState(false);
+  const [symbols, setSymbols] = useState<MarketSymbol[]>([]);
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const list = await fetchSymbols();
+        if (alive) setSymbols(list);
+      } catch (_) {
+        // ignore; header can still render without icons
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const activeSymbolImgs = useMemo(() => {
+    const s = activePanel?.symbol;
+    if (!s) return undefined;
+    const hit = symbols.find((m) => m.name === s);
+    return hit?.symbolImgs;
+  }, [symbols, activePanel?.symbol]);
 
   const handleChangeActiveChartType = (t: ChartType) => {
     setPanels((prev) =>
@@ -148,6 +172,7 @@ export default function ChartPage() {
       {/* HEADER */}
       <AppHeader
         activeSymbol={activePanel?.symbol}
+        activeSymbolImgs={activeSymbolImgs}
         activeInterval={activePanel?.interval}
         layout={layout}
         onLayoutChange={setLayout}
