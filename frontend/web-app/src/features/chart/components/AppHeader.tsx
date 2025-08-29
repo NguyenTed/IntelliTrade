@@ -38,7 +38,7 @@ export default function AppHeader({
   onChangeActiveChartType,
 }: Props) {
   return (
-    <div className="flex items-center gap-4 p-3 border-b border-neutral-200 bg-white">
+    <div className="flex items-center gap-4 p-3 bg-white">
       {/* Active chart label */}
       <div className="flex items-center gap-2">
         <button

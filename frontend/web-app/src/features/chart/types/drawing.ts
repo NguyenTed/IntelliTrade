@@ -13,7 +13,8 @@ export type Tool =
   | "fib"
   | "ellipse"
   | "arrow"    // NEW
-  | "brush";   // NEW
+  | "brush"    // NEW
+  | "xabcd";
 
 export type PricePoint = {
   time: number;   // UTCTimestamp (seconds)
@@ -110,6 +111,15 @@ export type BrushShape = ShapeBase & {
   closed?: boolean;
 };
 
+export type XABCDShape = ShapeBase & {
+  type: "xabcd";
+  x: PricePoint;
+  a: PricePoint;
+  b: PricePoint;
+  c: PricePoint;
+  d: PricePoint;
+};
+
 export type Shape =
   | TrendlineShape
   | HLineShape
@@ -121,12 +131,26 @@ export type Shape =
   | FibShape
   | EllipseShape
   | ArrowShape
-  | BrushShape;
+  | BrushShape
+  | XABCDShape;
 
 export type HitTarget =
   | { kind: "none" }
   | { kind: "shape"; id: ShapeId }
-  | { kind: "handle"; id: ShapeId; handle: "p1" | "p2" | "p3" | "move" };
+  | {
+      kind: "handle";
+      id: ShapeId;
+      handle:
+        | "p1"
+        | "p2"
+        | "p3"
+        | "move"
+        | "x"
+        | "a"
+        | "b"
+        | "c"
+        | "d";
+    };
 
 // Lightweight “projector” the DrawingLayer uses to convert data<->pixels.
 // Parent (LWChartContainer) will construct this from lightweight-charts time/price scales.

@@ -142,7 +142,7 @@ export default function ChartPage() {
   };
 
   return (
-    <div className="h-[calc(100vh-2rem)] w-full mx-auto max-w-[1800px] p-4 flex flex-col bg-white">
+    <div className="h-[calc(100vh-2rem)] w-full mx-auto max-w-[1800px] p-2 flex flex-col bg-white">
       {/* HEADER */}
       <AppHeader
         activeSymbol={activePanel?.symbol}

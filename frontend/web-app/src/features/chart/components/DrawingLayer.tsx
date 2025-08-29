@@ -1,7 +1,6 @@
 // src/features/chart/components/DrawingLayer.tsx
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useDrawingStore } from "../store/drawing.store";
-const EMPTY_SHAPES: Shape[] = Object.freeze([]);
 import type {
   ChartProjector,
   HitTarget,
@@ -16,8 +15,11 @@ import type {
   EllipseShape,
   ArrowShape,
   BrushShape,
+  XABCDShape,
 } from "../types/drawing";
 import { saveDrawings, loadDrawings } from "../utils/drawing.persistence";
+
+const EMPTY_SHAPES: Shape[] = Object.freeze([]);
 
 type Props = {
   symbol: string;
@@ -89,9 +91,11 @@ export default function DrawingLayer({
               | "channel"
               | "fib"
               | "ellipse"
-              | "arrow";
+              | "arrow"
+              | "xabcd";
             p1: PricePoint;
             p2?: PricePoint;
+            points?: PricePoint[];
           }
         | {
             tool: "brush";
@@ -176,6 +180,130 @@ export default function DrawingLayer({
       const list = shapes;
 
       for (const s of list) {
+        // --- XABCD harmonic pattern ---
+        if (s.type === "xabcd") {
+          const h = s as XABCDShape;
+          const pts = [h.x, h.a, h.b, h.c, h.d];
+          const names = ["X", "A", "B", "C", "D"];
+          const px: number[] = [];
+          const py: number[] = [];
+          let ok = true;
+          for (const p of pts) {
+            const xx = toX(p.time),
+              yy = toY(p.price);
+            if (xx == null || yy == null) {
+              ok = false;
+              break;
+            }
+            px.push(xx);
+            py.push(yy);
+          }
+          if (ok) {
+            // polyline
+            ctx.save();
+            const stroke = h.color ?? "#0ea5e9";
+            ctx.strokeStyle = stroke;
+            ctx.lineWidth = Math.max(1, h.width ?? 2);
+            ctx.beginPath();
+            ctx.moveTo(px[0], py[0]);
+            for (let i = 1; i < px.length; i++) ctx.lineTo(px[i], py[i]);
+            ctx.stroke();
+            ctx.restore();
+
+            // translucent triangle fills that persist after completion
+            ctx.save();
+            ctx.fillStyle = "rgba(14,165,233,0.10)"; // sky-500 @ 10%
+            ctx.strokeStyle = "rgba(14,165,233,0.35)";
+            ctx.lineWidth = 1;
+            // Triangle X-A-B if we have at least three points
+            if (px.length >= 3) {
+              ctx.beginPath();
+              ctx.moveTo(px[0], py[0]); // X
+              ctx.lineTo(px[1], py[1]); // A
+              ctx.lineTo(px[2], py[2]); // B
+              ctx.closePath();
+              ctx.fill();
+              ctx.stroke();
+            }
+            // Triangle B-C-D if we have all five points
+            if (px.length >= 5) {
+              ctx.beginPath();
+              ctx.moveTo(px[2], py[2]); // B
+              ctx.lineTo(px[3], py[3]); // C
+              ctx.lineTo(px[4], py[4]); // D
+              ctx.closePath();
+              ctx.fill();
+              ctx.stroke();
+            }
+            ctx.restore();
+
+            // leg length labels and dashed line between points
+            const labelLeg = (i: number, j: number) => {
+              // Draw dashed line between leg endpoints
+              ctx.save();
+              ctx.strokeStyle = "#94a3b8";
+              ctx.lineWidth = 1.5;
+              ctx.setLineDash([5, 4]);
+              ctx.beginPath();
+              ctx.moveTo(px[i], py[i]);
+              ctx.lineTo(px[j], py[j]);
+              ctx.stroke();
+              ctx.setLineDash([]);
+              ctx.restore();
+
+              // Draw label as before
+              const mx = (px[i] + px[j]) / 2,
+                my = (py[i] + py[j]) / 2;
+              const len = Math.hypot(px[j] - px[i], py[j] - py[i]);
+              const text = `${len.toFixed(0)}`;
+              const font = "10px Inter, system-ui, sans-serif";
+              const pad = 3;
+              ctx.save();
+              ctx.font = font;
+              ctx.textBaseline = "bottom";
+              const tw = ctx.measureText(text).width;
+              const th = getFontPx(font);
+              ctx.fillStyle = "rgba(0,0,0,0.45)";
+              ctx.fillRect(
+                mx + 4 - pad,
+                my - 4 - th - pad,
+                tw + pad * 2,
+                th + pad * 2
+              );
+              ctx.fillStyle = "#fff";
+              ctx.fillText(text, mx + 4, my - 4);
+              ctx.restore();
+            };
+            // XB, AC, BD, XD
+            if (px.length >= 3) labelLeg(0, 2); // X-B
+            if (px.length >= 4) labelLeg(1, 3); // A-C
+            if (px.length >= 5) labelLeg(2, 4); // B-D
+            if (px.length >= 5) labelLeg(0, 4); // X-D
+
+            // persistent point labels (X/A/B/C/D)
+            ctx.save();
+            ctx.font = "10px Inter, system-ui, sans-serif";
+            ctx.textBaseline = "bottom";
+            for (let i = 0; i < px.length; i++) {
+              const label = names[i];
+              const pad = 3;
+              const tw = ctx.measureText(label).width;
+              const th = getFontPx("10px Inter, system-ui, sans-serif");
+              const lx = px[i] + 6,
+                ly = py[i] - 6;
+              ctx.fillStyle = "rgba(0,0,0,0.45)";
+              ctx.fillRect(lx - pad, ly - th - pad, tw + pad * 2, th + pad * 2);
+              ctx.fillStyle = "#fff";
+              ctx.fillText(label, lx, ly);
+            }
+            ctx.restore();
+
+            if (selectedId === s.id) {
+              ctx.fillStyle = "#111827";
+              for (let i = 0; i < px.length; i++) drawHandle(ctx, px[i], py[i]);
+            }
+          }
+        }
         // --- Arrow ---
         if (s.type === "arrow") {
           const a = s as ArrowShape;
@@ -574,8 +702,8 @@ export default function DrawingLayer({
           ctx.strokeStyle = color;
           ctx.beginPath();
           ctx.moveTo(x, 0);
-          ctx.lineTo(width, 0); // ensure path starts (noop)
-          ctx.moveTo(x, 0);
+          // ctx.lineTo(width, 0); // ensure path starts (noop)
+          // ctx.moveTo(x, 0);
           ctx.lineTo(x, height);
           ctx.stroke();
         }
@@ -605,6 +733,297 @@ export default function DrawingLayer({
 
       // Draw preview during creation (trendline, ray, rect, etc, arrow, brush)
       if (creating.current) {
+        if ("tool" in creating.current && creating.current.tool === "xabcd") {
+          const placed = creating.current.points ?? [creating.current.p1];
+          const hover = hoverPoint.current;
+          const toXY = (pp: PricePoint) =>
+            [toX(pp.time), toY(pp.price)] as const;
+
+          // 1) Draw solid polyline for already placed points (committed look)
+          if (placed.length >= 2) {
+            ctx.save();
+            ctx.strokeStyle = "#0ea5e9"; // sky-500
+            ctx.lineWidth = 2;
+            const [sx, sy] = toXY(placed[0]);
+            if (sx != null && sy != null) {
+              ctx.beginPath();
+              ctx.moveTo(sx, sy);
+              for (let i = 1; i < placed.length; i++) {
+                const [tx, ty] = toXY(placed[i]);
+                if (tx != null && ty != null) ctx.lineTo(tx, ty);
+              }
+              ctx.stroke();
+            }
+            ctx.restore();
+          }
+
+          // 2) Show point handles + labels for placed points: X, A, B, C, D
+          const names = ["X", "A", "B", "C", "D"];
+          ctx.save();
+          ctx.font = "10px Inter, system-ui, sans-serif";
+          ctx.textBaseline = "bottom";
+          for (let i = 0; i < placed.length; i++) {
+            const [px, py] = toXY(placed[i]);
+            if (px == null || py == null) continue;
+            // handle
+            ctx.fillStyle = "#111827";
+            drawHandle(ctx, px, py);
+            // label box
+            const label = names[i] ?? String(i + 1);
+            const pad = 3;
+            const tw = ctx.measureText(label).width;
+            const th = getFontPx("10px Inter, system-ui, sans-serif");
+            const lx = px + 6,
+              ly = py - 6;
+            ctx.fillStyle = "rgba(0,0,0,0.45)";
+            ctx.fillRect(lx - pad, ly - th - pad, tw + pad * 2, th + pad * 2);
+            ctx.fillStyle = "#fff";
+            ctx.fillText(label, lx, ly);
+          }
+          ctx.restore();
+
+          // 3) Leg length labels (price delta) for COMPLETED legs, and dashed lines
+          const labelLeg = (a: PricePoint, b: PricePoint) => {
+            const [ax, ay] = toXY(a);
+            const [bx, by] = toXY(b);
+            if (ax == null || ay == null || bx == null || by == null) return;
+            // Draw dashed line between a and b
+            ctx.save();
+            ctx.strokeStyle = "#94a3b8";
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([5, 4]);
+            ctx.beginPath();
+            ctx.moveTo(ax, ay);
+            ctx.lineTo(bx, by);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.restore();
+
+            // Draw label as before
+            const mx = (ax + bx) / 2,
+              my = (ay + by) / 2;
+            const dPrice = Math.abs(b.price - a.price);
+            const text = absRound(dPrice);
+            const font = "10px Inter, system-ui, sans-serif";
+            const pad = 3;
+            ctx.save();
+            ctx.font = font;
+            ctx.textBaseline = "bottom";
+            const tw = ctx.measureText(text).width;
+            const th = getFontPx(font);
+            ctx.fillStyle = "rgba(0,0,0,0.45)";
+            ctx.fillRect(
+              mx + 4 - pad,
+              my - 4 - th - pad,
+              tw + pad * 2,
+              th + pad * 2
+            );
+            ctx.fillStyle = "#fff";
+            ctx.fillText(text, mx + 4, my - 4);
+            ctx.restore();
+          };
+          // Show harmonic legs instead of consecutive ones
+          if (placed.length >= 3) labelLeg(placed[0], placed[2]); // X-B
+          if (placed.length >= 4) labelLeg(placed[1], placed[3]); // A-C
+          if (placed.length >= 5) {
+            labelLeg(placed[2], placed[4]); // B-D
+            labelLeg(placed[0], placed[4]); // X-D
+          }
+
+          // Keep first triangle X-A-B filled as soon as B is placed, even while choosing C
+          if (placed.length >= 3) {
+            const toXY = (pp: PricePoint) =>
+              [toX(pp.time), toY(pp.price)] as const;
+            const [x0, y0] = toXY(placed[0]); // X
+            const [x1, y1] = toXY(placed[1]); // A
+            const [x2, y2] = toXY(placed[2]); // B
+            if (
+              x0 != null &&
+              y0 != null &&
+              x1 != null &&
+              y1 != null &&
+              x2 != null &&
+              y2 != null
+            ) {
+              ctx.save();
+              ctx.fillStyle = "rgba(14,165,233,0.10)"; // sky-500 @ 10%
+              ctx.strokeStyle = "rgba(14,165,233,0.35)";
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(x0, y0);
+              ctx.lineTo(x1, y1);
+              ctx.lineTo(x2, y2);
+              ctx.closePath();
+              ctx.fill();
+              ctx.stroke();
+              ctx.restore();
+            }
+          }
+
+          // Triangular fill preview like channel: XA⋄B while placing B; B C ⋄ D while placing D
+          if (hover) {
+            ctx.save();
+            ctx.fillStyle = "rgba(14,165,233,0.10)"; // sky-500 @ 10%
+            ctx.strokeStyle = "rgba(14,165,233,0.35)";
+            ctx.lineWidth = 1;
+
+            if (placed.length === 2) {
+              // Placed: X, A — preview triangle X-A-hover
+              const [xP, aP] = placed;
+              const tri = [xP, aP, hover];
+              const toXY = (pp: PricePoint) =>
+                [toX(pp.time), toY(pp.price)] as const;
+              const [x0, y0] = toXY(tri[0]);
+              const [x1, y1] = toXY(tri[1]);
+              const [x2, y2] = toXY(tri[2]);
+              if (
+                x0 != null &&
+                y0 != null &&
+                x1 != null &&
+                y1 != null &&
+                x2 != null &&
+                y2 != null
+              ) {
+                ctx.beginPath();
+                ctx.moveTo(x0, y0);
+                ctx.lineTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+              }
+            } else if (placed.length === 4) {
+              // Placed: X, A, B, C — preview triangle B-C-hover
+              const [, , bP, cP] = placed; // ignore X,A
+              const tri = [bP, cP, hover];
+              const toXY = (pp: PricePoint) =>
+                [toX(pp.time), toY(pp.price)] as const;
+              const [x0, y0] = toXY(tri[0]);
+              const [x1, y1] = toXY(tri[1]);
+              const [x2, y2] = toXY(tri[2]);
+              if (
+                x0 != null &&
+                y0 != null &&
+                x1 != null &&
+                y1 != null &&
+                x2 != null &&
+                y2 != null
+              ) {
+                ctx.beginPath();
+                ctx.moveTo(x0, y0);
+                ctx.lineTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+              }
+            }
+            ctx.restore();
+          }
+
+          // 4) Preview lines while choosing next point
+          // Rules:
+          // - Choosing A (placed.length === 1): dashed X–A (no label)
+          // - Choosing B (placed.length === 2): dashed A–B (no label) + dashed X–B (with label)
+          // - Choosing C (placed.length === 3): dashed B–C (no label) + dashed A–C (with label)
+          // - Choosing D (placed.length === 4): dashed C–D (no label) + dashed B–D (with label) + dashed X–D (with label)
+          if (hover) {
+            const dash = (pFrom: PricePoint, pTo: PricePoint) => {
+              const [x1, y1] = toXY(pFrom);
+              const [x2, y2] = toXY(pTo);
+              if (x1 == null || y1 == null || x2 == null || y2 == null) return;
+              ctx.save();
+              ctx.strokeStyle = "#94a3b8"; // slate-400
+              ctx.lineWidth = 1.5;
+              ctx.setLineDash([5, 4]);
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
+              ctx.lineTo(x2, y2);
+              ctx.stroke();
+              ctx.setLineDash([]);
+              ctx.restore();
+            };
+
+            const dashWithLabel = (pFrom: PricePoint, pTo: PricePoint) => {
+              const [x1, y1] = toXY(pFrom);
+              const [x2, y2] = toXY(pTo);
+              if (x1 == null || y1 == null || x2 == null || y2 == null) return;
+              // dashed segment
+              ctx.save();
+              ctx.strokeStyle = "#94a3b8";
+              ctx.lineWidth = 1.5;
+              ctx.setLineDash([5, 4]);
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
+              ctx.lineTo(x2, y2);
+              ctx.stroke();
+              ctx.setLineDash([]);
+
+              // label at midpoint (absolute price delta)
+              const mx = (x1 + x2) / 2,
+                my = (y1 + y2) / 2;
+              const dPrice = Math.abs(pTo.price - pFrom.price);
+              const text = absRound(dPrice);
+              const font = "10px Inter, system-ui, sans-serif";
+              const pad = 3;
+              ctx.font = font;
+              ctx.textBaseline = "bottom";
+              const tw = ctx.measureText(text).width;
+              const th = getFontPx(font);
+              ctx.fillStyle = "rgba(0,0,0,0.45)";
+              ctx.fillRect(
+                mx + 4 - pad,
+                my - 4 - th - pad,
+                tw + pad * 2,
+                th + pad * 2
+              );
+              ctx.fillStyle = "#fff";
+              ctx.fillText(text, mx + 4, my - 4);
+              ctx.restore();
+            };
+
+            if (placed.length === 1) {
+              // choosing A: show dashed X–A (no label)
+              dash(placed[0], hover);
+            } else if (placed.length === 2) {
+              // choosing B: dashed A–B (no label) + dashed X–B (with label)
+              dash(placed[1], hover);
+              dashWithLabel(placed[0], hover);
+            } else if (placed.length === 3) {
+              // choosing C: dashed B–C (no label) + dashed A–C (with label)
+              dash(placed[2], hover);
+              dashWithLabel(placed[1], hover);
+            } else if (placed.length === 4) {
+              // choosing D: dashed C–D (no label) + dashed B–D (with label) + dashed X–D (with label)
+              dash(placed[3], hover);
+              dashWithLabel(placed[2], hover);
+              dashWithLabel(placed[0], hover);
+            }
+
+            // 5) Show label for the point currently being chosen at the hover position
+            const nextName = ["X", "A", "B", "C", "D"][placed.length] ?? "D";
+            const hx = toX(hover.time),
+              hy = toY(hover.price);
+            if (hx != null && hy != null) {
+              const font = "10px Inter, system-ui, sans-serif";
+              const pad = 3;
+              ctx.save();
+              ctx.font = font;
+              ctx.textBaseline = "bottom";
+              const tw = ctx.measureText(nextName).width;
+              const th = getFontPx(font);
+              const lx = hx + 6,
+                ly = hy - 6; // small offset from cursor point
+              ctx.fillStyle = "rgba(0,0,0,0.45)";
+              ctx.fillRect(lx - pad, ly - th - pad, tw + pad * 2, th + pad * 2);
+              ctx.fillStyle = "#fff";
+              ctx.fillText(nextName, lx, ly);
+              ctx.restore();
+            }
+          }
+
+          return;
+        }
         if ("tool" in creating.current && creating.current.tool === "arrow") {
           // Arrow preview: draw dashed line from p1 to hover
           const p1 = creating.current.p1;
@@ -881,6 +1300,27 @@ export default function DrawingLayer({
     const list = shapes;
     for (let i = list.length - 1; i >= 0; i--) {
       const s = list[i];
+      if (s.type === "xabcd") {
+        const h = s as XABCDShape;
+        const names = ["x", "a", "b", "c", "d"] as const;
+        const pts = [h.x, h.a, h.b, h.c, h.d];
+        const xy = pts.map((p) => [toX(p.time), toY(p.price)] as const);
+        // endpoint handles first
+        for (let i = 0; i < xy.length; i++) {
+          const [x, y] = xy[i];
+          if (x == null || y == null) continue;
+          if (Math.hypot(mx - x, my - y) <= HANDLE_R + 2)
+            return { kind: "handle", id: s.id, handle: names[i] } as HitTarget;
+        }
+        // segments (move)
+        for (let i = 1; i < xy.length; i++) {
+          const [x1, y1] = xy[i - 1];
+          const [x2, y2] = xy[i];
+          if (x1 == null || y1 == null || x2 == null || y2 == null) continue;
+          if (hitTestLine(mx, my, x1, y1, x2, y2))
+            return { kind: "handle", id: s.id, handle: "move" } as HitTarget;
+        }
+      }
       // Arrow hit test
       if (s.type === "arrow") {
         const a = s as ArrowShape;
@@ -1170,8 +1610,43 @@ export default function DrawingLayer({
       activeTool === "fib" ||
       activeTool === "ellipse" ||
       activeTool === "arrow" ||
-      activeTool === "brush"
+      activeTool === "brush" ||
+      activeTool === "xabcd"
     ) {
+      if (activeTool === "xabcd") {
+        const p = {
+          time: projector.xToTime(mx) ?? 0,
+          price: projector.yToPrice(my) ?? 0,
+        };
+        if (!creating.current) {
+          creating.current = { tool: "xabcd", p1: p, points: [p] };
+        } else {
+          creating.current.points = (creating.current.points ?? []).concat(p);
+        }
+        // finalize after 5 points
+        if ((creating.current.points?.length ?? 0) === 5) {
+          const [x, a, b, c, d] = creating.current.points!;
+          const id = genId();
+          const shape: XABCDShape = {
+            id,
+            type: "xabcd",
+            symbol,
+            interval,
+            x,
+            a,
+            b,
+            c,
+            d,
+            color: "#0ea5e9",
+            width: 2,
+          };
+          upsert(key, shape);
+          creating.current = null;
+          select(id);
+        }
+        setNeedsDraw((n) => n + 1);
+        return;
+      }
       if (activeTool === "hline") {
         // single-click create
         const price = projector.yToPrice(my) ?? 0;
@@ -1445,6 +1920,23 @@ export default function DrawingLayer({
 
       updateById(key, id, (prev: Shape) => {
         const s = { ...prev } as any;
+        if (s.type === "xabcd") {
+          const h = s as XABCDShape;
+          if (dragging.current!.mode === "move") {
+            const dt = t - dragging.current!.anchor.time;
+            const dp = p - dragging.current!.anchor.price;
+            h.x = { time: h.x.time + dt, price: h.x.price + dp };
+            h.a = { time: h.a.time + dt, price: h.a.price + dp };
+            h.b = { time: h.b.time + dt, price: h.b.price + dp };
+            h.c = { time: h.c.time + dt, price: h.c.price + dp };
+            h.d = { time: h.d.time + dt, price: h.d.price + dp };
+            dragging.current!.anchor = { time: t, price: p };
+          } else {
+            const hname = dragging.current!.mode as "x" | "a" | "b" | "c" | "d";
+            (h as any)[hname] = { time: t, price: p };
+          }
+          return h as Shape;
+        }
         if (s.type === "vline") {
           s.time = t;
           return s as Shape;
@@ -1727,7 +2219,33 @@ export default function DrawingLayer({
       <canvas
         ref={canvasRef}
         className="w-full h-full"
-        style={{ cursor: overlayInteractive ? "pointer" : "default" }}
+        style={{
+          cursor: (() => {
+            // Drawing tools that use crosshair
+            const drawingTools = [
+              "trendline",
+              "ray",
+              "rect",
+              "range",
+              "channel",
+              "fib",
+              "ellipse",
+              "arrow",
+              "brush",
+              "vline",
+              "text",
+              "hline",
+              "xabcd",
+            ];
+            if (drawingTools.includes(activeTool as string)) {
+              return "crosshair";
+            } else if (overlayInteractive) {
+              return "pointer";
+            } else {
+              return "default";
+            }
+          })(),
+        }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
