@@ -25,23 +25,18 @@ def build_strategy(cfg: StrategyConfigDTO):
             
             def ensure_indicator_attribute(side: Side) -> str:
                 attr_name = get_attr_name(side)
-                print(attr_name)
                 if not hasattr(self, attr_name):
-                    print(f"Creating attribute: {attr_name}")
                     if side.type == "CONST":
                         setattr(self, attr_name, np.full(len(self.data.Close), side.const))
                     else:
-                        print(f"Creating indicator for {side.type} with window {side.window}")
                         ind = IndicatorFactory.create(side.type, side.window)
                         fn, args = ind.bt_callable()
-                        print(f"Indicator function: {fn}, args: {args}")
                         indicator_proxy = self.I(fn, self.data.Close, *args)
                         setattr(self, attr_name, indicator_proxy)
                 return attr_name
 
             cnt = 0
             for rule in cfg.rules:
-                print(f"Processing rule: {cnt}")
                 lk_attr = ensure_indicator_attribute(rule.left)
                 rk_attr = ensure_indicator_attribute(rule.right)
                 method = MethodFactory.create(rule.op)
@@ -53,10 +48,8 @@ def build_strategy(cfg: StrategyConfigDTO):
         def _has_nan_for_rules(self, rule_ids):
             for rid in rule_ids:
                 method, lk_key, rk_key = self._rules[rid]
-                print(f"Checking rule {rid}: {method.name}, lk: {lk_key}, rk: {rk_key}")
                 lk_val = getattr(self, lk_key)[-1]
                 rk_val = getattr(self, rk_key)[-1]
-                print(f"Values - lk: {lk_val}, rk: {rk_val}")
                 if not np.isfinite(lk_val) or not np.isfinite(rk_val):
                     return True
             return False

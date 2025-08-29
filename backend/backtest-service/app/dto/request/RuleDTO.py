@@ -1,7 +1,8 @@
 
 
 from dataclasses import dataclass
-from websockets import Side
+from app.dto.request.Side import Side
+
 
 
 @dataclass
