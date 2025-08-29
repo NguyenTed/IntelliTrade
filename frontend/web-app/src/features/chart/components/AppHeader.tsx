@@ -10,7 +10,7 @@ type Props = {
   activeInterval?: Interval;
   layout: LayoutMode;
   onLayoutChange: (m: LayoutMode) => void;
-  onRequestChangeSymbol: () => void; // will open a modal later
+  onRequestOpenSymbolModal?: () => void; // open symbol search modal
 
   // Header-level controls for the ACTIVE chart
   onChangeActiveInterval: (i: Interval) => void;
@@ -30,7 +30,7 @@ export default function AppHeader({
   activeInterval,
   layout,
   onLayoutChange,
-  onRequestChangeSymbol,
+  onRequestOpenSymbolModal,
   onChangeActiveInterval,
   indicatorState,
   onToggleIndicator,
@@ -43,8 +43,10 @@ export default function AppHeader({
       <div className="flex items-center gap-2">
         <button
           className="px-3 py-1.5 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-medium"
-          onClick={onRequestChangeSymbol}
+          onClick={onRequestOpenSymbolModal}
           title="Change symbol"
+          aria-haspopup="dialog"
+          aria-expanded={false}
         >
           {activeSymbol ?? "—"}
         </button>

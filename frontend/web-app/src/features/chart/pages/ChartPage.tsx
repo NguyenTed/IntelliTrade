@@ -5,6 +5,7 @@ import ChartPanel from "../components/ChartPanel";
 import type { Interval } from "../store/chart.store";
 import type { LayoutMode } from "../components/LayoutToggle";
 import RightSidebar from "../components/RightSideBar";
+import SymbolModal from "../components/SymbolModal";
 
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
 
@@ -85,6 +86,7 @@ export default function ChartPage() {
   // active panel selection
   const [activeId, setActiveId] = useState(0);
   const activePanel = panels.find((p) => p.id === activeId) ?? panels[0];
+  const [isSymbolModalOpen, setSymbolModalOpen] = useState(false);
 
   const handleChangeActiveChartType = (t: ChartType) => {
     setPanels((prev) =>
@@ -149,14 +151,7 @@ export default function ChartPage() {
         activeInterval={activePanel?.interval}
         layout={layout}
         onLayoutChange={setLayout}
-        onRequestChangeSymbol={() => {
-          // TODO: open symbol modal later. For now, simple toggle for demo
-          if (!activePanel) return;
-          handleChangeSymbol(
-            activePanel.id,
-            activePanel.symbol === "BTCUSDT" ? "XRPUSDT" : "BTCUSDT"
-          );
-        }}
+        onRequestOpenSymbolModal={() => setSymbolModalOpen(true)}
         onChangeActiveInterval={handleChangeActiveInterval}
         indicatorState={{
           ema20: !!activePanel?.showEMA20,
@@ -196,6 +191,15 @@ export default function ChartPage() {
 
         <RightSidebar />
       </div>
+      <SymbolModal
+        open={isSymbolModalOpen}
+        onClose={() => setSymbolModalOpen(false)}
+        onPick={(next) => {
+          if (!activePanel) return;
+          handleChangeSymbol(activePanel.id, next);
+          setSymbolModalOpen(false);
+        }}
+      />
     </div>
   );
 }
