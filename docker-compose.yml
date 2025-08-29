@@ -90,6 +90,14 @@ services:
 
     depends_on:
       - redis
+  backtest-service:
+    build: ./backend/backtest-service
+    ports:
+      - "5005:5005"
+    environment:
+      - MARKET_SERVICE_BASE_URL=http://market-service:8085
+    depends_on:
+      - market-service
   crawler-service:
     build: ./backend/crawler-service
     depends_on:

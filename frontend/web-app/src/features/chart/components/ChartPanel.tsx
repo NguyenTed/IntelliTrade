@@ -75,6 +75,7 @@ export default function ChartPanel({
       {/* Chart canvas fills the whole panel */}
       <div className="absolute inset-0">
         <LWChartContainer
+          chartId={id}
           symbol={symbol}
           interval={interval}
           chartType={chartType}
@@ -82,6 +83,7 @@ export default function ChartPanel({
           showSMA50={showSMA50}
           showVolume={showVolume}
           onHover={setHover}
+          editable={active}
         />
       </div>
     </div>

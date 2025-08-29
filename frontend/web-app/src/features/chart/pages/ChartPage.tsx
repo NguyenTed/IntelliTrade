@@ -1,10 +1,12 @@
 import { useMemo, useState, useEffect } from "react";
 import AppHeader from "../components/AppHeader";
-import LeftTools from "../components/LeftTools";
+import LeftToolBar from "../components/LeftToolBar";
 import ChartPanel from "../components/ChartPanel";
 import type { Interval } from "../store/chart.store";
 import type { LayoutMode } from "../components/LayoutToggle";
 import RightSidebar from "../components/RightSideBar";
+import SymbolModal from "../components/SymbolModal";
+import { fetchSymbols, type MarketSymbol } from "../api/market";
 
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
 
@@ -23,16 +25,17 @@ function initialPanels(n: number): PanelState[] {
   const seeds = [
     { id: 0, symbol: "BTCUSDT", interval: "1m" },
     { id: 1, symbol: "ETHUSDT", interval: "1m" },
-    { id: 2, symbol: "AAPL", interval: "1m" },
-    { id: 3, symbol: "MSFT", interval: "1m" },
+    { id: 2, symbol: "LINKUSDT", interval: "1m" },
+    { id: 3, symbol: "SOLUSDT", interval: "1m" },
   ];
+
   return Array.from({ length: n }).map((_, i) => ({
     id: i,
     symbol: seeds[i]?.symbol ?? seeds[0].symbol,
     interval: seeds[i]?.interval ?? seeds[0].interval,
-    showEMA20: true,
-    showSMA50: true,
-    showVolume: true,
+    showEMA20: false,
+    showSMA50: false,
+    showVolume: false,
     chartType: "candles",
   }));
 }
@@ -84,6 +87,30 @@ export default function ChartPage() {
   // active panel selection
   const [activeId, setActiveId] = useState(0);
   const activePanel = panels.find((p) => p.id === activeId) ?? panels[0];
+  const [isSymbolModalOpen, setSymbolModalOpen] = useState(false);
+  const [symbols, setSymbols] = useState<MarketSymbol[]>([]);
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const list = await fetchSymbols();
+        if (alive) setSymbols(list);
+      } catch (_) {
+        // ignore; header can still render without icons
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const activeSymbolImgs = useMemo(() => {
+    const s = activePanel?.symbol;
+    if (!s) return undefined;
+    const hit = symbols.find((m) => m.name === s);
+    return hit?.symbolImgs;
+  }, [symbols, activePanel?.symbol]);
 
   const handleChangeActiveChartType = (t: ChartType) => {
     setPanels((prev) =>
@@ -141,21 +168,15 @@ export default function ChartPage() {
   };
 
   return (
-    <div className="h-[calc(100vh-2rem)] w-full mx-auto max-w-[1800px] p-4 flex flex-col bg-white">
+    <div className="h-[calc(100vh-2rem)] w-full mx-auto max-w-[1800px] p-2 flex flex-col bg-white">
       {/* HEADER */}
       <AppHeader
         activeSymbol={activePanel?.symbol}
+        activeSymbolImgs={activeSymbolImgs}
         activeInterval={activePanel?.interval}
         layout={layout}
         onLayoutChange={setLayout}
-        onRequestChangeSymbol={() => {
-          // TODO: open symbol modal later. For now, simple toggle for demo
-          if (!activePanel) return;
-          handleChangeSymbol(
-            activePanel.id,
-            activePanel.symbol === "BTCUSDT" ? "ETHUSDT" : "BTCUSDT"
-          );
-        }}
+        onRequestOpenSymbolModal={() => setSymbolModalOpen(true)}
         onChangeActiveInterval={handleChangeActiveInterval}
         indicatorState={{
           ema20: !!activePanel?.showEMA20,
@@ -169,7 +190,7 @@ export default function ChartPage() {
 
       {/* BODY: left tools | grid | right sidebar */}
       <div className="flex-1 min-h-0 flex">
-        <LeftTools />
+        <LeftToolBar />
 
         <div className="flex-1 min-h-0">
           <div className={`grid gap-3 flex-1 min-h-[100%] ${gridClass}`}>
@@ -195,6 +216,15 @@ export default function ChartPage() {
 
         <RightSidebar />
       </div>
+      <SymbolModal
+        open={isSymbolModalOpen}
+        onClose={() => setSymbolModalOpen(false)}
+        onPick={(next) => {
+          if (!activePanel) return;
+          handleChangeSymbol(activePanel.id, next);
+          setSymbolModalOpen(false);
+        }}
+      />
     </div>
   );
 }
