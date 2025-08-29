@@ -17,6 +17,7 @@ from db.models.news_model import find_news_by_id
 from db.models.symbol_model import insert_symbol
 from db.models.tag_model import insert_tag
 from db.models.comment_model import insert_comment
+from urllib.parse import urlparse
 from bson import ObjectId
 
 IGNORE_TAGS = {'script', 'style', 'meta', 'link', 'noscript', 'svg'}
@@ -31,7 +32,11 @@ class TradingViewPredictor(BasePredictor):
         result = PredictedArticleSchema(url=idea.url)
         soup = BeautifulSoup(html, "lxml")
         tags = soup.find_all(True)
-        symbol: SymbolSchema = SymbolSchema(name="", source=ArticleType.TRADINGVIEW.value)
+        
+        # Extract symbol name from url:
+        symbol: SymbolSchema = SymbolSchema(name="", description="", source=ArticleType.TRADINGVIEW.value)
+        path_parts = urlparse(idea.url).path.strip("/").split("/")
+        symbol.name = path_parts[1]
 
         for tag in tags:
             if tag.name in IGNORE_TAGS:
@@ -60,7 +65,7 @@ class TradingViewPredictor(BasePredictor):
                     if child_text:
                         result.content.append(child_text)
             elif label == "symbol":
-                symbol.name = text
+                symbol.description = text
             elif label == "symbolImage":
                 src = tag.get("src")
                 if not src:
@@ -153,7 +158,7 @@ class TradingViewPredictor(BasePredictor):
             elif label == "symbol":
                 for a in tag.find_all("a", href=True):
                     name = a.get_text(strip=True)  # lấy "META", "MSFT", ...
-                    symbol = SymbolSchema(name=name, source=ArticleType.TRADINGVIEW.value)
+                    symbol = SymbolSchema(name=name, description="", source=ArticleType.TRADINGVIEW.value)
                     symbols.append(symbol)
             elif label == "symbolContainer":
                 for a in tag.find_all("a", href=True):

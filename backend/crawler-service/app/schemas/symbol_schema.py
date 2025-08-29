@@ -5,7 +5,8 @@ from bson import ObjectId
 
 class SymbolSchema(BaseModel):
     id: Optional[ObjectId] = Field(default=None, alias="_id")
-    name: str
+    name: Optional[str] = None
+    description: Optional[str] = None
     source: ArticleType
     symbolImgs: Optional[list[str]] = []
 
