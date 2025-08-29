@@ -8,13 +8,17 @@ import IdeasPage from "./features/articles/pages/IdeasPage";
 import IdeasDetailPage from "./features/articles/pages/IdeasDetailPage";
 import NewsPage from "./features/articles/pages/NewsPage";
 import NewsDetailPage from "./features/articles/pages/NewsDetailPage";
+import LandingPage from "./shared/pages/LandingPage";
+import ProfilePage from "./shared/pages/ProfilePage";
 
 export const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/chart" element={<ChartingPage />} />
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/vnpay/callback" element={<VNPayCallback />} />
         <Route path="/payment/subscription" element={<SubscriptionPlans />} />

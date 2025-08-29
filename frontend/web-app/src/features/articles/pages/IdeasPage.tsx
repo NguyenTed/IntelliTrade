@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { PageResponse } from "../model/IPage";
 import type { IArticles } from "../model/IArticles";
 import { getTradingViewIdeasPaged } from "../api/GetIdeasApi";
 import { useSearchParams } from "react-router-dom";
 import { IdeaCard } from "../components/ideas/IdeaCard";
 import { Pagination } from "../components/Pagination";
+import Header from "@/shared/layouts/Header";
+import Footer from "@/shared/layouts/Footer";
 
 export default function IdeasPage() {
+  const whiteSectionRef = useRef<HTMLDivElement | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState<PageResponse<IArticles>>(
     {} as PageResponse<IArticles>
@@ -35,44 +38,51 @@ export default function IdeasPage() {
   }, [page]);
 
   return (
-    <div className="max-w-full mx-auto px-[20px] py-8">
-      <h1 className="text-[50px] font-bold mb-4 text-center ">
-        Community ideas
-      </h1>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+    <div>
+      <Header whiteSectionRef={whiteSectionRef} />
+      <div
+        ref={whiteSectionRef}
+        className="max-w-full mx-auto px-[20px] py-8 mt-6"
+      >
+        <h1 className="text-[50px] font-bold mb-4 text-center ">
+          Community ideas
+        </h1>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {(loading ? Array.from({ length: 8 }) : data.content).map(
-          (item: any, idx) =>
-            loading ? (
-              <div
-                key={idx}
-                className="animate-pulse bg-gray-100 rounded shadow overflow-hidden"
-              >
-                <div className="h-40 bg-gray-300" />
-                <div className="p-4 space-y-2">
-                  <div className="h-4 bg-gray-300 w-3/4 rounded" />
-                  <div className="h-3 bg-gray-300 w-full rounded" />
-                  <div className="h-3 bg-gray-300 w-5/6 rounded" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {(loading ? Array.from({ length: 8 }) : data.content).map(
+            (item: any, idx) =>
+              loading ? (
+                <div
+                  key={idx}
+                  className="animate-pulse bg-gray-100 rounded shadow overflow-hidden"
+                >
+                  <div className="h-40 bg-gray-300" />
+                  <div className="p-4 space-y-2">
+                    <div className="h-4 bg-gray-300 w-3/4 rounded" />
+                    <div className="h-3 bg-gray-300 w-full rounded" />
+                    <div className="h-3 bg-gray-300 w-5/6 rounded" />
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div>
-                <IdeaCard key={item.id} item={item} />
-              </div>
-            )
-        )}
-      </div>
+              ) : (
+                <div>
+                  <IdeaCard key={item.id} item={item} />
+                </div>
+              )
+          )}
+        </div>
 
-      <Pagination
-        currentPage={page}
-        totalPages={data.totalPages}
-        onPageChange={(newPage) =>
-          setSearchParams({ page: newPage.toString() })
-        }
-        hasNext={data.hasNext}
-        hasPrevious={data.hasPrevious}
-      />
+        <Pagination
+          currentPage={page}
+          totalPages={data.totalPages}
+          onPageChange={(newPage) =>
+            setSearchParams({ page: newPage.toString() })
+          }
+          hasNext={data.hasNext}
+          hasPrevious={data.hasPrevious}
+        />
+      </div>
+      <Footer />
     </div>
   );
 }
