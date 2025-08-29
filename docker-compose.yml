@@ -2,6 +2,22 @@ version: '3.8'
 name: intelli-trade
 
 services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - appnet
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
   mysql:
     image: mysql:9.3.0
     restart: always
@@ -67,13 +83,21 @@ services:
     environment:
       - SPRING_DATA_REDIS_HOST=redis
       - SPRING_DATA_REDIS_PORT=6379
-      - MONGO_URI=${MONGO_URI_MARKET}
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-      - MONGO_DB_MARKET=${MONGO_DB_MARKET}
+      - MONGO_URI=mongodb://huy37204:huy37204@mongo:27017/market_service?authSource=admin
+      - MONGO_INITDB_ROOT_USERNAME=huy37204
+      - MONGO_INITDB_ROOT_PASSWORD=huy37204
+      - MONGO_DB_MARKET=market_service
 
     depends_on:
       - redis
+  backtest-service:
+    build: ./backend/backtest-service
+    ports:
+      - "5005:5005"
+    environment:
+      - MARKET_SERVICE_BASE_URL=http://market-service:8085
+    depends_on:
+      - market-service
   crawler-service:
     build: ./backend/crawler-service
     depends_on:
@@ -86,6 +110,52 @@ services:
     volumes:
       - crawler_state:/var/lib/crawler
 
+  # WebSocket Gateway
+  websocket-gateway:
+    build:
+      context: ./backend/websocket-gateway
+      dockerfile: Dockerfile
+    image: websocket-gateway:latest
+    environment:
+      - MassageBrokerConnections__HostName=rabbitmq
+      - MassageBrokerConnections__Port=5672
+    networks:
+      - appnet
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Finance Socket Service
+  finance-socket:
+    build:
+      context: ./backend/finance-Socket
+      dockerfile: Dockerfile
+    image: finance-socket:latest
+    ports:
+      - "6002:8080"
+    environment:
+      - MassageBrokerConnections__HostName=rabbitmq
+      - MassageBrokerConnections__Port=5672
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - appnet
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    ports:
+      - "6001:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - websocket-gateway
+    networks:
+      - appnet
+
 volumes:
   mysql-data:
   neo4j-data:
@@ -93,3 +163,8 @@ volumes:
   kafka_data:
   mongo_data:
   crawler_state:
+  rabbitmq_data:
+
+networks:
+  appnet:
+    driver: bridge

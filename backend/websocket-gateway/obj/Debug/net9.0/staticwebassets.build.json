@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "vH1wNJ/iuXLpteuEJnv+AJ40cxNlfM3coAw1I9XBwG8=",
+  "Source": "websocket-gateway",
+  "BasePath": "_content/websocket-gateway",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

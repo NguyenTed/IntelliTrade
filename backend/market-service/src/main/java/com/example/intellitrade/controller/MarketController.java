@@ -55,8 +55,8 @@ public class MarketController {
      * Lịch sử nến: mặc định 1000 nến, có thể truyền endTime (ms) để phân trang lùi.
      * Ví dụ: GET /api/market/history?symbol=BTCUSDT&interval=1m&limit=1000
      */
-    @GetMapping("/history/{symbol}")
-    public Flux<CandleDto> history(@PathVariable String symbol,
+    @GetMapping("/history")
+    public Flux<CandleDto> history(@RequestParam String symbol,
                                    @RequestParam String interval,
                                    @RequestParam(defaultValue = "1000") int limit,
                                    @RequestParam(required = false) Long startTime,

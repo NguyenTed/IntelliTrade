@@ -8,6 +8,12 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": { target: "http://localhost:8888", changeOrigin: true },
+      // ✅ Proxy SignalR hub for dev (HTTP negotiate + WS upgrades)
+      "/stocks-feed": {
+        target: "http://localhost:6001",
+        changeOrigin: true,
+        ws: true,
+      },
     },
   },
 });
