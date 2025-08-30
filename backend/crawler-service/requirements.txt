@@ -8,3 +8,8 @@ joblib
 flask
 pymongo
 pydantic
+transformers
+torch
+protobuf
+tiktoken
+sentencepiece 

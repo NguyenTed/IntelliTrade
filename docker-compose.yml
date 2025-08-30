@@ -83,10 +83,10 @@ services:
     environment:
       - SPRING_DATA_REDIS_HOST=redis
       - SPRING_DATA_REDIS_PORT=6379
-      - MONGO_URI=${MONGO_URI_MARKET}
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-      - MONGO_DB_MARKET=${MONGO_DB_MARKET}
+      - MONGO_URI=mongodb://huy37204:huy37204@mongo:27017/market_service?authSource=admin
+      - MONGO_INITDB_ROOT_USERNAME=huy37204
+      - MONGO_INITDB_ROOT_PASSWORD=huy37204
+      - MONGO_DB_MARKET=market_service
 
     depends_on:
       - redis

@@ -7,6 +7,10 @@ import type { LayoutMode } from "../components/LayoutToggle";
 import RightSidebar from "../components/RightSideBar";
 import SymbolModal from "../components/SymbolModal";
 import { fetchSymbols, type MarketSymbol } from "../api/market";
+import { useBacktest } from "../hooks/useBacktest";
+import BacktestResults from "../components/BacktestResult";
+import BacktestModal from "../components/BacktestModal";
+import BacktestStatsModal from "../components/BacktestStatsModal";
 
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
 
@@ -89,6 +93,8 @@ export default function ChartPage() {
   const activePanel = panels.find((p) => p.id === activeId) ?? panels[0];
   const [isSymbolModalOpen, setSymbolModalOpen] = useState(false);
   const [symbols, setSymbols] = useState<MarketSymbol[]>([]);
+  const [backtestOpen, setBacktestOpen] = useState(false);
+  const [statsOpen, setStatsOpen] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -111,6 +117,18 @@ export default function ChartPage() {
     const hit = symbols.find((m) => m.name === s);
     return hit?.symbolImgs;
   }, [symbols, activePanel?.symbol]);
+
+  const {
+    loading: btLoading,
+    error: btError,
+    result: btResult,
+    run: runBacktest,
+    reset: resetBacktest,
+    lastConfig,
+  } = useBacktest(
+    activePanel?.symbol ?? "",
+    activePanel?.interval ?? ("1m" as Interval)
+  );
 
   const handleChangeActiveChartType = (t: ChartType) => {
     setPanels((prev) =>
@@ -186,14 +204,15 @@ export default function ChartPage() {
         onToggleIndicator={handleToggleIndicator}
         activeChartType={activePanel?.chartType ?? "candles"}
         onChangeActiveChartType={handleChangeActiveChartType}
+        onRequestOpenBacktest={() => setBacktestOpen(true)}
       />
 
       {/* BODY: left tools | grid | right sidebar */}
       <div className="flex-1 min-h-0 flex">
         <LeftToolBar />
 
-        <div className="flex-1 min-h-0">
-          <div className={`grid gap-3 flex-1 min-h-[100%] ${gridClass}`}>
+        <div className="flex-1 min-h-0 grid grid-rows-[1fr_auto]">
+          <div className={`grid gap-3 min-h-[100%] ${gridClass}`}>
             {panels.map((p) => (
               <div key={p.id} className="min-h-0">
                 <ChartPanel
@@ -212,10 +231,30 @@ export default function ChartPage() {
               </div>
             ))}
           </div>
+
+          {/* Backtest messages & results go UNDER the chart grid (center column only) */}
+          <>
+            {btError ? (
+              <div className="px-4 py-2 text-sm text-rose-600">{btError}</div>
+            ) : null}
+            {btLoading ? (
+              <div className="px-4 py-2 text-sm text-neutral-500">
+                Running backtest…
+              </div>
+            ) : null}
+            {btResult && (
+              <BacktestResults
+                data={btResult}
+                onOpenStats={() => setStatsOpen(true)}
+                onClose={() => resetBacktest()} // hides the table
+              />
+            )}
+          </>
         </div>
 
         <RightSidebar />
       </div>
+
       <SymbolModal
         open={isSymbolModalOpen}
         onClose={() => setSymbolModalOpen(false)}
@@ -224,6 +263,29 @@ export default function ChartPage() {
           handleChangeSymbol(activePanel.id, next);
           setSymbolModalOpen(false);
         }}
+      />
+      <BacktestModal
+        open={backtestOpen}
+        onClose={() => setBacktestOpen(false)}
+        symbol={activePanel.symbol}
+        interval={activePanel.interval}
+        defaultStart={(lastConfig?.startTime as string) || undefined}
+        defaultEnd={(lastConfig?.endTime as string) || undefined}
+        defaultLots={(lastConfig?.lots as number) || undefined}
+        defaultSlPct={(lastConfig?.slPct as number) || undefined}
+        defaultTpPct={(lastConfig?.tpPct as number) || undefined}
+        defaultRules={(lastConfig?.rules as any) || undefined}
+        defaultBuy={(lastConfig?.buyCondition as string) || undefined}
+        defaultSell={(lastConfig?.sellCondition as string) || undefined}
+        onSubmit={async (req) => {
+          await runBacktest(req);
+          setBacktestOpen(false);
+        }}
+      />
+      <BacktestStatsModal
+        open={statsOpen}
+        onClose={() => setStatsOpen(false)}
+        stats={btResult?.stats ?? null}
       />
     </div>
   );

@@ -12,7 +12,7 @@ from app.schemas.news_chema import NewsSchema
 from app.schemas.predicted_article_schema import PredictedArticleSchema
 from db.models.idea_model import find_all_ideas, update_predicted_idea
 from db.models.news_model import find_all_news, update_predicted_news
-from db.models.predicted_idea_model import insert_predicted_article
+from db.models.predicted_article_model import insert_predicted_article
 
 class PredictManager():
     def get_predictor(self, source: ArticleType):

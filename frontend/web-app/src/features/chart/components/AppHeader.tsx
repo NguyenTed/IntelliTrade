@@ -21,6 +21,8 @@ type Props = {
   // Chart type control for the ACTIVE chart
   activeChartType: ChartType;
   onChangeActiveChartType: (t: ChartType) => void;
+
+  onRequestOpenBacktest?: () => void;
 };
 
 const FRAMES: Interval[] = ["1m", "5m", "15m", "1h", "4h", "1d", "1w", "1M"];
@@ -38,6 +40,7 @@ export default function AppHeader({
   onToggleIndicator,
   activeChartType,
   onChangeActiveChartType,
+  onRequestOpenBacktest,
 }: Props) {
   return (
     <div className="sticky top-0 z-40 flex items-center gap-4 px-4 pt-1 pb-3 bg-white/80 backdrop-blur">
@@ -53,9 +56,6 @@ export default function AppHeader({
           <SymbolAvatar imgs={activeSymbolImgs} symbol={activeSymbol} />
           <span className="tracking-wide">{activeSymbol ?? "—"}</span>
         </button>
-        <span className="px-2 py-1 rounded-md bg-neutral-100 text-neutral-700 text-xs border border-neutral-200">
-          {activeInterval ?? ("—" as any)}
-        </span>
       </div>
 
       {/* Interval dropdown */}
@@ -67,11 +67,12 @@ export default function AppHeader({
           </>
         }
       >
-        <div className="grid grid-cols-4 gap-2 p-2 w-64">
+        <div className="p-2 w-24 space-y-1">
           {FRAMES.map((f) => (
             <MenuButton
               key={f}
               active={activeInterval === f}
+              icon={frameIcon(f)}
               onClick={() => onChangeActiveInterval(f)}
             >
               {f}
@@ -88,7 +89,7 @@ export default function AppHeader({
           </>
         }
       >
-        <div className="flex flex-col p-2 min-w-[200px] gap-1">
+        <div className="flex flex-col p-2 w-33 gap-1">
           <CheckboxRow
             label="EMA20"
             checked={indicatorState.ema20}
@@ -107,7 +108,7 @@ export default function AppHeader({
         </div>
       </Dropdown>
 
-      {/* Chart type dropdown */}
+      {/* Chart type dropdown (one column with icons) */}
       <Dropdown
         label={
           <>
@@ -116,16 +117,42 @@ export default function AppHeader({
           </>
         }
       >
-        <div className="grid grid-cols-3 gap-2 p-2 w-64">
-          {TYPES.map((t) => (
-            <MenuButton
-              key={t}
-              active={activeChartType === t}
-              onClick={() => onChangeActiveChartType(t)}
-            >
-              {capitalize(t)}
-            </MenuButton>
-          ))}
+        <div className="p-2 w-31 space-y-1">
+          <MenuButton
+            active={activeChartType === "candles"}
+            icon={<IconCandles />}
+            onClick={() => onChangeActiveChartType("candles")}
+          >
+            Candles
+          </MenuButton>
+          <MenuButton
+            active={activeChartType === "bars"}
+            icon={<IconBars />}
+            onClick={() => onChangeActiveChartType("bars")}
+          >
+            Bars
+          </MenuButton>
+          <MenuButton
+            active={activeChartType === "line"}
+            icon={<IconLine />}
+            onClick={() => onChangeActiveChartType("line")}
+          >
+            Line
+          </MenuButton>
+          <MenuButton
+            active={activeChartType === "area"}
+            icon={<IconArea />}
+            onClick={() => onChangeActiveChartType("area")}
+          >
+            Area
+          </MenuButton>
+          <MenuButton
+            active={activeChartType === "baseline"}
+            icon={<IconBaseline />}
+            onClick={() => onChangeActiveChartType("baseline")}
+          >
+            Baseline
+          </MenuButton>
         </div>
       </Dropdown>
 
@@ -137,10 +164,61 @@ export default function AppHeader({
           </>
         }
       >
-        <div className="p-2">
-          <LayoutToggle mode={layout} onChange={onLayoutChange} />
+        <div className="p-2 w-44 space-y-1">
+          <MenuButton
+            active={layout === "1"}
+            icon={<IconLayout1 />}
+            onClick={() => onLayoutChange("1")}
+          >
+            Single
+          </MenuButton>
+          <MenuButton
+            active={layout === "2v"}
+            icon={<IconLayout2v />}
+            onClick={() => onLayoutChange("2v")}
+          >
+            2-Up (Vertical)
+          </MenuButton>
+          <MenuButton
+            active={layout === "2h"}
+            icon={<IconLayout2h />}
+            onClick={() => onLayoutChange("2h")}
+          >
+            2-Up (Horizontal)
+          </MenuButton>
+          <MenuButton
+            active={layout === "3h"}
+            icon={<IconLayout3h />}
+            onClick={() => onLayoutChange("3h")}
+          >
+            3-Up (Row)
+          </MenuButton>
+          <MenuButton
+            active={layout === "3v"}
+            icon={<IconLayout3v />}
+            onClick={() => onLayoutChange("3v")}
+          >
+            3-Up (Column)
+          </MenuButton>
+          <MenuButton
+            active={layout === "4"}
+            icon={<IconLayout4 />}
+            onClick={() => onLayoutChange("4")}
+          >
+            2 × 2 Grid
+          </MenuButton>
         </div>
       </Dropdown>
+
+      {/* Backtest trigger */}
+      <button
+        onClick={onRequestOpenBacktest}
+        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800 shadow-sm"
+        title="Run backtest on active chart"
+      >
+        <IconPlay className="shrink-0" />
+        Backtest
+      </button>
     </div>
   );
 }
@@ -196,22 +274,25 @@ function MenuButton({
   active,
   onClick,
   children,
+  icon,
 }: {
   active?: boolean;
   onClick: () => void;
   children: React.ReactNode;
+  icon?: React.ReactNode;
 }) {
   return (
     <button
       onClick={onClick}
-      className={`px-2.5 py-1.5 rounded-md text-sm border transition text-center truncate ${
+      className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-sm border transition text-left truncate ${
         active
           ? "bg-neutral-100 text-neutral-900 border-neutral-300 shadow-inner"
           : "bg-white text-neutral-700 hover:text-neutral-900 border-neutral-200 hover:bg-neutral-50"
       }`}
       title={typeof children === "string" ? children : undefined}
     >
-      {children}
+      {icon ? <span className="shrink-0 text-[1rem]">{icon}</span> : null}
+      <span className="truncate">{children}</span>
     </button>
   );
 }
@@ -377,6 +458,314 @@ function IconTag(props: React.SVGProps<SVGSVGElement>) {
     >
       <path d="M20.59 13.41L12 22l-7.59-7.59A2 2 0 014 12V4h8a2 2 0 011.41.59l7.18 7.18a2 2 0 010 2.83z" />
       <circle cx="7.5" cy="7.5" r="1.5" />
+    </svg>
+  );
+}
+
+/* New icons for chart types */
+function IconBars(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M6 4v16M10 8v8M14 5v14M18 7v10" />
+    </svg>
+  );
+}
+function IconLine(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M3 17l6-6 4 3 7-8" />
+    </svg>
+  );
+}
+function IconArea(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M3 17h18" />
+      <path
+        d="M3 17l6-6 4 3 8-9v12H3z"
+        fill="currentColor"
+        opacity="0.15"
+        stroke="none"
+      />
+      <path d="M3 17l6-6 4 3 8-9" />
+    </svg>
+  );
+}
+function IconBaseline(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M3 15h18" />
+      <path d="M3 15l5-5 4 2 6-7" />
+    </svg>
+  );
+}
+function IconLayout1(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+    </svg>
+  );
+}
+function IconLayout2v(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="3" y="4" width="8" height="16" rx="1" />
+      <rect x="13" y="4" width="8" height="16" rx="1" />
+    </svg>
+  );
+}
+function IconLayout2h(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="4" y="3" width="16" height="8" rx="1" />
+      <rect x="4" y="13" width="16" height="8" rx="1" />
+    </svg>
+  );
+}
+function IconLayout3h(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="2.5" y="4" width="6.5" height="16" rx="1" />
+      <rect x="9.25" y="4" width="6.5" height="16" rx="1" />
+      <rect x="16" y="4" width="6.5" height="16" rx="1" />
+    </svg>
+  );
+}
+function IconLayout3v(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="4" y="2.5" width="16" height="6.5" rx="1" />
+      <rect x="4" y="9.25" width="16" height="6.5" rx="1" />
+      <rect x="4" y="16" width="16" height="6.5" rx="1" />
+    </svg>
+  );
+}
+function IconLayout4(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="3" y="3" width="8" height="8" rx="1" />
+      <rect x="13" y="3" width="8" height="8" rx="1" />
+      <rect x="3" y="13" width="8" height="8" rx="1" />
+      <rect x="13" y="13" width="8" height="8" rx="1" />
+    </svg>
+  );
+}
+
+function IconTimeMin(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 12l4-2" />
+      <path d="M12 7v5" />
+    </svg>
+  );
+}
+function IconTimeHour(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 12l3 2" />
+      <path d="M12 6v6" />
+    </svg>
+  );
+}
+function IconTimeDay(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M3 9h18" />
+    </svg>
+  );
+}
+function IconTimeWeek(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M3 9h18" />
+      <path d="M8 9v11" />
+      <path d="M16 9v11" />
+    </svg>
+  );
+}
+function IconTimeMonth(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M3 9h18" />
+      <path d="M7 13h10" />
+      <path d="M7 17h6" />
+    </svg>
+  );
+}
+
+function frameIcon(f: Interval) {
+  if (f === "1m" || f === "5m" || f === "15m") return <IconTimeMin />;
+  if (f === "1h" || f === "4h") return <IconTimeHour />;
+  if (f === "1d") return <IconTimeDay />;
+  if (f === "1w") return <IconTimeWeek />;
+  return <IconTimeMonth />; // 1M
+}
+
+function IconPlay(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="currentColor"
+      {...props}
+    >
+      <path d="M8 5v14l11-7z" />
     </svg>
   );
 }
