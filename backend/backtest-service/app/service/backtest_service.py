@@ -12,9 +12,7 @@ from app.dto.response.TradeDTO import TradeDTO
 from app.service.historical_service import fetch_all_ohlcv
 
 def run_backtest_strategy(cfg: StrategyConfigDTO) -> pd.DataFrame:
-    print(cfg)
     data = fetch_all_ohlcv(cfg.symbol, cfg.interval, cfg.startTime, cfg.endTime)
-    print(data)
     strategy = build_strategy(cfg)
     bt = FractionalBacktest(data, strategy, cash=cfg.lots, commission=0.001)
     stats = bt.run()

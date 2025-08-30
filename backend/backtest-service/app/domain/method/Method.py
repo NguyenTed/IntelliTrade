@@ -1,7 +1,6 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 import numpy as np
 from typing import Union
-from abc import abstractmethod
 
 class Method(ABC):
     def __init__(self, name: str):
