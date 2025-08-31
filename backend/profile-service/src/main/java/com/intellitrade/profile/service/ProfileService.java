@@ -31,4 +31,10 @@ public class ProfileService {
 
         return profileMapper.toProfileResponse(profile);
     }
+
+    public ProfileResponse getProfileByUserId(String userId) {
+        Profile profile = profileRepository.findProfileByUserId(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        return profileMapper.toProfileResponse(profile);
+    }
 }

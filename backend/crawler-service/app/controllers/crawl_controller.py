@@ -24,6 +24,18 @@ def get_tradingview_news():
     page_response = CrawlArticleService.get_tradingview_page(page_request, ArticleCategory.NEWS)
     return jsonify(page_response.model_dump(mode="json"))
 
+@crawler_bp.route("/crawler/sentiments", methods=["GET"])
+def get_tradingview_sentiment():
+    page_request = PageRequest.from_flask()
+    page_response = CrawlArticleService.get_tradingview_sentiment(page_request)
+    return jsonify(page_response.model_dump(mode="json"))
+
+@crawler_bp.route("/crawler/sentiments/<string:symbol>", methods=["GET"])
+def get_sentiment_by_symbol(symbol: str):
+    sentiment = CrawlArticleService.get_sentiment_by_symbol(symbol)
+    return jsonify(sentiment.model_dump(mode="json"))
+
+
 # @crawler_bp.route("/crawler/<string:tag_id>", methods=["GET"])
 # def get_articles_by_tag(tag_id: str):
 #     page_request = PageRequest.from_flask()

@@ -7,7 +7,7 @@ export default function NewsCard({ item }: { item: IArticles }) {
   );
 
   return (
-    <div className="group relative rounded-2xl  bg-white/5 p-4 transition hover:bg-gray-100">
+    <div className="group relative rounded-2xl  bg-white/5 pl-1 pr-4 py-2 transition hover:bg-gray-100">
       {/* Symbol stacked images */}
       <div className="mb-3 flex items-center">
         {uniqueImages.map((src, idx) => (
@@ -18,7 +18,7 @@ export default function NewsCard({ item }: { item: IArticles }) {
       {/* Title */}
       <Link
         to={item.slug ? `/news/${item.slug}` : "#"}
-        className="block text-lg font-medium leading-snug "
+        className="block text-[16px]  leading-snug "
       >
         {item.title}
       </Link>

@@ -11,7 +11,7 @@ backtest_controller = Blueprint('backtest', __name__)
 def index():
     return "Hello, Backtest!"
 
-@backtest_controller.route('/backtest/api/v1/run', methods=['POST'])
+@backtest_controller.route('/backtest', methods=['POST'])
 def run_backtest():
     try:
         json_data = request.get_json()
