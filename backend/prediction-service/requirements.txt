@@ -1,0 +1,23 @@
+Flask==2.0.3
+Werkzeug==2.0.3
+Jinja2==3.0.3
+itsdangerous==2.0.1
+click==8.0.4
+
+Flask-SQLAlchemy==2.5.1
+SQLAlchemy==1.4.52          # <— pin 1.4 để hợp với Flask-SQLAlchemy 2.5.1
+pymysql==1.1.0
+cachetools==5.3.1
+
+numpy==1.26.4
+pandas==2.2.3               # <— đổi từ 1.3.5 để hỗ trợ Python 3.12 (có wheel)
+scipy==1.11.4
+scikit-learn==1.6.0
+
+tensorflow-cpu==2.19.1
+keras-preprocessing==1.1.2
+h5py==3.11.0                # <— nâng từ 3.10.0 để hợp TF 2.19.1
+protobuf==3.20.3            # (TF 2.19 yêu cầu >=3.20,<6)
+
+joblib==1.4.2
+requests==2.26.0
