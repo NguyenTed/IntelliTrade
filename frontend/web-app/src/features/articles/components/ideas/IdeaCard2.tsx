@@ -1,5 +1,6 @@
 import SmsOutlinedIcon from "@mui/icons-material/SmsOutlined";
 import type { IArticles } from "../../model/IArticles";
+import { TradeSide } from "@/enums/TradeSide";
 
 export function IdeaCard2({ item }: { item: IArticles }) {
   const image = item.imgUrl || "https://placehold.co/600x400/png?text=No+Image";
@@ -10,9 +11,9 @@ export function IdeaCard2({ item }: { item: IArticles }) {
     <a
       href={`/ideas/${item.slug}`}
       rel="noopener noreferrer"
-      className="flex gap-3 rounded-xl p-3 hover:shadow transition bg-white"
+      className="flex flex-col lg:flex-row gap-3 rounded-xl p-3 hover:bg-[#F2F2F2] transition bg-white"
     >
-      <div className="flex-1 flex flex-col justify-between">
+      <div className="order-2 flex-1 flex flex-col justify-between">
         <div className="flex items-center gap-2 mb-1">
           <span className="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700">
             IDEA
@@ -34,6 +35,35 @@ export function IdeaCard2({ item }: { item: IArticles }) {
               </div>
               <span className="text-xs font-medium">{symbols[0].name}</span>
             </div>
+          )}
+          {item.tradeSide == TradeSide.LONG ? (
+            <span className="bg-[#CFE5DA] text-[#004D27]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+              >
+                <path
+                  fill="currentColor"
+                  d="M9 5h10v10h-2V8.41L6.7 18.71l-1.4-1.42L15.58 7H9V5Z"
+                ></path>
+              </svg>
+            </span>
+          ) : (
+            <span className="bg-[#ECD5D7] text-[#99202A] rounded-sm">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+              >
+                <path
+                  fill="currentColor"
+                  d="M5.3 6.7 15.58 17H9v2h10V9h-2v6.59L6.7 5.29 5.3 6.71Z"
+                ></path>
+              </svg>
+            </span>
           )}
         </div>
 
@@ -60,7 +90,7 @@ export function IdeaCard2({ item }: { item: IArticles }) {
       <img
         src={image}
         alt={item.title}
-        className="w-[40%] rounded object-cover"
+        className="order-1 w-[60%] lg:w-[40%] rounded object-cover"
       />
     </a>
   );
