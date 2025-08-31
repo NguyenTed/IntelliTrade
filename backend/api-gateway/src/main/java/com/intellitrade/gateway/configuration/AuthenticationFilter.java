@@ -44,6 +44,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             "/crawler/.*",
             "/post-comment/.*",
             "/market/.*",
+            "/backtest",
             "/backtest/.*"
     };
 

@@ -96,6 +96,8 @@ export default function ChartPage() {
   const [backtestOpen, setBacktestOpen] = useState(false);
   const [statsOpen, setStatsOpen] = useState(false);
 
+  const [rightOpen, setRightOpen] = useState(true);
+
   useEffect(() => {
     let alive = true;
     (async () => {
@@ -205,6 +207,8 @@ export default function ChartPage() {
         activeChartType={activePanel?.chartType ?? "candles"}
         onChangeActiveChartType={handleChangeActiveChartType}
         onRequestOpenBacktest={() => setBacktestOpen(true)}
+        onToggleRightSidebar={() => setRightOpen((o) => !o)}
+        rightSidebarOpen={rightOpen}
       />
 
       {/* BODY: left tools | grid | right sidebar */}
@@ -252,7 +256,7 @@ export default function ChartPage() {
           </>
         </div>
 
-        <RightSidebar />
+        {rightOpen && <RightSidebar />}
       </div>
 
       <SymbolModal
