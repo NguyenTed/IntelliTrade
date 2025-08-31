@@ -1,3 +1,6 @@
+import { http } from "@/shared/api/createClient";
+import type { ICreateSubscriptionResponse } from "../model/ICreateSubscriptionResponse";
+
 export interface SubscriptionType {
   id: number;
   name: string;
@@ -5,37 +8,40 @@ export interface SubscriptionType {
   duration: number;
 }
 
-const getVNPayUrl = async (data: number) => {
-  const URL_BACKEND = "/api/v1/payment/vnpay/url/" + data;
-  const res = await fetch(URL_BACKEND, { method: "GET" });
-  return res.json();
+export const getVNPayUrl = async (id: number): Promise<{ url: string }> => {
+  const res = await http.get<{ url: string }>(`/api/v1/payment/vnpay/url/${id}`);
+  return res.data;
 };
 
-const createSubscription = async (
+interface CreateSubscriptionPayload {
+  paymentId: string;
+  transactionNo: string;
+  transactionTime: string;
+  transactionStatus: string;
+  subscriptionType: string;
+}
+
+export const createSubscription = async (
   paymentId: string,
   vnp_TransactionNo: string,
   vnp_PayDate: string,
   vnp_TransactionStatus: string,
   subscriptionType: string
-) => {
-  const URL_BACKEND = "http://localhost:8085/payment/api/v1/subscription";
+): Promise<ICreateSubscriptionResponse> => {
   const year = vnp_PayDate.substring(0, 4);
   const month = vnp_PayDate.substring(4, 6);
   const day = vnp_PayDate.substring(6, 8);
   const formattedDate = `${year}-${month}-${day}`;
-  const data = {
-    paymentId: paymentId,
+  const payload: CreateSubscriptionPayload = {
+    paymentId,
     transactionNo: vnp_TransactionNo,
     transactionTime: formattedDate,
     transactionStatus: vnp_TransactionStatus,
-    subscriptionType: subscriptionType,
+    subscriptionType,
   };
-  const res = await fetch(URL_BACKEND, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  return res.json();
+  const res = await http.post<ICreateSubscriptionResponse>(
+    "/payment/api/v1/subscription",
+    payload
+  );
+  return res.data;
 };
-
-export { getVNPayUrl, createSubscription };
