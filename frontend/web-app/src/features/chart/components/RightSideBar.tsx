@@ -74,7 +74,7 @@ export default function RightSidebar() {
         )}
         <a
           href="/ideas"
-          className="block w-full mb-2 py-2 text-center hover:bg-[#F2F2F2] transition-colors rounded-lg cursor-auto border-1 border-gray-200"
+          className="block w-full my-2 py-2 text-center hover:bg-[#F2F2F2] transition-colors rounded-lg cursor-auto border-1 border-gray-200"
         >
           Show more
         </a>
