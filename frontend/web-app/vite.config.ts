@@ -7,7 +7,17 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react(), tailwindcss()],
   server: {
     proxy: {
-      "/api": { target: "http://localhost:8888", changeOrigin: true },
+      "/api": { 
+        target: "http://localhost:8888", 
+        changeOrigin: true,
+        configure: (proxy, options) => {
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            // Remove problematic headers that cause CORS issues
+            proxyReq.removeHeader('origin');
+            proxyReq.removeHeader('referer');
+          });
+        }
+      },
       // ✅ Proxy SignalR hub for dev (HTTP negotiate + WS upgrades)
       "/stocks-feed": {
         target: "http://localhost:6001",

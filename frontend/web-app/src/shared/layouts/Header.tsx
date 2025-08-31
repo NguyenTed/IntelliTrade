@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import SearchIcon from "@mui/icons-material/Search";
+import { authStore } from "@/features/auth/model/authStore";
 
 export default function Header({
   whiteSectionRef,
@@ -11,6 +13,12 @@ export default function Header({
   const [isLight, setIsLight] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
+
+  // Get user data and logout function from auth store
+  const user = authStore((s) => s.user);
+  const logout = authStore((s) => s.logout);
+  const isLoading = authStore((s) => s.isLoading);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,6 +46,26 @@ export default function Header({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setOpenMenu(false);
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      // Still navigate to login even if logout fails
+      navigate("/login");
+    }
+  };
+
+  // Get display name for user
+  const displayName = user
+    ? [user.firstName, user.lastName].filter(Boolean).join(" ") ||
+      user.username ||
+      "User"
+    : "Guest";
 
   return (
     <header
@@ -109,20 +137,33 @@ export default function Header({
               }`}
             >
               <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-600">
-                <p className="font-semibold">John Doe</p> {/* giả sử có name */}
+                <p className="font-semibold">{displayName}</p>
+                {user && <p className="text-sm text-gray-500">{user.email}</p>}
               </div>
-              <a
-                href="/profile"
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-500 dark:hover:text-white"
-              >
-                Profile
-              </a>
-              <button
-                onClick={() => alert("Logging out...")}
-                className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-500 dark:hover:text-white"
-              >
-                Logout
-              </button>
+              {user ? (
+                <>
+                  <a
+                    href="/profile"
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-500 dark:hover:text-white"
+                  >
+                    Profile
+                  </a>
+                  <button
+                    onClick={handleLogout}
+                    disabled={isLoading}
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-500 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? "Logging out..." : "Logout"}
+                  </button>
+                </>
+              ) : (
+                <a
+                  href="/login"
+                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-500 dark:hover:text-white"
+                >
+                  Login
+                </a>
+              )}
             </div>
           )}
         </div>
