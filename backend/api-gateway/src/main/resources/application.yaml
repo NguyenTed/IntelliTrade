@@ -54,5 +54,10 @@ spring:
                 - Path=${app.api-prefix}/backtest/**
               filters:
                 - StripPrefix=2
-
+            - id: prediction_service
+              uri: http://localhost:5006
+              predicates:
+                - Path=${app.api-prefix}/prediction/**
+              filters:
+                - StripPrefix=2
 

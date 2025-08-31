@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { fetchPrediction } from "../api/prediction";
 import {
   createChart,
   ColorType,
@@ -23,6 +24,14 @@ import { useRealtimeBars } from "../hooks/useRealtimeBars";
 
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
 
+type PredState = {
+  predicted: number;
+  latest: number;
+  delta: number;
+  deltaPct: number;
+  trend: "UP" | "DOWN" | "FLAT" | string;
+};
+
 type Props = {
   chartId: number | string; // NEW: stable per-panel id
   symbol: string;
@@ -32,6 +41,7 @@ type Props = {
   showVolume: boolean;
   chartType: ChartType;
   backtestTrades?: BacktestTrade[]; // NEW: overlay trades from backtest
+  onNewBar?: (t: number) => void;
   onHover?: (info: HoverInfo | null) => void;
   editable?: boolean;
 };
@@ -80,6 +90,7 @@ export default function LWChartContainer({
   showVolume,
   chartType,
   backtestTrades,
+  onNewBar,
   onHover,
   editable = false,
 }: Props) {
@@ -102,13 +113,35 @@ export default function LWChartContainer({
   const projectorRef = useRef<ChartProjector | null>(null);
   const chartRef = useRef<ReturnType<typeof createChart> | null>(null);
   const autoFollowRef = useRef(true);
+  // Prediction overlay refs removed
   const [projectorReady, setProjectorReady] = useState(false);
+  const [pred, setPred] = useState<PredState | null>(null);
+  const predTimerRef = useRef<number | null>(null);
+  const refreshPrediction = async (reason: string) => {
+    try {
+      const res = await fetchPrediction({ symbol, interval });
+      const latest = Number(res.latest_close_price);
+      const predicted = Number(res.predicted_close_price);
+      const delta = predicted - latest;
+      const deltaPct = latest ? (delta / latest) * 100 : 0;
+      setPred({ predicted, latest, delta, deltaPct, trend: res.trend as any });
+    } catch {}
+  };
+  useEffect(() => {
+    // initial fetch on mount / when symbol or interval changes
+    if (predTimerRef.current) window.clearTimeout(predTimerRef.current);
+    refreshPrediction("init");
+    return () => {
+      if (predTimerRef.current) window.clearTimeout(predTimerRef.current);
+    };
+  }, [symbol, interval]);
   const { data, loading, error } = useMarketData(symbol, interval);
+  // Prediction debug log removed
 
   // Debug: confirm this container mounts for the current panel
   useEffect(() => {
     try {
-      console.debug("[RT] container mount", { symbol, interval, chartType });
+      console.log("[RT] container mount", { symbol, interval, chartType });
     } catch {}
   }, [symbol, interval, chartType]);
 
@@ -128,7 +161,7 @@ export default function LWChartContainer({
   useEffect(() => {
     if (!containerRef.current || !candles) return;
 
-    console.debug("LWChartContainer mount", {
+    console.log("LWChartContainer mount", {
       w: containerRef.current.clientWidth,
       h: containerRef.current.clientHeight,
       candles: candles.length,
@@ -283,7 +316,7 @@ export default function LWChartContainer({
     // Debug: initial series ready
     try {
       const last = candlesRef.current?.[candlesRef.current.length - 1];
-      console.debug("[RT] series ready", {
+      console.log("[RT] series ready", {
         type: chartType,
         lastTime: last?.time,
         symbol,
@@ -453,6 +486,7 @@ export default function LWChartContainer({
           lossSeriesRef.current = null;
         }
       } catch {}
+      // Prediction price line cleanup removed
       chart.remove();
     };
   }, [
@@ -465,6 +499,8 @@ export default function LWChartContainer({
     symbol,
     interval,
   ]);
+
+  // Prediction overlay logic removed
 
   // Overlay backtest trades as markers and segments (inside component)
   useEffect(() => {
@@ -602,7 +638,7 @@ export default function LWChartContainer({
 
     // Debug one-liner to verify updates are received by this container
     try {
-      console.debug("[RT] container got", { symbol, interval, bar: u });
+      console.log("[RT] container got", { symbol, interval, bar: u });
     } catch {}
 
     // Normalize server time to seconds
@@ -630,6 +666,12 @@ export default function LWChartContainer({
       // append new
       arr.push(nextBar);
       indexByTimeRef.current.set(t, arr.length - 1);
+      onNewBar?.(t);
+      if (predTimerRef.current) window.clearTimeout(predTimerRef.current);
+      predTimerRef.current = window.setTimeout(
+        () => refreshPrediction("newbar"),
+        500
+      );
     } else {
       // out-of-order -> ignore
       return;
@@ -733,6 +775,12 @@ export default function LWChartContainer({
         else if (!last || t > Number(last.time)) {
           arr.push(nextBar);
           indexByTimeRef.current.set(t, arr.length - 1);
+          onNewBar?.(t);
+          if (predTimerRef.current) window.clearTimeout(predTimerRef.current);
+          predTimerRef.current = window.setTimeout(
+            () => refreshPrediction("dev-newbar"),
+            500
+          );
         } else return;
 
         switch (chartType) {
@@ -776,7 +824,7 @@ export default function LWChartContainer({
           } catch {}
         }
       };
-      console.debug("[RT] __rt_tick", bar);
+      console.log("[RT] __rt_tick", bar);
       cb(bar);
     };
   } catch {}
@@ -802,6 +850,31 @@ export default function LWChartContainer({
         className="w-full h-full"
         style={{ height: "100%" }}
       />
+
+      {/* Top-left overlay: symbol | interval */}
+      <div className="absolute left-2 top-2 flex items-center gap-2 pointer-events-none select-none">
+        <span className="px-2 py-0.5 text-xs font-semibold rounded bg-white/80 border border-neutral-200 text-neutral-900 shadow-sm">
+          {symbol}
+        </span>
+        <span className="px-2 py-0.5 text-xs font-medium rounded bg-white/70 border border-neutral-200 text-neutral-700 shadow-sm">
+          {interval}
+        </span>
+        {pred && (
+          <span
+            className={`px-2 py-0.5 text-xs font-medium rounded bg-white/80 border border-neutral-200 shadow-sm ${
+              pred.trend === "UP"
+                ? "text-green-600"
+                : pred.trend === "DOWN"
+                ? "text-red-600"
+                : "text-neutral-700"
+            }`}
+            title="Predicted close"
+          >
+            Pred {pred.predicted.toFixed(2)} ({pred.delta >= 0 ? "+" : ""}
+            {pred.deltaPct.toFixed(2)}%)
+          </span>
+        )}
+      </div>
 
       {/* Drawing overlay (only when projector is ready) */}
       {projectorReady && projectorRef.current && (

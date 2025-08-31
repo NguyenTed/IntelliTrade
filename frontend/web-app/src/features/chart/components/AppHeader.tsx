@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import LayoutToggle, { type LayoutMode } from "./LayoutToggle";
+import { type LayoutMode } from "./LayoutToggle";
 import type { Interval } from "../store/chart.store";
+import type { PanelPrediction } from "../types/prediction";
 
 // Local chart type union to mirror page-level state
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
@@ -31,6 +32,45 @@ type Props = {
 
 const FRAMES: Interval[] = ["1m", "5m", "15m", "1h", "4h", "1d", "1w", "1M"];
 const TYPES: ChartType[] = ["candles", "bars", "line", "area", "baseline"];
+
+function IconCrystalBall(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="12" cy="10" r="6" />
+      <path d="M6 18h12" />
+      <path d="M8 22h8" />
+    </svg>
+  );
+}
+function IconSpinner(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+      className={(props.className ?? "") + " animate-spin"}
+    >
+      <path d="M12 2a10 10 0 100 20" opacity="0.2" />
+      <path d="M12 2a10 10 0 010 4" />
+    </svg>
+  );
+}
 
 export default function AppHeader({
   activeSymbol,
@@ -817,5 +857,27 @@ function IconPanelRight(props: React.SVGProps<SVGSVGElement>) {
       />
       <rect x="17" y="4" width="4" height="16" rx="1" />
     </svg>
+  );
+}
+
+function PredictionChip({ p }: { p: PanelPrediction }) {
+  const sign = p.delta >= 0 ? "+" : "";
+  const color =
+    p.trend === "UP"
+      ? "text-green-600"
+      : p.trend === "DOWN"
+      ? "text-red-500"
+      : "text-slate-500";
+  return (
+    <span
+      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs border border-neutral-200 bg-white shadow-sm ${color}`}
+      title={`Predicted: ${p.predicted.toLocaleString()} | Latest: ${p.latest.toLocaleString()}`}
+    >
+      Pred {p.predicted.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+      <span className="text-[11px]">
+        ({sign}
+        {p.deltaPct.toFixed(2)}%)
+      </span>
+    </span>
   );
 }

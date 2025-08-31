@@ -45,7 +45,8 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             "/post-comment/.*",
             "/market/.*",
             "/backtest",
-            "/backtest/.*"
+            "/backtest/.*",
+            "/prediction"
     };
 
     @Value("${app.api-prefix}")

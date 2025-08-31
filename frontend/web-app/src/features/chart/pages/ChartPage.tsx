@@ -12,6 +12,8 @@ import BacktestResults from "../components/BacktestResult";
 import BacktestModal from "../components/BacktestModal";
 import BacktestStatsModal from "../components/BacktestStatsModal";
 import type { BacktestTrade } from "../types/backtest";
+import { fetchPrediction } from "../api/prediction";
+import type { PanelPrediction } from "../types/prediction";
 
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
 
@@ -25,6 +27,7 @@ type PanelState = {
   showVolume: boolean;
   chartType: ChartType;
   backtestTrades?: BacktestTrade[];
+  prediction?: PanelPrediction | null;
 };
 
 function initialPanels(n: number): PanelState[] {
@@ -174,14 +177,18 @@ export default function ChartPage() {
   const handleChangeSymbol = (id: number, s: string) => {
     setPanels((prev) =>
       prev.map((p) =>
-        p.id === id ? { ...p, symbol: s, backtestTrades: undefined } : p
+        p.id === id
+          ? { ...p, symbol: s, backtestTrades: undefined, prediction: null }
+          : p
       )
     );
   };
   const handleChangeInterval = (id: number, i: Interval) => {
     setPanels((prev) =>
       prev.map((p) =>
-        p.id === id ? { ...p, interval: i, backtestTrades: undefined } : p
+        p.id === id
+          ? { ...p, interval: i, backtestTrades: undefined, prediction: null }
+          : p
       )
     );
   };
@@ -201,6 +208,39 @@ export default function ChartPage() {
         return { ...p, showVolume: !p.showVolume };
       })
     );
+  };
+
+  const [predicting, setPredicting] = useState(false);
+
+  const handlePredictActive = async () => {
+    if (!activePanel || predicting) return;
+    try {
+      setPredicting(true);
+      const res = await fetchPrediction(
+        activePanel.symbol,
+        activePanel.interval
+      );
+      const latest = Number(res.latest_close_price ?? NaN);
+      const predicted = Number(res.predicted_close_price ?? NaN);
+      if (!Number.isFinite(latest) || !Number.isFinite(predicted)) return;
+      const delta = predicted - latest;
+      const deltaPct = latest !== 0 ? (delta / latest) * 100 : 0;
+      const next: PanelPrediction = {
+        latest,
+        predicted,
+        delta,
+        deltaPct,
+        trend:
+          (res.trend as any) ||
+          (delta > 0 ? "UP" : delta < 0 ? "DOWN" : "NEUTRAL"),
+        at: Date.now(),
+      };
+      setPanels((prev) =>
+        prev.map((p) => (p.id === activeId ? { ...p, prediction: next } : p))
+      );
+    } finally {
+      setPredicting(false);
+    }
   };
 
   return (
@@ -225,6 +265,9 @@ export default function ChartPage() {
         onRequestOpenBacktest={() => setBacktestOpen(true)}
         onToggleRightSidebar={() => setRightOpen((o) => !o)}
         rightSidebarOpen={rightOpen}
+        onRequestPredict={handlePredictActive}
+        predicting={predicting}
+        activePrediction={activePanel?.prediction ?? null}
       />
 
       {/* BODY: left tools | grid | right sidebar */}
@@ -248,6 +291,7 @@ export default function ChartPage() {
                   showVolume={p.showVolume}
                   chartType={p.chartType}
                   backtestTrades={p.backtestTrades}
+                  prediction={p.prediction}
                 />
               </div>
             ))}
