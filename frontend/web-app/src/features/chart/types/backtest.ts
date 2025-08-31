@@ -33,23 +33,45 @@ export type BacktestRequest = {
 };
 
 export type BacktestStats = {
-  best_trade: number;
-  duration: string;
-  end: string;
-  equity_final: number;
-  equity_peak: number;
-  exposure_time: number;
-  max_drawdown: number;
-  return_pct: number;
-  start: string;
+  // Return & performance
+  return_pct: number;                // total % return
+  return_ann_pct: number;            // annualized % return
+  buy_hold_return_pct: number;       // benchmark buy & hold
+  volatility_ann_pct: number;        // annualized volatility
+  sharpe_ratio: number;
+  sortino_ratio: number;
+  sqn: number;
+  expectancy_pct: number;            // average expectancy per trade
+  avg_trade_pct: number;             // average trade %
+
+  // Risk
+  max_drawdown_pct: number;
+  avg_drawdown_pct: number;
+  equity_peak_usd: number;
+  equity_final_usd: number;
+  exposure_time_pct: number;         // exposure time in %
+
+  // Timing
+  duration: string;                  // e.g., "60 days 00:00:00"
+  start: string;                     // ISO-like string from server
+  end: string;                       // ISO-like string from server
+  avg_trade_duration: string;
+  max_trade_duration: string;
+  max_drawdown_duration: string;
+  avg_drawdown_duration: string;
+
+  // Trades
   trades_count: number;
-  win_rate: number;
+  win_rate: number;                  // as % value
+  best_trade: number;
   worst_trade: number;
 };
 
 export type BacktestTrade = {
   EntryTime: string;
   ExitTime: string;
+  EntryBar?: number;
+  ExitBar?: number;
   EntryPrice: number;
   ExitPrice: number;
   ReturnPct: number;
