@@ -5,7 +5,7 @@ from app.service.sentiment_service import get_sentiment
 
 predict_routes = Blueprint('predict', __name__)
 
-@predict_routes.route('/api/v1/prediction', methods=['POST'])
+@predict_routes.route('/prediction', methods=['POST'])
 def predict():
     data = request.get_json()
     if 'symbol' not in data:

@@ -14,6 +14,7 @@ import {
 } from "lightweight-charts";
 import type { HoverInfo } from "./InfoStrip";
 import type { Interval } from "../store/chart.store";
+import type { BacktestTrade } from "../types/backtest";
 import { useMarketData } from "../hooks/useMarketData";
 import DrawingLayer from "./DrawingLayer";
 import type { ChartProjector } from "../types/drawing";
@@ -30,9 +31,13 @@ type Props = {
   showSMA50: boolean;
   showVolume: boolean;
   chartType: ChartType;
+  backtestTrades?: BacktestTrade[]; // NEW: overlay trades from backtest
   onHover?: (info: HoverInfo | null) => void;
   editable?: boolean;
 };
+
+const WIN_COLOR = "#3b82f6"; // blue-500
+const LOSS_COLOR = "#f59e0b"; // amber-500
 
 function toUTC(date: Date): UTCTimestamp {
   return Math.floor(date.getTime() / 1000) as UTCTimestamp;
@@ -50,6 +55,22 @@ function toSec(ts: unknown): number {
   return Math.floor(Date.now() / 1000);
 }
 
+function parseTimeToSec(s: string): number {
+  if (!s) return Math.floor(Date.now() / 1000);
+  const t = Date.parse(s.replace(" ", "T") + "Z");
+  return Number.isFinite(t)
+    ? Math.floor(t / 1000)
+    : Math.floor(Date.now() / 1000);
+}
+
+function pctText(x: number): string {
+  if (!Number.isFinite(x)) return "";
+  const isFrac = Math.abs(x) <= 1;
+  const v = isFrac ? x * 100 : x;
+  const sign = v > 0 ? "+" : v < 0 ? "" : "";
+  return `${sign}${v.toFixed(2)}%`;
+}
+
 export default function LWChartContainer({
   chartId,
   symbol,
@@ -58,12 +79,15 @@ export default function LWChartContainer({
   showSMA50,
   showVolume,
   chartType,
+  backtestTrades,
   onHover,
   editable = false,
 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mainSeriesRef = useRef<ISeriesApi<any> | null>(null);
   const volumeSeriesRef = useRef<ISeriesApi<"Histogram"> | null>(null);
+  const winSeriesRef = useRef<ISeriesApi<"Line"> | null>(null);
+  const lossSeriesRef = useRef<ISeriesApi<"Line"> | null>(null);
   const candlesRef = useRef(
     [] as {
       time: number;
@@ -419,6 +443,16 @@ export default function LWChartContainer({
           .timeScale()
           .unsubscribeVisibleLogicalRangeChange(updateAutoFollow as any);
       } catch {}
+      try {
+        if (winSeriesRef.current) {
+          chart.removeSeries(winSeriesRef.current as any);
+          winSeriesRef.current = null;
+        }
+        if (lossSeriesRef.current) {
+          chart.removeSeries(lossSeriesRef.current as any);
+          lossSeriesRef.current = null;
+        }
+      } catch {}
       chart.remove();
     };
   }, [
@@ -431,6 +465,128 @@ export default function LWChartContainer({
     symbol,
     interval,
   ]);
+
+  // Overlay backtest trades as markers and segments (inside component)
+  useEffect(() => {
+    const chart = chartRef.current;
+    const main = mainSeriesRef.current;
+    if (!chart || !main) return;
+
+    const trades = backtestTrades ?? [];
+
+    // --- Markers (entry/exit) ---
+    if ((main as any).setMarkers) {
+      const markers = trades.flatMap((t) => {
+        const et = parseTimeToSec((t as any).EntryTime);
+        const xt = parseTimeToSec((t as any).ExitTime);
+        const ret = Number((t as any).ReturnPct ?? 0);
+        const isWin = ret > 0;
+        return [
+          {
+            time: et as any,
+            position: "belowBar" as const,
+            color: isWin ? WIN_COLOR : LOSS_COLOR,
+            shape: "arrowUp" as const,
+            text: "Entry",
+          },
+          {
+            time: xt as any,
+            position: "aboveBar" as const,
+            color: isWin ? WIN_COLOR : LOSS_COLOR,
+            shape: "arrowDown" as const,
+            text: `Exit ${pctText(ret)}`,
+          },
+        ];
+      });
+      try {
+        (main as any).setMarkers(markers);
+      } catch {}
+    }
+
+    // --- Trade segments (wins vs losses) ---
+    if (!winSeriesRef.current) {
+      winSeriesRef.current = chart.addSeries(LineSeries, {
+        color: WIN_COLOR,
+        lineWidth: 2,
+        lineStyle: LineStyle.Solid,
+        priceScaleId: "right",
+      });
+    }
+    if (!lossSeriesRef.current) {
+      lossSeriesRef.current = chart.addSeries(LineSeries, {
+        color: LOSS_COLOR,
+        lineWidth: 2,
+        lineStyle: LineStyle.Solid,
+        priceScaleId: "right",
+      });
+    }
+
+    const winSegs: Array<{ time: number; value?: number }> = [];
+    const lossSegs: Array<{ time: number; value?: number }> = [];
+
+    // Helper: push with strictly ascending times (no equal timestamps allowed)
+    const pushAsc = (
+      arr: Array<{ time: number; value?: number }>,
+      pt: { time: number; value?: number }
+    ) => {
+      const last = arr.length ? arr[arr.length - 1].time : -Infinity;
+      let t = pt.time;
+      if (!Number.isFinite(t)) return;
+      if (t <= last) t = last + 1; // nudge forward by 1s if needed
+      arr.push({ time: t, value: pt.value });
+    };
+
+    // Ensure trades are processed in chronological order by EntryTime
+    const sorted = [...trades].sort(
+      (a, b) =>
+        parseTimeToSec((a as any).EntryTime) -
+        parseTimeToSec((b as any).EntryTime)
+    );
+
+    for (const t of sorted) {
+      const et = parseTimeToSec((t as any).EntryTime);
+      const xt = parseTimeToSec((t as any).ExitTime);
+      const ep = Number((t as any).EntryPrice);
+      const xp = Number((t as any).ExitPrice);
+      if (
+        !Number.isFinite(et) ||
+        !Number.isFinite(xt) ||
+        !Number.isFinite(ep) ||
+        !Number.isFinite(xp)
+      )
+        continue;
+
+      const target = Number((t as any).ReturnPct ?? 0) > 0 ? winSegs : lossSegs;
+
+      if (xt === et) {
+        // Zero-duration trade: draw a tiny 1-second segment to avoid equal timestamps
+        pushAsc(target, { time: et, value: ep });
+        pushAsc(target, { time: et + 1, value: xp });
+      } else {
+        // Normal segment
+        pushAsc(target, { time: et, value: ep });
+        pushAsc(target, { time: xt, value: xp });
+      }
+
+      // NOTE: we intentionally do NOT insert a same-time gap point; lightweight-charts requires strictly ascending times.
+    }
+
+    winSeriesRef.current.setData(winSegs as any);
+    lossSeriesRef.current.setData(lossSegs as any);
+
+    // Cleanup when trades change
+    return () => {
+      try {
+        (main as any).setMarkers([]);
+      } catch {}
+      try {
+        winSeriesRef.current?.setData([] as any);
+      } catch {}
+      try {
+        lossSeriesRef.current?.setData([] as any);
+      } catch {}
+    };
+  }, [backtestTrades]);
 
   // Realtime updates
   useRealtimeBars(symbol, interval, (u) => {

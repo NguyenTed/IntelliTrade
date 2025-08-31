@@ -11,6 +11,7 @@ import { useBacktest } from "../hooks/useBacktest";
 import BacktestResults from "../components/BacktestResult";
 import BacktestModal from "../components/BacktestModal";
 import BacktestStatsModal from "../components/BacktestStatsModal";
+import type { BacktestTrade } from "../types/backtest";
 
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
 
@@ -23,6 +24,7 @@ type PanelState = {
   showSMA50: boolean;
   showVolume: boolean;
   chartType: ChartType;
+  backtestTrades?: BacktestTrade[];
 };
 
 function initialPanels(n: number): PanelState[] {
@@ -132,6 +134,16 @@ export default function ChartPage() {
     activePanel?.interval ?? ("1m" as Interval)
   );
 
+  useEffect(() => {
+    if (!btResult?.trades) return;
+    setPanels((prev) =>
+      prev.map((p) =>
+        p.id === activeId ? { ...p, backtestTrades: btResult.trades } : p
+      )
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [btResult]);
+
   const handleChangeActiveChartType = (t: ChartType) => {
     setPanels((prev) =>
       prev.map((p) => (p.id === activeId ? { ...p, chartType: t } : p))
@@ -161,12 +173,16 @@ export default function ChartPage() {
   // handlers to mutate individual panels
   const handleChangeSymbol = (id: number, s: string) => {
     setPanels((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, symbol: s } : p))
+      prev.map((p) =>
+        p.id === id ? { ...p, symbol: s, backtestTrades: undefined } : p
+      )
     );
   };
   const handleChangeInterval = (id: number, i: Interval) => {
     setPanels((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, interval: i } : p))
+      prev.map((p) =>
+        p.id === id ? { ...p, interval: i, backtestTrades: undefined } : p
+      )
     );
   };
 
@@ -231,6 +247,7 @@ export default function ChartPage() {
                   showSMA50={p.showSMA50}
                   showVolume={p.showVolume}
                   chartType={p.chartType}
+                  backtestTrades={p.backtestTrades}
                 />
               </div>
             ))}
@@ -250,7 +267,16 @@ export default function ChartPage() {
               <BacktestResults
                 data={btResult}
                 onOpenStats={() => setStatsOpen(true)}
-                onClose={() => resetBacktest()} // hides the table
+                onClose={() => {
+                  setPanels((prev) =>
+                    prev.map((p) =>
+                      p.id === activeId
+                        ? { ...p, backtestTrades: undefined }
+                        : p
+                    )
+                  );
+                  resetBacktest();
+                }} // hides the table and clears overlay
               />
             )}
           </>

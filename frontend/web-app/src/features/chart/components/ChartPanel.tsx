@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import InfoStrip, { type HoverInfo } from "./InfoStrip";
 import LWChartContainer from "./LWChartContainer";
 import type { Interval } from "../store/chart.store";
+import type { BacktestTrade } from "../types/backtest";
 
 /**
  * ChartPanel: a single chart cell that is fully controlled by its parent.
@@ -23,6 +24,7 @@ export default function ChartPanel({
   showEMA20 = false,
   showSMA50 = false,
   showVolume = false,
+  backtestTrades,
 }: {
   id: number;
   active: boolean;
@@ -35,6 +37,7 @@ export default function ChartPanel({
   showEMA20?: boolean;
   showSMA50?: boolean;
   showVolume?: boolean;
+  backtestTrades?: BacktestTrade[];
 }) {
   const [hover, setHover] = useState<HoverInfo | null>(null);
 
@@ -84,6 +87,7 @@ export default function ChartPanel({
           showVolume={showVolume}
           onHover={setHover}
           editable={active}
+          backtestTrades={backtestTrades}
         />
       </div>
     </div>
