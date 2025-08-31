@@ -20,3 +20,27 @@ export function isExpiringSoon(token: string | null, thresholdSec = 60) {
   const s = secondsUntilExpiry(token);
   return s !== null && s <= thresholdSec;
 }
+
+// Extract roles from JWT claims (if present as "roles" or "scope")
+export function getRolesFromToken(token: string | null): string[] {
+  const p = decodeJwt(token);
+  if (!p) return [];
+  if (Array.isArray(p["roles"])) return p["roles"] as string[];
+  if (typeof p["scope"] === "string") {
+    return p["scope"].split(" ").filter((s) => s.startsWith("ROLE_"));
+  }
+  return [];
+}
+
+// Extract permissions from JWT claims (if present as "permissions" or within scope)
+export function getPermissionsFromToken(token: string | null): string[] {
+  const p = decodeJwt(token);
+  if (!p) return [];
+  if (Array.isArray(p["permissions"])) return p["permissions"] as string[];
+  if (typeof p["scope"] === "string") {
+    return p["scope"]
+      .split(" ")
+      .filter((s) => !s.startsWith("ROLE_") && s.trim().length > 0);
+  }
+  return [];
+}

@@ -2,7 +2,7 @@ import axios, { AxiosError, type AxiosInstance, type AxiosRequestConfig, type In
 import { authStore } from "@/features/auth/model/authStore";
 import { isExpiringSoon } from "@/shared/api/jwt";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
+const API_BASE_URL = import.meta.env.PROD ? (import.meta.env.VITE_API_BASE_URL as string) : "/api/v1";
 
 // Single instance for authed calls
 export const http: AxiosInstance = axios.create({
@@ -14,8 +14,8 @@ let refreshPromise: Promise<string | null> | null = null;
 
 /**
  * Try to refresh the access token using one of:
- * 1) HttpOnly cookie (preferred): POST /auth/refresh with credentials
- * 2) In-memory refresh token: POST /auth/refresh with { refreshToken }
+ * 1) HttpOnly cookie (preferred): POST /auth/token/refresh with credentials
+ * 2) In-memory refresh token: POST /auth/token/refresh with { refreshToken }
  */
 async function refreshAccessToken(): Promise<string | null> {
   if (!refreshPromise) {
@@ -25,7 +25,7 @@ async function refreshAccessToken(): Promise<string | null> {
       try {
         // Attempt cookie-based refresh first
         const cookieAttempt = await axios.post(
-          `${API_BASE_URL}/auth/refresh`,
+          `${API_BASE_URL}/auth/token/refresh`,
           {},
           { withCredentials: true, headers: { "Content-Type": "application/json" } }
         );
@@ -44,7 +44,7 @@ async function refreshAccessToken(): Promise<string | null> {
       if (refreshToken) {
         try {
           const bodyAttempt = await axios.post(
-            `${API_BASE_URL}/auth/refresh`,
+            `${API_BASE_URL}/auth/token/refresh`,
             { refreshToken },
             { headers: { "Content-Type": "application/json" } }
           );

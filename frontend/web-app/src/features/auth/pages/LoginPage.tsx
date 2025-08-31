@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import type { AxiosError } from "axios";
 import { login } from "@/features/auth/api/authApi";
+import { authStore } from "@/features/auth/model/authStore";
 
 // —— Schema: identifier is email OR username ——
 const usernameRegex = /^[a-zA-Z0-9_]{3,32}$/;
@@ -41,8 +42,22 @@ export const LoginPage = () => {
 
   const onSubmit = async (values: LoginValues) => {
     try {
-      await login(values); // { identifier, password, remember }
-      const to = location.state?.from?.pathname ?? "/signup";
+      // Call API
+      const { accessToken } = await login(values);
+      // Seed token and fetch profile
+      const store = authStore.getState();
+      store.setAccessToken(accessToken);
+
+      // Ensure profile is loaded before navigation
+      try {
+        await store.loadMe();
+      } catch (profileError) {
+        console.error("Failed to load profile after login:", profileError);
+        // Still proceed with navigation, profile might load later
+      }
+
+      // Redirect to the page the user wanted, or home
+      const to = location.state?.from?.pathname ?? "/";
       navigate(to, { replace: true });
     } catch (e) {
       const err = e as AxiosError<any>;
@@ -50,8 +65,8 @@ export const LoginPage = () => {
         err.response?.data?.message ||
         err.response?.data?.error ||
         "Login failed";
-      // Attach error to password for simple UX (could also use setError('root', ...))
       setError("password", { message: serverMsg });
+      setError("root.server", { message: serverMsg }); // optional form-level error for SRs
     }
   };
 
@@ -115,7 +130,7 @@ export const LoginPage = () => {
                     id="identifier"
                     type="text"
                     autoComplete="username"
-                    inputMode="email"
+                    inputMode="text"
                     className="block w-full rounded-xl border border-neutral-300 px-4 py-3 text-base outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200"
                     placeholder="alex.jordan@gmail.com or your_handle"
                     {...register("identifier")}
@@ -154,12 +169,12 @@ export const LoginPage = () => {
 
                 {/* Row: forgot + remember */}
                 <div className="flex items-center justify-between">
-                  <a
-                    href="/forgot-password"
+                  <Link
+                    to="/forgot-password"
                     className="text-sm font-medium text-violet-700 hover:underline"
                   >
                     Forgot password?
-                  </a>
+                  </Link>
                   <label className="inline-flex cursor-pointer items-center gap-3">
                     <input
                       type="checkbox"
@@ -201,12 +216,12 @@ export const LoginPage = () => {
                 {/* Sign up hint */}
                 <p className="text-center text-sm text-neutral-600">
                   Don’t have an account?{" "}
-                  <a
-                    href="/signup"
+                  <Link
+                    to="/signup"
                     className="font-semibold text-violet-700 hover:underline"
                   >
                     Sign up
-                  </a>
+                  </Link>
                 </p>
 
                 {/* Global form errors region (screen readers) */}

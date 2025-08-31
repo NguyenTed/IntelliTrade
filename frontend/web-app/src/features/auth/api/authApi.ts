@@ -1,37 +1,29 @@
 import { http } from "@/shared/api/createClient";
-import { authStore } from "@/features/auth/model/authStore";
 
-type ApiEnvelope<T> = { code: number; result: T; message?: string };
-type LoginDto = { identifier: string; password: string; remember?: boolean };
-type LoginResult = { accessToken: string }; // refresh comes via HttpOnly cookie
+export type ApiEnvelope<T> = { code: number; result: T; message?: string };
+export type LoginDto = { identifier: string; password: string; remember?: boolean };
+export type LoginResult = { accessToken: string }; // refresh comes via HttpOnly cookie
 
-export async function login(dto: LoginDto) {
-  const res = await http.post<ApiEnvelope<LoginResult>>(
-    "/auth/token",
-    dto,
-    {
-      withCredentials: true, // accept HttpOnly refresh cookie
-      headers: { "Content-Type": "application/json" },
+export async function login(dto: LoginDto): Promise<LoginResult> {
+  try {
+    const { data } = await http.post<ApiEnvelope<LoginResult>>(
+      "/auth/token",
+      dto,
+      { withCredentials: true } // accept HttpOnly refresh cookie
+    );
+
+    if (data.code !== 1000 || !data.result) {
+      throw new Error(data.message || "Login failed");
     }
-  );
-
-  if (res.data.code !== 1000) {
-    throw new Error(res.data.message || "Login failed");
+    return data.result; // caller updates store (separation of concerns)
+  } catch (e: any) {
+    const msg = e?.response?.data?.message ?? e?.message ?? "Login failed";
+    throw new Error(msg);
   }
-
-  const { accessToken } = res.data.result;
-  authStore.getState().setAccessToken(accessToken);
-  // refresh token is cookie-only; do not store it in JS
-  authStore.getState().setRefreshToken(null);
-
-  // If your API also returns a user profile somewhere else, set it here.
-  // authStore.getState().setUser(user);
-
-  return true;
 }
 
 // ---------- Signup (Registration) ----------
-type SignupDto = {
+export type SignupDto = {
   email: string;
   username: string;
   password: string;
@@ -51,7 +43,7 @@ type SignupDto = {
 //     "roles": [{ name: "USER", description: "User role", permissions: [] }]
 //   }
 // }
-type BackendUser = {
+export type BackendUser = {
   id: string;
   username: string;
   email: string;
@@ -61,26 +53,49 @@ type BackendUser = {
 
 export async function signup(dto: SignupDto): Promise<{ user: BackendUser }> {
   try {
-    const res = await http.post<ApiEnvelope<BackendUser>>(
+    const { data } = await http.post<ApiEnvelope<BackendUser>>(
       "/auth/users/registration",
-      dto,
-      {
-        withCredentials: true, // harmless if backend doesn't set cookies on signup
-        headers: { "Content-Type": "application/json" },
-      }
+      dto
     );
 
-    if (res.data.code !== 1000 || !res.data.result) {
-      throw new Error(res.data.message || "Signup failed");
+    if (data.code !== 1000 || !data.result) {
+      throw new Error(data.message || "Signup failed");
     }
 
-    // Do NOT set tokens here — your backend does not log in on signup.
-    return { user: res.data.result };
+    return { user: data.result };
   } catch (e: any) {
-    const msg =
-      e?.response?.data?.message ||
-      e?.message ||
-      "Signup failed";
+    const msg = e?.response?.data?.message ?? e?.message ?? "Signup failed";
     throw new Error(msg);
+  }
+}
+
+// ---------- Current user profile (no roles here; derive roles from JWT claims) ----------
+// ---------- Current user (from Profile service) ----------
+export type AuthUser = {
+  id: string;         // profile id
+  userId: string;     // underlying auth user id
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  dob: string;        // ISO date string (YYYY-MM-DD)
+};
+
+export async function getMe(): Promise<AuthUser> {
+  const { data } = await http.get<ApiEnvelope<AuthUser>>("/profiles/me");
+  if (data.code !== 1000 || !data.result) {
+    throw new Error(data.message ?? "Failed to load profile");
+  }
+  return data.result;
+}
+
+// ---------- Logout ----------
+export async function logout(): Promise<void> {
+  try {
+    // Call logout endpoint to invalidate tokens on server
+    await http.post("/auth/token/logout", {}, { withCredentials: true });
+  } catch (error) {
+    // Even if server logout fails, we still clear local state
+    console.warn("Server logout failed, clearing local state anyway:", error);
   }
 }

@@ -23,6 +23,10 @@ type Props = {
   onChangeActiveChartType: (t: ChartType) => void;
 
   onRequestOpenBacktest?: () => void;
+
+  // Right sidebar controls
+  onToggleRightSidebar?: () => void;
+  rightSidebarOpen?: boolean;
 };
 
 const FRAMES: Interval[] = ["1m", "5m", "15m", "1h", "4h", "1d", "1w", "1M"];
@@ -41,6 +45,8 @@ export default function AppHeader({
   activeChartType,
   onChangeActiveChartType,
   onRequestOpenBacktest,
+  onToggleRightSidebar,
+  rightSidebarOpen,
 }: Props) {
   return (
     <div className="sticky top-0 z-40 flex items-center gap-4 px-4 pt-1 pb-3 bg-white/80 backdrop-blur">
@@ -219,6 +225,20 @@ export default function AppHeader({
         <IconPlay className="shrink-0" />
         Backtest
       </button>
+      {/* Right sidebar toggle button, aligned to far right */}
+      <div className="ml-auto">
+        <button
+          onClick={onToggleRightSidebar}
+          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm ${
+            rightSidebarOpen
+              ? "bg-neutral-100 border-neutral-400 text-neutral-900"
+              : "bg-white border-neutral-300 text-neutral-800 hover:bg-neutral-50"
+          } shadow-sm`}
+          title={rightSidebarOpen ? "Hide side panel" : "Show side panel"}
+        >
+          <IconPanelRight />
+        </button>
+      </div>
     </div>
   );
 }
@@ -766,6 +786,36 @@ function IconPlay(props: React.SVGProps<SVGSVGElement>) {
       {...props}
     >
       <path d="M8 5v14l11-7z" />
+    </svg>
+  );
+}
+
+function IconPanelRight(props: React.SVGProps<SVGSVGElement>) {
+  // A simple "panel right" icon: left rectangle + right panel
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="3" y="4" width="14" height="16" rx="2" />
+      <rect
+        x="17"
+        y="4"
+        width="4"
+        height="16"
+        rx="1"
+        fill="currentColor"
+        opacity="0.15"
+        stroke="none"
+      />
+      <rect x="17" y="4" width="4" height="16" rx="1" />
     </svg>
   );
 }

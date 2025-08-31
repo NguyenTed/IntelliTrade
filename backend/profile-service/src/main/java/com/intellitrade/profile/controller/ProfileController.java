@@ -6,6 +6,7 @@ import com.intellitrade.profile.service.ProfileService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -18,6 +19,15 @@ public class ProfileController {
     public ApiResponse<ProfileResponse> getProfileById(@PathVariable String profileId) {
         return ApiResponse.<ProfileResponse>builder()
                 .result(profileService.getProfileById(profileId))
+                .build();
+    }
+
+    @GetMapping("/me")
+    public ApiResponse<ProfileResponse> getCurrentUserProfile(Authentication authentication) {
+        String userId = authentication.getName();
+
+        return ApiResponse.<ProfileResponse>builder()
+                .result(profileService.getProfileByUserId(userId))
                 .build();
     }
 }

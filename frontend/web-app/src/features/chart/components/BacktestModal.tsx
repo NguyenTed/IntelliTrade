@@ -17,6 +17,7 @@ const OPS: CompareOp[] = [
   "CrossesAbove",
   "CrossesBelow",
 ];
+const INTERVALS: Interval[] = ["1m", "5m", "15m", "1h", "4h", "1d", "1w", "1M"];
 
 type Props = {
   open: boolean;
@@ -54,6 +55,7 @@ export default function BacktestModal({
   const [lots, setLots] = useState<number>(defaultLots);
   const [slPct, setSlPct] = useState<number>(defaultSlPct);
   const [tpPct, setTpPct] = useState<number>(defaultTpPct);
+  const [selInterval, setSelInterval] = useState<Interval>(interval);
   const [rules, setRules] = useState<Rule[]>(
     defaultRules ?? [
       {
@@ -68,27 +70,41 @@ export default function BacktestModal({
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
-  const rangeError = useMemo(() => {
-    if (!startTime || !endTime) return false;
-    return new Date(startTime).getTime() >= new Date(endTime).getTime();
-  }, [startTime, endTime]);
-
   useEffect(() => {
     if (!open) return;
     // reset potential transient errors when reopened
     setFormError(null);
   }, [open]);
 
+  // --- Validation ---
+
+  // start must be strictly before end
+  const rangeError = useMemo(() => {
+    if (!startTime || !endTime) return false;
+    return new Date(startTime).getTime() >= new Date(endTime).getTime();
+  }, [startTime, endTime]);
+
+  const buyError = useMemo(
+    () => validateLogic(buyCondition, rules.length),
+    [buyCondition, rules.length]
+  );
+  const sellError = useMemo(
+    () => validateLogic(sellCondition, rules.length),
+    [sellCondition, rules.length]
+  );
+
   const canSubmit = useMemo(() => {
-    if (!symbol || !interval) return false;
+    if (!symbol || !selInterval) return false;
     if (!startTime || !endTime) return false;
     if (rangeError) return false;
+    if (!buyCondition || !sellCondition) return false;
+    if (buyError || sellError) return false;
     if (lots <= 0 || slPct <= 0 || tpPct <= 0) return false;
     if (!rules.length) return false;
     return true;
   }, [
     symbol,
-    interval,
+    selInterval,
     startTime,
     endTime,
     lots,
@@ -96,6 +112,10 @@ export default function BacktestModal({
     tpPct,
     rules,
     rangeError,
+    buyCondition,
+    sellCondition,
+    buyError,
+    sellError,
   ]);
 
   if (!open) return null;
@@ -115,7 +135,7 @@ export default function BacktestModal({
           <div className="flex items-center gap-3">
             <IconRocket className="text-sky-600" />
             <div className="text-lg font-semibold text-sky-700">
-              Backtest — {symbol} · {interval}
+              Backtest — {symbol} · {selInterval}
             </div>
           </div>
           <button
@@ -136,6 +156,20 @@ export default function BacktestModal({
                 <IconClock /> Time Range
               </h4>
               <div className="space-y-3">
+                <Labeled>
+                  <span className="text-sm text-neutral-700">Interval</span>
+                  <select
+                    className="input h-10 w-40"
+                    value={selInterval}
+                    onChange={(e) => setSelInterval(e.target.value as Interval)}
+                  >
+                    {INTERVALS.map((iv) => (
+                      <option key={iv} value={iv}>
+                        {iv}
+                      </option>
+                    ))}
+                  </select>
+                </Labeled>
                 <Labeled>
                   <span className="text-sm text-neutral-700">Start</span>
                   <input
@@ -164,6 +198,7 @@ export default function BacktestModal({
                     onChange={(e) => setEndTime(fromLocalInput(e.target.value))}
                   />
                 </Labeled>
+
                 {rangeError && (
                   <p className="text-sm text-rose-600 mt-2">
                     Start must be <span className="font-medium">before</span>{" "}
@@ -337,10 +372,17 @@ export default function BacktestModal({
                     />
                   </div>
                   <input
-                    className="input w-full h-10"
+                    className={`input w-full h-10 ${
+                      buyError
+                        ? "border-rose-400 ring-rose-200 focus:border-rose-500"
+                        : ""
+                    }`}
                     value={buyCondition}
                     onChange={(e) => setBuyCondition(e.target.value)}
                   />
+                  {buyError && (
+                    <p className="text-sm text-rose-600 mt-2">{buyError}</p>
+                  )}
                 </div>
                 <div>
                   <label className="text-sm text-neutral-700 mb-2 block">
@@ -372,10 +414,17 @@ export default function BacktestModal({
                     />
                   </div>
                   <input
-                    className="input w-full h-10"
+                    className={`input w-full h-10 ${
+                      sellError
+                        ? "border-rose-400 ring-rose-200 focus:border-rose-500"
+                        : ""
+                    }`}
                     value={sellCondition}
                     onChange={(e) => setSellCondition(e.target.value)}
                   />
+                  {sellError && (
+                    <p className="text-sm text-rose-600 mt-2">{sellError}</p>
+                  )}
                 </div>
               </div>
             </section>
@@ -432,13 +481,13 @@ export default function BacktestModal({
   }
 
   async function handleSubmit() {
-    if (!canSubmit || rangeError) return;
+    if (!canSubmit || buyError || sellError || rangeError) return;
     setSubmitting(true);
     setFormError(null);
     try {
       const req: BacktestRequest = {
         symbol,
-        interval,
+        interval: selInterval,
         lots,
         slPct,
         tpPct,
@@ -652,4 +701,65 @@ function localInputValue(iso: string) {
 function fromLocalInput(v: string) {
   // "YYYY-MM-DDTHH:mm" -> "YYYY-MM-DDTHH:mm:00"
   return v.length === 16 ? v + ":00" : v;
+}
+
+/**
+ * Validate a condition expression like: s0 & (s1 | s2)
+ * - Accept both textual 'and'/'or' and symbols '&'/'|'
+ * - Ensure balanced parentheses
+ * - Ensure correct token order (operand/operator)
+ * - Ensure referenced sN are within [0, ruleCount-1]
+ * Returns null if valid, or a human-friendly error string.
+ */
+function validateLogic(cond: string, ruleCount: number): string | null {
+  if (!cond || !cond.trim()) return "Condition is empty";
+  // normalize textual operators to symbols for validation
+  const normalized = cond
+    .replace(/\band\b/gi, "&")
+    .replace(/\bor\b/gi, "|")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  // tokenize: sN, &, |, (, )
+  const re = /s\d+|[&|()]|\S+/g;
+  const raw = normalized.match(re) || [];
+  const tokens = raw.filter((t) => t.trim().length > 0);
+
+  let depth = 0;
+  let expectOperand = true;
+
+  for (let i = 0; i < tokens.length; i++) {
+    const t = tokens[i];
+
+    if (expectOperand) {
+      if (t === "(") {
+        depth++;
+        continue;
+      }
+      if (/^s\d+$/.test(t)) {
+        const idx = Number(t.slice(1));
+        if (!Number.isInteger(idx) || idx < 0 || idx >= ruleCount) {
+          return `Unknown signal ${t}`;
+        }
+        expectOperand = false;
+        continue;
+      }
+      return "Expected a signal (e.g. s0) or '('";
+    } else {
+      if (t === "&" || t === "|") {
+        expectOperand = true;
+        continue;
+      }
+      if (t === ")") {
+        if (depth <= 0) return "Unmatched ')'";
+        depth--;
+        continue;
+      }
+      return "Expected 'and'/'or' or ')'";
+    }
+  }
+
+  if (expectOperand) return "Expression ends with an operator";
+  if (depth !== 0) return "Unmatched '('";
+  return null;
 }

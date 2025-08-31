@@ -4,7 +4,7 @@ import type { BacktestRequest, BacktestResponse } from "../types/backtest";
 export async function postBacktest(req: BacktestRequest): Promise<BacktestResponse> {
   // Force text so we can sanitize invalid JSON tokens coming from the server (NaN/Infinity)
   const res = await http.post<string>(
-    "/backtest/api/v1/run",
+    "/backtest",
     req,
     {
       responseType: "text" as any,
