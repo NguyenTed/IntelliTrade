@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { Spin, Result, Button } from "antd";
-import { createSubscription } from "./api/SubscriptionApiService";
+import { createSubscription } from "../api/SubscriptionApiService";
 
 const VNPayCallback: React.FC = () => {
   const [searchParams] = useSearchParams();

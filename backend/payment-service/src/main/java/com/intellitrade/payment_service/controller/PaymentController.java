@@ -24,7 +24,6 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-
     @GetMapping("/vnpay/url/{subscriptionType}/{userId}")
     public ResponseEntity<String> getVNPayUrl(@PathVariable("subscriptionType")SubscriptionType subscriptionType, @PathVariable("userId") String userId){
         String paymentId = paymentService.createPayment(userId,subscriptionType);
