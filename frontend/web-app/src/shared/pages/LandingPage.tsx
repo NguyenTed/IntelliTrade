@@ -107,7 +107,7 @@ export default function LandingPage() {
 
       {/* Scroll Content */}
       <div
-        ref={whiteSectionRef} // 👈 ref chỉ gắn ở section trắng
+        ref={whiteSectionRef}
         className="z-10 bg-white text-gray-800 rounded-t-[35px] pt-[80px] pb-[120px] px-[40px]"
       >
         <section className="mb-10">

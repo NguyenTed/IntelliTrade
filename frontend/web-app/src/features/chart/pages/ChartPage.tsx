@@ -101,7 +101,7 @@ export default function ChartPage() {
   const [backtestOpen, setBacktestOpen] = useState(false);
   const [statsOpen, setStatsOpen] = useState(false);
 
-  const [rightOpen, setRightOpen] = useState(true);
+  const [rightOpen, setRightOpen] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -271,7 +271,7 @@ export default function ChartPage() {
       />
 
       {/* BODY: left tools | grid | right sidebar */}
-      <div className="flex-1 min-h-0 flex">
+      <div className="flex-1 min-h-0 flex relative">
         <LeftToolBar />
 
         <div className="flex-1 min-h-0 grid grid-rows-[1fr_auto]">
@@ -326,7 +326,11 @@ export default function ChartPage() {
           </>
         </div>
 
-        {rightOpen && <RightSidebar />}
+        {rightOpen && (
+          <div className="absolute top-0 right-0 h-full w-[50%] shadow-lg bg-white z-50 ">
+            <RightSidebar />
+          </div>
+        )}
       </div>
 
       <SymbolModal

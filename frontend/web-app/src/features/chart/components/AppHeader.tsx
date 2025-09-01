@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { type LayoutMode } from "./LayoutToggle";
 import type { Interval } from "../store/chart.store";
 import type { PanelPrediction } from "../types/prediction";
+import NewspaperIcon from "@mui/icons-material/Newspaper";
 
 // Local chart type union to mirror page-level state
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
@@ -269,14 +270,14 @@ export default function AppHeader({
       <div className="ml-auto">
         <button
           onClick={onToggleRightSidebar}
-          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm ${
+          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm cursor-pointer ${
             rightSidebarOpen
               ? "bg-neutral-100 border-neutral-400 text-neutral-900"
               : "bg-white border-neutral-300 text-neutral-800 hover:bg-neutral-50"
           } shadow-sm`}
           title={rightSidebarOpen ? "Hide side panel" : "Show side panel"}
         >
-          <IconPanelRight />
+          <NewspaperIcon />
         </button>
       </div>
     </div>
