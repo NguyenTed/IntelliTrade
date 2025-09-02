@@ -1,7 +1,7 @@
 package com.intellitrade.profile.controller.internal;
 
 import com.intellitrade.profile.dto.request.ProfileCreationRequest;
-import com.intellitrade.profile.dto.request.SubscriptionUpdateRequest;
+import com.intellitrade.profile.dto.request.UpsertPremiumRequest;
 import com.intellitrade.profile.dto.response.ApiResponse;
 import com.intellitrade.profile.dto.response.ProfileResponse;
 import com.intellitrade.profile.service.ProfileService;
@@ -22,11 +22,5 @@ public class InternalProfileController {
         return ApiResponse.<ProfileResponse>builder()
                 .result(profileService.createProfile(profileCreationRequest))
                 .build();
-    }
-
-    @PostMapping("/premium")
-    public ApiResponse<String> updateUserToPremium(@RequestBody SubscriptionUpdateRequest request) {
-        System.out.println("get api!");
-        return ApiResponse.<String>builder().result(profileService.updateToPremium(request)).build();
     }
 }

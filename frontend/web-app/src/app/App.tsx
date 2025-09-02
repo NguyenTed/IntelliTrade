@@ -32,7 +32,7 @@ export const App = () => {
           <Route path="/chart" element={<ChartPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/vnpay/callback" element={<VNPayCallback />} />
-          <Route path="/payment/subscription" element={<SubscriptionPlans />} />
+          <Route path="/pricing" element={<SubscriptionPlans />} />
           <Route path="/ideas" element={<IdeasPage />} />
           <Route path="/ideas/:slug" element={<IdeasDetailPage />} />
           <Route path="/news/:slug" element={<NewsDetailPage />} />

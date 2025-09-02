@@ -9,6 +9,7 @@ import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.support.UUIDStringGenerator;
 
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 
 @Data
 @Builder
@@ -30,4 +31,10 @@ public class Profile {
 
     @Property("userId")
     String userId;
+
+    // ---- Premium projection (v1) ----
+    Boolean premium;                 // computed: true if now in [premiumSince, premiumUntil)
+    String planKey;                  // e.g., "PREMIUM_MONTHLY"
+    OffsetDateTime premiumSince;     // subscription start
+    OffsetDateTime premiumUntil;     // subscription end (exclusive)
 }

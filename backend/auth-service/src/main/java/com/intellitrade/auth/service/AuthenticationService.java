@@ -11,6 +11,7 @@ import com.intellitrade.auth.entity.RefreshToken;
 import com.intellitrade.auth.entity.User;
 import com.intellitrade.auth.exception.AppException;
 import com.intellitrade.auth.exception.ErrorCode;
+import com.intellitrade.auth.external.ProfileClient;
 import com.intellitrade.auth.repository.RefreshTokenRepository;
 import com.intellitrade.auth.repository.UserRepository;
 import com.nimbusds.jose.*;
@@ -37,6 +38,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 import java.util.StringJoiner;
 import java.util.UUID;
 
@@ -47,6 +49,7 @@ import java.util.UUID;
 public class AuthenticationService {
     UserRepository userRepository;
     RefreshTokenRepository refreshTokenRepository;
+    ProfileClient profileClient;
 
     @NonFinal
     @Value("${jwt.signer-key}")
@@ -178,20 +181,44 @@ public class AuthenticationService {
                 });
     }
 
+    private Map<String, Object> safeGetPremiumStatus(String userId) {
+        try {
+            var res = profileClient.getPremiumStatus(userId);
+            System.out.println("Get premium status: " + res);
+            return res;
+        } catch (Exception e) {
+            log.warn("Failed to fetch premium status for user {}: {}", userId, e.getMessage());
+            return null;
+        }
+    }
+
     private String generateAccessToken(User user) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
-        JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
+        // Fetch premium projection from Profile service
+        Map<String, Object> premium = safeGetPremiumStatus(user.getId());
+        String tier = "free";
+        String plan = null;
+        if (premium != null && Boolean.TRUE.equals(premium.get("isPremium"))) {
+            tier = "premium";
+            Object planKey = premium.get("planKey");
+            if (planKey instanceof String) plan = (String) planKey;
+        }
+
+        JWTClaimsSet.Builder builder = new JWTClaimsSet.Builder()
                 .subject(user.getId())
                 .issuer("intellitrade.com")
                 .issueTime(new Date())
                 .expirationTime(Date.from(Instant.now().plus(VALID_DURATION, ChronoUnit.SECONDS)))
                 .jwtID(UUID.randomUUID().toString())
                 .claim("scope", buildScope(user))
-                .build();
+                .claim("tier", tier);
+
+        if (plan != null) builder.claim("plan", plan);
+
+        JWTClaimsSet jwtClaimsSet = builder.build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
-
         JWSObject jwsObject = new JWSObject(header, payload);
 
         try {

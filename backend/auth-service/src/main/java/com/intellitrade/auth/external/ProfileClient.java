@@ -8,10 +8,16 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import java.util.Map;
 
 @FeignClient(name = "profile-service", url = "${app.services.profile}",
         configuration = { AuthenticationRequestInterceptor.class })
 public interface ProfileClient {
     @PostMapping(value = "/profiles/internal", produces = MediaType.APPLICATION_JSON_VALUE)
     ApiResponse<ProfileResponse> createProfile(@RequestBody ProfileCreationRequest request);
+
+    @GetMapping(value = "/profiles/{userId}/premium-status", produces = MediaType.APPLICATION_JSON_VALUE)
+    Map<String, Object> getPremiumStatus(@PathVariable("userId") String userId);
 }

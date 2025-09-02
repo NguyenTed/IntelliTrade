@@ -1,7 +1,7 @@
 package com.intellitrade.profile.service;
 
 import com.intellitrade.profile.dto.request.ProfileCreationRequest;
-import com.intellitrade.profile.dto.request.SubscriptionUpdateRequest;
+import com.intellitrade.profile.dto.request.UpsertPremiumRequest;
 import com.intellitrade.profile.dto.response.ProfileResponse;
 import com.intellitrade.profile.entity.Profile;
 import com.intellitrade.profile.exception.AppException;
@@ -39,7 +39,7 @@ public class ProfileService {
         return profileMapper.toProfileResponse(profile);
     }
 
-    public String updateToPremium(SubscriptionUpdateRequest request) {
+    public String updateToPremium(UpsertPremiumRequest request) {
         return "Update profile to premium";
     }
 }
