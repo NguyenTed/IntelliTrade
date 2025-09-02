@@ -1,6 +1,7 @@
 package com.intellitrade.profile.service;
 
 import com.intellitrade.profile.dto.request.ProfileCreationRequest;
+import com.intellitrade.profile.dto.request.SubscriptionUpdateRequest;
 import com.intellitrade.profile.dto.response.ProfileResponse;
 import com.intellitrade.profile.entity.Profile;
 import com.intellitrade.profile.exception.AppException;
@@ -36,5 +37,9 @@ public class ProfileService {
         Profile profile = profileRepository.findProfileByUserId(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         return profileMapper.toProfileResponse(profile);
+    }
+
+    public String updateToPremium(SubscriptionUpdateRequest request) {
+        return "Update profile to premium";
     }
 }
