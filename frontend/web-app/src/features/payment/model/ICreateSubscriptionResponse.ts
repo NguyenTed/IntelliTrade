@@ -8,6 +8,7 @@ export interface ICreateSubscriptionResponse {
     transactionTime: string;
     transactionStatus: string;
     subscriptionType: string;
+    statusCode: number;
     // Add more fields if needed
   };
 }

@@ -63,14 +63,14 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         LocalDateTime endDateTime = payDateTime.plusDays(30);
         Date endDate = Date.from(endDateTime.atZone(ZoneId.systemDefault()).toInstant());
         subscription.setEndDate(endDate);
-        subscription=subscriptionRepository.save(subscription);
+        subscription=subscriptionRepository.saveAndFlush(subscription);
         // send request to profile service to update profile
         SubscriptionUpdateRequest subscriptionUpdateRequest = new SubscriptionUpdateRequest();
         subscriptionUpdateRequest.setSubscriptionType(subscription.getSubscriptionType().toString());
         subscriptionUpdateRequest.setStartDate(payDate);
         subscriptionUpdateRequest.setEndDate(endDate);
         subscriptionUpdateRequest.setUserId(payment.getUserId());
-        //profileClient.updateProfileSubscription(subscriptionUpdateRequest);
+        profileClient.updateProfileSubscription(subscriptionUpdateRequest);
 
         //send email to inform that the success subscription
 
@@ -94,4 +94,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
         return subscriptionResponse;
     }
+
+
 }

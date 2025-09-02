@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/payment")
+@RequestMapping("/vnpay")
 public class PaymentController {
     private final VNPayService vnPayService;
     private final PaymentService paymentService;
@@ -24,7 +24,7 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @GetMapping("/vnpay/url/{subscriptionType}/{userId}")
+    @GetMapping("/url/{subscriptionType}/{userId}")
     public ResponseEntity<String> getVNPayUrl(@PathVariable("subscriptionType")SubscriptionType subscriptionType, @PathVariable("userId") String userId){
         String paymentId = paymentService.createPayment(userId,subscriptionType);
         String url = vnPayService.generatePaymentUrl(subscriptionType,paymentId);

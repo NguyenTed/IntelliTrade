@@ -8,8 +8,8 @@ export interface SubscriptionType {
   duration: number;
 }
 
-export const getVNPayUrl = async (id: number): Promise<{ url: string }> => {
-  const res = await http.get<{ url: string }>(`/api/v1/payment/vnpay/url/${id}`);
+export const getVNPayUrl = async (id: string): Promise<{ url: string }> => {
+  const res = await http.get<{ url: string }>(`/payment/vnpay/url/PRO/${id}`);
   return res.data;
 };
 
@@ -40,7 +40,7 @@ export const createSubscription = async (
     subscriptionType,
   };
   const res = await http.post<ICreateSubscriptionResponse>(
-    "/payment/api/v1/subscription",
+    "/payment/subscription",
     payload
   );
   return res.data;
