@@ -26,6 +26,7 @@ public class InternalProfileController {
 
     @PostMapping("/premium")
     public ApiResponse<String> updateUserToPremium(@RequestBody SubscriptionUpdateRequest request) {
+        System.out.println("get api!");
         return ApiResponse.<String>builder().result(profileService.updateToPremium(request)).build();
     }
 }

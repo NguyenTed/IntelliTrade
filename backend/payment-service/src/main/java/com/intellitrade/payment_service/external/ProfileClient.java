@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "profile-service", url = "${app.services.profile}")
 public interface ProfileClient {
     @PostMapping(value = "/profiles/internal/premium", produces = MediaType.APPLICATION_JSON_VALUE)
-    ApiResponse<ApiResponse> updateProfileSubscription(@RequestBody SubscriptionUpdateRequest request);
+    ApiResponse<String> updateProfileSubscription(@RequestBody SubscriptionUpdateRequest request);
 }

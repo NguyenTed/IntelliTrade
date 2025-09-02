@@ -45,7 +45,7 @@ const VNPayCallback: React.FC = () => {
         subscriptionType
       );
       console.log("res: ", res);
-      if (res && res.data?.statusCode === 200) {
+      if (res) {
         setLoading(false);
         setStatus("success");
       } else {
