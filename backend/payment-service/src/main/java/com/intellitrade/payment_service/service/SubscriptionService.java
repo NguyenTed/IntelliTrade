@@ -1,5 +1,6 @@
 package com.intellitrade.payment_service.service;
 
+import com.intellitrade.payment_service.dto.request.SubscriptionUpdateRequest;
 import com.intellitrade.payment_service.dto.request.VNPayOrderDTO;
 import com.intellitrade.payment_service.dto.response.SubscriptionResponse;
 

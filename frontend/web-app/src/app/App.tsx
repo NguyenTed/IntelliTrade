@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { ChartPage } from "@/features/chart";
 import LandingPage from "@/shared/pages/LandingPage";
-import ProfilePage from "@/shared/pages/ProfilePage";
+import ProfilePage from "@/features/profile/pages/ProfilePage";
 import { LoginPage } from "@/features/auth/pages/LoginPage";
-import VNPayCallback from "@/features/payment/VNPayCallback";
+import VNPayCallback from "@/features/payment/components/VNPayCallback";
 import SubscriptionPlans from "@/features/payment/pages/SubscriptionPlan";
 import IdeasPage from "@/features/articles/pages/IdeasPage";
 import IdeasDetailPage from "@/features/articles/pages/IdeasDetailPage";
@@ -32,7 +32,7 @@ export const App = () => {
           <Route path="/chart" element={<ChartPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/vnpay/callback" element={<VNPayCallback />} />
-          <Route path="/payment/subscription" element={<SubscriptionPlans />} />
+          <Route path="/pricing" element={<SubscriptionPlans />} />
           <Route path="/ideas" element={<IdeasPage />} />
           <Route path="/ideas/:slug" element={<IdeasDetailPage />} />
           <Route path="/news/:slug" element={<NewsDetailPage />} />

@@ -33,6 +33,10 @@ def get_tradingview_sentiment():
 @crawler_bp.route("/crawler/sentiments/<string:symbol>", methods=["GET"])
 def get_sentiment_by_symbol(symbol: str):
     sentiment = CrawlArticleService.get_sentiment_by_symbol(symbol)
+    if sentiment is None:
+        return jsonify({
+            "message": f"No sentiment found for symbol {symbol}"
+        }), 404
     return jsonify(sentiment.model_dump(mode="json"))
 
 

@@ -21,4 +21,5 @@ public class InternalSubscriptionController {
                 .result(subscriptionService.updateExpiredSubscription(userId))
                 .build();
     }
+
 }

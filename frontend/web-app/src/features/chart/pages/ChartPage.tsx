@@ -11,6 +11,10 @@ import { useBacktest } from "../hooks/useBacktest";
 import BacktestResults from "../components/BacktestResult";
 import BacktestModal from "../components/BacktestModal";
 import BacktestStatsModal from "../components/BacktestStatsModal";
+import type { BacktestTrade } from "../types/backtest";
+import { fetchPrediction } from "../api/prediction";
+import type { PanelPrediction } from "../types/prediction";
+import UpgradeModal from "../components/UpgradeModal";
 
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
 
@@ -23,12 +27,14 @@ type PanelState = {
   showSMA50: boolean;
   showVolume: boolean;
   chartType: ChartType;
+  backtestTrades?: BacktestTrade[];
+  prediction?: PanelPrediction | null;
 };
 
 function initialPanels(n: number): PanelState[] {
   const seeds = [
     { id: 0, symbol: "BTCUSDT", interval: "1m" },
-    { id: 1, symbol: "ETHUSDT", interval: "1m" },
+    { id: 1, symbol: "DOGEUSDT", interval: "1m" },
     { id: 2, symbol: "LINKUSDT", interval: "1m" },
     { id: 3, symbol: "SOLUSDT", interval: "1m" },
   ];
@@ -96,7 +102,19 @@ export default function ChartPage() {
   const [backtestOpen, setBacktestOpen] = useState(false);
   const [statsOpen, setStatsOpen] = useState(false);
 
-  const [rightOpen, setRightOpen] = useState(true);
+  const [upgradeOpen, setUpgradeOpen] = useState(false);
+  const [upgradeFeature, setUpgradeFeature] = useState<
+    "BACKTEST" | "MULTI_CHARTS" | "INDICATORS" | null
+  >(null);
+
+  const requestUpgrade = (
+    feature: "BACKTEST" | "MULTI_CHARTS" | "INDICATORS"
+  ) => {
+    setUpgradeFeature(feature);
+    setUpgradeOpen(true);
+  };
+
+  const [rightOpen, setRightOpen] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -132,6 +150,16 @@ export default function ChartPage() {
     activePanel?.interval ?? ("1m" as Interval)
   );
 
+  useEffect(() => {
+    if (!btResult?.trades) return;
+    setPanels((prev) =>
+      prev.map((p) =>
+        p.id === activeId ? { ...p, backtestTrades: btResult.trades } : p
+      )
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [btResult]);
+
   const handleChangeActiveChartType = (t: ChartType) => {
     setPanels((prev) =>
       prev.map((p) => (p.id === activeId ? { ...p, chartType: t } : p))
@@ -161,12 +189,20 @@ export default function ChartPage() {
   // handlers to mutate individual panels
   const handleChangeSymbol = (id: number, s: string) => {
     setPanels((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, symbol: s } : p))
+      prev.map((p) =>
+        p.id === id
+          ? { ...p, symbol: s, backtestTrades: undefined, prediction: null }
+          : p
+      )
     );
   };
   const handleChangeInterval = (id: number, i: Interval) => {
     setPanels((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, interval: i } : p))
+      prev.map((p) =>
+        p.id === id
+          ? { ...p, interval: i, backtestTrades: undefined, prediction: null }
+          : p
+      )
     );
   };
 
@@ -185,6 +221,39 @@ export default function ChartPage() {
         return { ...p, showVolume: !p.showVolume };
       })
     );
+  };
+
+  const [predicting, setPredicting] = useState(false);
+
+  const handlePredictActive = async () => {
+    if (!activePanel || predicting) return;
+    try {
+      setPredicting(true);
+      const res = await fetchPrediction(
+        activePanel.symbol,
+        activePanel.interval
+      );
+      const latest = Number(res.latest_close_price ?? NaN);
+      const predicted = Number(res.predicted_close_price ?? NaN);
+      if (!Number.isFinite(latest) || !Number.isFinite(predicted)) return;
+      const delta = predicted - latest;
+      const deltaPct = latest !== 0 ? (delta / latest) * 100 : 0;
+      const next: PanelPrediction = {
+        latest,
+        predicted,
+        delta,
+        deltaPct,
+        trend:
+          (res.trend as any) ||
+          (delta > 0 ? "UP" : delta < 0 ? "DOWN" : "NEUTRAL"),
+        at: Date.now(),
+      };
+      setPanels((prev) =>
+        prev.map((p) => (p.id === activeId ? { ...p, prediction: next } : p))
+      );
+    } finally {
+      setPredicting(false);
+    }
   };
 
   return (
@@ -207,12 +276,16 @@ export default function ChartPage() {
         activeChartType={activePanel?.chartType ?? "candles"}
         onChangeActiveChartType={handleChangeActiveChartType}
         onRequestOpenBacktest={() => setBacktestOpen(true)}
+        onRequestUpgrade={requestUpgrade}
         onToggleRightSidebar={() => setRightOpen((o) => !o)}
         rightSidebarOpen={rightOpen}
+        onRequestPredict={handlePredictActive}
+        predicting={predicting}
+        activePrediction={activePanel?.prediction ?? null}
       />
 
       {/* BODY: left tools | grid | right sidebar */}
-      <div className="flex-1 min-h-0 flex">
+      <div className="flex-1 min-h-0 flex relative">
         <LeftToolBar />
 
         <div className="flex-1 min-h-0 grid grid-rows-[1fr_auto]">
@@ -231,6 +304,8 @@ export default function ChartPage() {
                   showSMA50={p.showSMA50}
                   showVolume={p.showVolume}
                   chartType={p.chartType}
+                  backtestTrades={p.backtestTrades}
+                  prediction={p.prediction}
                 />
               </div>
             ))}
@@ -250,13 +325,26 @@ export default function ChartPage() {
               <BacktestResults
                 data={btResult}
                 onOpenStats={() => setStatsOpen(true)}
-                onClose={() => resetBacktest()} // hides the table
+                onClose={() => {
+                  setPanels((prev) =>
+                    prev.map((p) =>
+                      p.id === activeId
+                        ? { ...p, backtestTrades: undefined }
+                        : p
+                    )
+                  );
+                  resetBacktest();
+                }} // hides the table and clears overlay
               />
             )}
           </>
         </div>
 
-        {rightOpen && <RightSidebar />}
+        {rightOpen && (
+          <div className="absolute top-0 right-0 h-full w-[50%] shadow-lg bg-white z-50 ">
+            <RightSidebar />
+          </div>
+        )}
       </div>
 
       <SymbolModal
@@ -290,6 +378,14 @@ export default function ChartPage() {
         open={statsOpen}
         onClose={() => setStatsOpen(false)}
         stats={btResult?.stats ?? null}
+      />
+      <UpgradeModal
+        open={upgradeOpen}
+        feature={upgradeFeature ?? undefined}
+        onClose={() => {
+          setUpgradeOpen(false);
+          setUpgradeFeature(null);
+        }}
       />
     </div>
   );

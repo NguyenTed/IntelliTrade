@@ -25,7 +25,7 @@ spring:
       vnp_ApiUrl: ${VNP_APIURL}
       vnp_ReturnUrl: ${VNP_RETURNURL}
 server:
-  port: 8085
+  port: 8089
   servlet:
     context-path: /payment
 app:

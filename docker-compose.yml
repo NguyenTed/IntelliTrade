@@ -110,6 +110,23 @@ services:
     volumes:
       - crawler_state:/var/lib/crawler
 
+  prediction-service:
+    build: ./backend/prediction-service
+    ports:
+      - "5006:5006"
+    command: ["python", "run.py"]
+    environment:
+      FLASK_ENV: development
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: nguyenquocthuan
+      DB_NAME: predict_service
+    depends_on:
+      - market-service
+      - crawler-service
+    restart: unless-stopped
+
   # WebSocket Gateway
   websocket-gateway:
     build:

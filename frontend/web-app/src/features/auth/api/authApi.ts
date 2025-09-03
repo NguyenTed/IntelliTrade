@@ -29,7 +29,7 @@ export type SignupDto = {
   password: string;
   firstName: string;
   lastName: string;
-  dateOfBirth: string; // expect 'YYYY-MM-DD' from <input type="date">
+  dob: string; // expect 'YYYY-MM-DD' from <input type="date">
 };
 
 // Match backend response shape:
@@ -76,9 +76,13 @@ export type AuthUser = {
   userId: string;     // underlying auth user id
   username: string;
   email: string;
+  premium: boolean;
   firstName: string;
   lastName: string;
   dob: string;        // ISO date string (YYYY-MM-DD)
+  planKey: string;
+  premiumSince: string;
+  premiumUntil: string;
 };
 
 export async function getMe(): Promise<AuthUser> {

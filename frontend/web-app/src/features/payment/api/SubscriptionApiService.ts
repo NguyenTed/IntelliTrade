@@ -8,8 +8,8 @@ export interface SubscriptionType {
   duration: number;
 }
 
-export const getVNPayUrl = async (id: number): Promise<{ url: string }> => {
-  const res = await http.get<{ url: string }>(`/api/v1/payment/vnpay/url/${id}`);
+export const getVNPayUrl = async (id: string): Promise<{ url: string }> => {
+  const res = await http.get<{ url: string }>(`/payment/vnpay/url/PRO/${id}`);
   return res.data;
 };
 
@@ -28,19 +28,15 @@ export const createSubscription = async (
   vnp_TransactionStatus: string,
   subscriptionType: string
 ): Promise<ICreateSubscriptionResponse> => {
-  const year = vnp_PayDate.substring(0, 4);
-  const month = vnp_PayDate.substring(4, 6);
-  const day = vnp_PayDate.substring(6, 8);
-  const formattedDate = `${year}-${month}-${day}`;
   const payload: CreateSubscriptionPayload = {
     paymentId,
     transactionNo: vnp_TransactionNo,
-    transactionTime: formattedDate,
+    transactionTime: vnp_PayDate,
     transactionStatus: vnp_TransactionStatus,
     subscriptionType,
   };
   const res = await http.post<ICreateSubscriptionResponse>(
-    "/payment/api/v1/subscription",
+    "/payment/subscription",
     payload
   );
   return res.data;

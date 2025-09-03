@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import LayoutToggle, { type LayoutMode } from "./LayoutToggle";
+import { Link } from "react-router-dom";
+import { type LayoutMode } from "./LayoutToggle";
 import type { Interval } from "../store/chart.store";
+import type { PanelPrediction } from "../types/prediction";
+import NewspaperIcon from "@mui/icons-material/Newspaper";
+import { authStore } from "@/features/auth/model/authStore";
 
 // Local chart type union to mirror page-level state
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
@@ -27,10 +31,184 @@ type Props = {
   // Right sidebar controls
   onToggleRightSidebar?: () => void;
   rightSidebarOpen?: boolean;
+
+  onRequestUpgrade?: (
+    feature: "BACKTEST" | "MULTI_CHARTS" | "INDICATORS"
+  ) => void;
 };
 
 const FRAMES: Interval[] = ["1m", "5m", "15m", "1h", "4h", "1d", "1w", "1M"];
 const TYPES: ChartType[] = ["candles", "bars", "line", "area", "baseline"];
+
+function IconCrystalBall(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="12" cy="10" r="6" />
+      <path d="M6 18h12" />
+      <path d="M8 22h8" />
+    </svg>
+  );
+}
+function IconSpinner(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+      className={(props.className ?? "") + " animate-spin"}
+    >
+      <path d="M12 2a10 10 0 100 20" opacity="0.2" />
+      <path d="M12 2a10 10 0 010 4" />
+    </svg>
+  );
+}
+
+function IconUserCircle(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="currentColor"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+      <path d="M5 20a7 7 0 1 1 14 0H5Z" />
+    </svg>
+  );
+}
+function IconHome(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M3 11l9-8 9 8" />
+      <path d="M5 12v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8" />
+    </svg>
+  );
+}
+function IconProfile(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="12" cy="8" r="4" />
+      <path d="M6 20a6 6 0 0 1 12 0" />
+    </svg>
+  );
+}
+
+function UserMenu() {
+  const user = authStore((s) => s.user);
+
+  // If no logged-in user, render a Home button that links to "/"
+  if (!user) {
+    return (
+      <Link to="/" aria-label="Go to home" className="inline-flex items-center">
+        <span className="rounded-full p-[3px] bg-gradient-to-br from-sky-300 via-emerald-300 to-indigo-300 shadow transition">
+          <span className="grid place-items-center h-9 w-9 rounded-full bg-white text-neutral-800 shadow-md ring-1 ring-neutral-200 transition-transform duration-150 ease-out hover:shadow-lg hover:scale-[1.03] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400">
+            <span className="relative inline-grid place-items-center">
+              <IconHome className="h-6 w-6" />
+              <span
+                className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(ellipse_at_30%_20%,rgba(255,255,255,0.9),transparent_55%)]"
+                aria-hidden
+              />
+            </span>
+          </span>
+        </span>
+      </Link>
+    );
+  }
+
+  // Logged-in: show the user dropdown
+  return (
+    <Dropdown
+      showCaret={false}
+      buttonClassName="p-0 rounded-full border-0 bg-transparent shadow-none hover:bg-transparent"
+      menuClassName="absolute z-50 mt-2 w-44 rounded-xl border border-neutral-200 bg-white shadow-xl ring-1 ring-black/5"
+      label={
+        <span className="inline-flex items-center">
+          <span className="rounded-full p-[3px] bg-gradient-to-br from-sky-300 via-emerald-300 to-indigo-300 shadow transition">
+            <span
+              className="grid place-items-center h-9 w-9 rounded-full bg-white text-neutral-800 shadow-md ring-1 ring-neutral-200 transition-transform duration-150 ease-out hover:shadow-lg hover:scale-[1.03] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+              aria-label="User menu"
+            >
+              <span className="relative inline-grid place-items-center">
+                <IconUserCircle className="h-7 w-7" />
+                <span
+                  className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(ellipse_at_30%_20%,rgba(255,255,255,0.9),transparent_55%)]"
+                  aria-hidden
+                />
+              </span>
+            </span>
+          </span>
+        </span>
+      }
+    >
+      <div className="p-2 space-y-1">
+        <MenuLink to="/" icon={<IconHome />}>
+          Home
+        </MenuLink>
+        <MenuLink to="/profile" icon={<IconProfile />}>
+          Profile
+        </MenuLink>
+      </div>
+    </Dropdown>
+  );
+}
+
+function MenuLink({
+  to,
+  children,
+  icon,
+}: {
+  to: string;
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+}) {
+  return (
+    <Link
+      to={to}
+      className="w-full flex items-center gap-2 px-2.5 py-2 rounded-md text-sm transition text-left truncate bg-transparent text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50"
+    >
+      {icon ? <span className="shrink-0 text-[1rem]">{icon}</span> : null}
+      <span className="truncate">{children}</span>
+    </Link>
+  );
+}
 
 export default function AppHeader({
   activeSymbol,
@@ -45,12 +223,44 @@ export default function AppHeader({
   activeChartType,
   onChangeActiveChartType,
   onRequestOpenBacktest,
+  onRequestUpgrade,
   onToggleRightSidebar,
   rightSidebarOpen,
 }: Props) {
+  const user = authStore((s) => s.user);
+  const isPremium = !!user?.premium;
+
+  const handleBacktestClick = () => {
+    if (!user || !isPremium) {
+      onRequestUpgrade?.("BACKTEST");
+      return;
+    }
+    onRequestOpenBacktest?.();
+  };
+
+  const handleLayoutChange = (m: LayoutMode) => {
+    const requiresPremium = m !== "1"; // any layout other than single is premium
+    if (requiresPremium && (!user || !isPremium)) {
+      onRequestUpgrade?.("MULTI_CHARTS");
+      return;
+    }
+    onLayoutChange(m);
+  };
+
+  const handleToggleIndicator = (k: "ema20" | "sma50" | "volume") => {
+    if (!user || !isPremium) {
+      onRequestUpgrade?.("INDICATORS");
+      return;
+    }
+    onToggleIndicator(k);
+  };
+
   return (
     <div className="sticky top-0 z-40 flex items-center gap-4 px-4 pt-1 pb-3 bg-white/80 backdrop-blur">
       {/* Active chart label */}
+      <div className="mr-1.5">
+        <UserMenu />
+      </div>
       <div className="flex items-center gap-2">
         <button
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-neutral-300 hover:bg-neutral-50 text-neutral-900 font-semibold shadow-sm"
@@ -99,17 +309,20 @@ export default function AppHeader({
           <CheckboxRow
             label="EMA20"
             checked={indicatorState.ema20}
-            onChange={() => onToggleIndicator("ema20")}
+            onChange={() => handleToggleIndicator("ema20")}
+            className={!isPremium ? "opacity-70" : undefined}
           />
           <CheckboxRow
             label="SMA50"
             checked={indicatorState.sma50}
-            onChange={() => onToggleIndicator("sma50")}
+            onChange={() => handleToggleIndicator("sma50")}
+            className={!isPremium ? "opacity-70" : undefined}
           />
           <CheckboxRow
             label="Volume"
             checked={indicatorState.volume}
-            onChange={() => onToggleIndicator("volume")}
+            onChange={() => handleToggleIndicator("volume")}
+            className={!isPremium ? "opacity-70" : undefined}
           />
         </div>
       </Dropdown>
@@ -170,55 +383,55 @@ export default function AppHeader({
           </>
         }
       >
-        <div className="p-2 w-44 space-y-1">
+        <div className="p-2 w-52 space-y-1">
           <MenuButton
             active={layout === "1"}
             icon={<IconLayout1 />}
-            onClick={() => onLayoutChange("1")}
+            onClick={() => handleLayoutChange("1")}
           >
             Single
           </MenuButton>
           <MenuButton
             active={layout === "2v"}
             icon={<IconLayout2v />}
-            onClick={() => onLayoutChange("2v")}
+            onClick={() => handleLayoutChange("2v")}
           >
-            2-Up (Vertical)
+            2-Up (Vertical){!isPremium ? <PremiumBadge /> : null}
           </MenuButton>
           <MenuButton
             active={layout === "2h"}
             icon={<IconLayout2h />}
-            onClick={() => onLayoutChange("2h")}
+            onClick={() => handleLayoutChange("2h")}
           >
-            2-Up (Horizontal)
+            2-Up (Horizontal){!isPremium ? <PremiumBadge /> : null}
           </MenuButton>
           <MenuButton
             active={layout === "3h"}
             icon={<IconLayout3h />}
-            onClick={() => onLayoutChange("3h")}
+            onClick={() => handleLayoutChange("3h")}
           >
-            3-Up (Row)
+            3-Up (Row){!isPremium ? <PremiumBadge /> : null}
           </MenuButton>
           <MenuButton
             active={layout === "3v"}
             icon={<IconLayout3v />}
-            onClick={() => onLayoutChange("3v")}
+            onClick={() => handleLayoutChange("3v")}
           >
-            3-Up (Column)
+            3-Up (Column){!isPremium ? <PremiumBadge /> : null}
           </MenuButton>
           <MenuButton
             active={layout === "4"}
             icon={<IconLayout4 />}
-            onClick={() => onLayoutChange("4")}
+            onClick={() => handleLayoutChange("4")}
           >
-            2 × 2 Grid
+            2 × 2 Grid{!isPremium ? <PremiumBadge /> : null}
           </MenuButton>
         </div>
       </Dropdown>
 
       {/* Backtest trigger */}
       <button
-        onClick={onRequestOpenBacktest}
+        onClick={handleBacktestClick}
         className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800 shadow-sm"
         title="Run backtest on active chart"
       >
@@ -229,14 +442,14 @@ export default function AppHeader({
       <div className="ml-auto">
         <button
           onClick={onToggleRightSidebar}
-          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm ${
+          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm cursor-pointer ${
             rightSidebarOpen
               ? "bg-neutral-100 border-neutral-400 text-neutral-900"
               : "bg-white border-neutral-300 text-neutral-800 hover:bg-neutral-50"
           } shadow-sm`}
           title={rightSidebarOpen ? "Hide side panel" : "Show side panel"}
         >
-          <IconPanelRight />
+          <NewspaperIcon />
         </button>
       </div>
     </div>
@@ -247,9 +460,15 @@ export default function AppHeader({
 function Dropdown({
   label,
   children,
+  buttonClassName,
+  menuClassName,
+  showCaret = true,
 }: {
   label: React.ReactNode;
   children: React.ReactNode;
+  buttonClassName?: string;
+  menuClassName?: string;
+  showCaret?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -274,15 +493,25 @@ function Dropdown({
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800 shadow-sm`}
+        className={
+          buttonClassName ??
+          "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm bg-white hover:bg-neutral-50 border-neutral-300 text-neutral-800 shadow-sm"
+        }
       >
         <span className="inline-flex items-center gap-2">{label}</span>
-        <IconChevronDown
-          className={`transition ${open ? "rotate-180" : "rotate-0"}`}
-        />
+        {showCaret ? (
+          <IconChevronDown
+            className={`transition ${open ? "rotate-180" : "rotate-0"}`}
+          />
+        ) : null}
       </button>
       {open && (
-        <div className="absolute z-50 mt-2 rounded-lg border border-neutral-200 bg-white shadow-xl ring-1 ring-black/5">
+        <div
+          className={
+            menuClassName ??
+            "absolute z-50 mt-2 rounded-lg border border-neutral-200 bg-white shadow-xl ring-1 ring-black/5"
+          }
+        >
           {children}
         </div>
       )}
@@ -321,13 +550,19 @@ function CheckboxRow({
   label,
   checked,
   onChange,
+  className,
 }: {
   label: string;
   checked: boolean;
   onChange: () => void;
+  className?: string;
 }) {
   return (
-    <label className="flex items-center gap-2 px-2 py-1 rounded hover:bg-neutral-50 cursor-pointer">
+    <label
+      className={`flex items-center gap-2 px-2 py-1 rounded hover:bg-neutral-50 cursor-pointer ${
+        className ?? ""
+      }`}
+    >
       <input
         type="checkbox"
         checked={checked}
@@ -817,5 +1052,46 @@ function IconPanelRight(props: React.SVGProps<SVGSVGElement>) {
       />
       <rect x="17" y="4" width="4" height="16" rx="1" />
     </svg>
+  );
+}
+
+function PredictionChip({ p }: { p: PanelPrediction }) {
+  const sign = p.delta >= 0 ? "+" : "";
+  const color =
+    p.trend === "UP"
+      ? "text-green-600"
+      : p.trend === "DOWN"
+      ? "text-red-500"
+      : "text-slate-500";
+  return (
+    <span
+      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs border border-neutral-200 bg-white shadow-sm ${color}`}
+      title={`Predicted: ${p.predicted.toLocaleString()} | Latest: ${p.latest.toLocaleString()}`}
+    >
+      Pred {p.predicted.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+      <span className="text-[11px]">
+        ({sign}
+        {p.deltaPct.toFixed(2)}%)
+      </span>
+    </span>
+  );
+}
+
+function PremiumBadge() {
+  return (
+    <span
+      className="ml-1 inline-flex items-center rounded-full border border-amber-200 bg-amber-50/70 px-1.5 py-[2px] leading-none"
+      title="Premium feature"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        className="h-3.5 w-3.5 text-amber-600"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path d="M5 17h14l1-9-5 3-3-6-3 6-5-3 1 9zm-1 2a1 1 0 0 0 0 2h16a1 1 0 1 0 0-2H4z" />
+      </svg>
+      <span className="sr-only">Premium</span>
+    </span>
   );
 }

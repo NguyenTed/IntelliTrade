@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "profile-service", url = "${app.services.profile}")
 public interface ProfileClient {
-    @PostMapping(value = "/profiles/internal", produces = MediaType.APPLICATION_JSON_VALUE)
-    ApiResponse<ApiResponse> updateProfileSubscription(@RequestBody SubscriptionUpdateRequest request);
+    @PostMapping(value = "/profiles/internal/premium/upsert", produces = MediaType.APPLICATION_JSON_VALUE)
+    ApiResponse<String> updateProfileSubscription(@RequestBody SubscriptionUpdateRequest request);
 }

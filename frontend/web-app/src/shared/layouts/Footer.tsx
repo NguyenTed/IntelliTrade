@@ -1,20 +1,19 @@
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-gray-900">
+    <footer className="bg-white dark:bg-gray-900 mt-auto">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
-            <a href="/" className="flex items-end gap-2">
-              <svg width="36" height="28" viewBox="0 0 36 28">
-                <path
-                  d="M14 22H7V11H0V4h14v18zM28 22h-8l7.5-18h8L28 22z"
-                  fill="white"
-                ></path>
-                <circle cx="20" cy="8" r="4" fill="white"></circle>
-              </svg>
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                IntelliTrade
-              </span>
+            <a
+              href="/"
+              className="flex gap-2 items-center transition-transform hover:scale-[1.01] active:scale-[0.99]"
+            >
+              <img
+                src="/media/logo.png"
+                alt="Intelli Trade Logo"
+                className="h-8 w-auto"
+                loading="lazy"
+              />
             </a>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
@@ -39,13 +38,11 @@ export default function Footer() {
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <a href="#" className="hover:underline ">
+                  <a
+                    href="https://github.com/NguyenTed/IntelliTrade"
+                    className="hover:underline "
+                  >
                     Github
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Discord
                   </a>
                 </li>
               </ul>
@@ -72,9 +69,9 @@ export default function Footer() {
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-            © 2023{" "}
+            © 2025{" "}
             <a href="/" className="hover:underline">
-              IntelliTrade
+              Intelli Trade
             </a>
             . All Rights Reserved.
           </span>

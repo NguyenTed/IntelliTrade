@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { fetchPrediction } from "../api/prediction";
 import {
   createChart,
   ColorType,
@@ -14,6 +15,7 @@ import {
 } from "lightweight-charts";
 import type { HoverInfo } from "./InfoStrip";
 import type { Interval } from "../store/chart.store";
+import type { BacktestTrade } from "../types/backtest";
 import { useMarketData } from "../hooks/useMarketData";
 import DrawingLayer from "./DrawingLayer";
 import type { ChartProjector } from "../types/drawing";
@@ -21,6 +23,14 @@ import { useRealtimeBars } from "../hooks/useRealtimeBars";
 // IMPORTANT: use the Capital-T path to match the actual file name
 
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
+
+type PredState = {
+  predicted: number;
+  latest: number;
+  delta: number;
+  deltaPct: number;
+  trend: "UP" | "DOWN" | "FLAT" | string;
+};
 
 type Props = {
   chartId: number | string; // NEW: stable per-panel id
@@ -30,9 +40,14 @@ type Props = {
   showSMA50: boolean;
   showVolume: boolean;
   chartType: ChartType;
+  backtestTrades?: BacktestTrade[]; // NEW: overlay trades from backtest
+  onNewBar?: (t: number) => void;
   onHover?: (info: HoverInfo | null) => void;
   editable?: boolean;
 };
+
+const WIN_COLOR = "#3b82f6"; // blue-500
+const LOSS_COLOR = "#f59e0b"; // amber-500
 
 function toUTC(date: Date): UTCTimestamp {
   return Math.floor(date.getTime() / 1000) as UTCTimestamp;
@@ -50,6 +65,22 @@ function toSec(ts: unknown): number {
   return Math.floor(Date.now() / 1000);
 }
 
+function parseTimeToSec(s: string): number {
+  if (!s) return Math.floor(Date.now() / 1000);
+  const t = Date.parse(s.replace(" ", "T") + "Z");
+  return Number.isFinite(t)
+    ? Math.floor(t / 1000)
+    : Math.floor(Date.now() / 1000);
+}
+
+function pctText(x: number): string {
+  if (!Number.isFinite(x)) return "";
+  const isFrac = Math.abs(x) <= 1;
+  const v = isFrac ? x * 100 : x;
+  const sign = v > 0 ? "+" : v < 0 ? "" : "";
+  return `${sign}${v.toFixed(2)}%`;
+}
+
 export default function LWChartContainer({
   chartId,
   symbol,
@@ -58,12 +89,16 @@ export default function LWChartContainer({
   showSMA50,
   showVolume,
   chartType,
+  backtestTrades,
+  onNewBar,
   onHover,
   editable = false,
 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mainSeriesRef = useRef<ISeriesApi<any> | null>(null);
   const volumeSeriesRef = useRef<ISeriesApi<"Histogram"> | null>(null);
+  const winSeriesRef = useRef<ISeriesApi<"Line"> | null>(null);
+  const lossSeriesRef = useRef<ISeriesApi<"Line"> | null>(null);
   const candlesRef = useRef(
     [] as {
       time: number;
@@ -78,13 +113,35 @@ export default function LWChartContainer({
   const projectorRef = useRef<ChartProjector | null>(null);
   const chartRef = useRef<ReturnType<typeof createChart> | null>(null);
   const autoFollowRef = useRef(true);
+  // Prediction overlay refs removed
   const [projectorReady, setProjectorReady] = useState(false);
+  const [pred, setPred] = useState<PredState | null>(null);
+  const predTimerRef = useRef<number | null>(null);
+  const refreshPrediction = async (reason: string) => {
+    try {
+      const res = await fetchPrediction({ symbol, interval });
+      const latest = Number(res.latest_close_price);
+      const predicted = Number(res.predicted_close_price);
+      const delta = predicted - latest;
+      const deltaPct = latest ? (delta / latest) * 100 : 0;
+      setPred({ predicted, latest, delta, deltaPct, trend: res.trend as any });
+    } catch {}
+  };
+  useEffect(() => {
+    // initial fetch on mount / when symbol or interval changes
+    if (predTimerRef.current) window.clearTimeout(predTimerRef.current);
+    refreshPrediction("init");
+    return () => {
+      if (predTimerRef.current) window.clearTimeout(predTimerRef.current);
+    };
+  }, [symbol, interval]);
   const { data, loading, error } = useMarketData(symbol, interval);
+  // Prediction debug log removed
 
   // Debug: confirm this container mounts for the current panel
   useEffect(() => {
     try {
-      console.debug("[RT] container mount", { symbol, interval, chartType });
+      console.log("[RT] container mount", { symbol, interval, chartType });
     } catch {}
   }, [symbol, interval, chartType]);
 
@@ -104,7 +161,7 @@ export default function LWChartContainer({
   useEffect(() => {
     if (!containerRef.current || !candles) return;
 
-    console.debug("LWChartContainer mount", {
+    console.log("LWChartContainer mount", {
       w: containerRef.current.clientWidth,
       h: containerRef.current.clientHeight,
       candles: candles.length,
@@ -259,7 +316,7 @@ export default function LWChartContainer({
     // Debug: initial series ready
     try {
       const last = candlesRef.current?.[candlesRef.current.length - 1];
-      console.debug("[RT] series ready", {
+      console.log("[RT] series ready", {
         type: chartType,
         lastTime: last?.time,
         symbol,
@@ -419,6 +476,17 @@ export default function LWChartContainer({
           .timeScale()
           .unsubscribeVisibleLogicalRangeChange(updateAutoFollow as any);
       } catch {}
+      try {
+        if (winSeriesRef.current) {
+          chart.removeSeries(winSeriesRef.current as any);
+          winSeriesRef.current = null;
+        }
+        if (lossSeriesRef.current) {
+          chart.removeSeries(lossSeriesRef.current as any);
+          lossSeriesRef.current = null;
+        }
+      } catch {}
+      // Prediction price line cleanup removed
       chart.remove();
     };
   }, [
@@ -431,6 +499,130 @@ export default function LWChartContainer({
     symbol,
     interval,
   ]);
+
+  // Prediction overlay logic removed
+
+  // Overlay backtest trades as markers and segments (inside component)
+  useEffect(() => {
+    const chart = chartRef.current;
+    const main = mainSeriesRef.current;
+    if (!chart || !main) return;
+
+    const trades = backtestTrades ?? [];
+
+    // --- Markers (entry/exit) ---
+    if ((main as any).setMarkers) {
+      const markers = trades.flatMap((t) => {
+        const et = parseTimeToSec((t as any).EntryTime);
+        const xt = parseTimeToSec((t as any).ExitTime);
+        const ret = Number((t as any).ReturnPct ?? 0);
+        const isWin = ret > 0;
+        return [
+          {
+            time: et as any,
+            position: "belowBar" as const,
+            color: isWin ? WIN_COLOR : LOSS_COLOR,
+            shape: "arrowUp" as const,
+            text: "Entry",
+          },
+          {
+            time: xt as any,
+            position: "aboveBar" as const,
+            color: isWin ? WIN_COLOR : LOSS_COLOR,
+            shape: "arrowDown" as const,
+            text: `Exit ${pctText(ret)}`,
+          },
+        ];
+      });
+      try {
+        (main as any).setMarkers(markers);
+      } catch {}
+    }
+
+    // --- Trade segments (wins vs losses) ---
+    if (!winSeriesRef.current) {
+      winSeriesRef.current = chart.addSeries(LineSeries, {
+        color: WIN_COLOR,
+        lineWidth: 2,
+        lineStyle: LineStyle.Solid,
+        priceScaleId: "right",
+      });
+    }
+    if (!lossSeriesRef.current) {
+      lossSeriesRef.current = chart.addSeries(LineSeries, {
+        color: LOSS_COLOR,
+        lineWidth: 2,
+        lineStyle: LineStyle.Solid,
+        priceScaleId: "right",
+      });
+    }
+
+    const winSegs: Array<{ time: number; value?: number }> = [];
+    const lossSegs: Array<{ time: number; value?: number }> = [];
+
+    // Helper: push with strictly ascending times (no equal timestamps allowed)
+    const pushAsc = (
+      arr: Array<{ time: number; value?: number }>,
+      pt: { time: number; value?: number }
+    ) => {
+      const last = arr.length ? arr[arr.length - 1].time : -Infinity;
+      let t = pt.time;
+      if (!Number.isFinite(t)) return;
+      if (t <= last) t = last + 1; // nudge forward by 1s if needed
+      arr.push({ time: t, value: pt.value });
+    };
+
+    // Ensure trades are processed in chronological order by EntryTime
+    const sorted = [...trades].sort(
+      (a, b) =>
+        parseTimeToSec((a as any).EntryTime) -
+        parseTimeToSec((b as any).EntryTime)
+    );
+
+    for (const t of sorted) {
+      const et = parseTimeToSec((t as any).EntryTime);
+      const xt = parseTimeToSec((t as any).ExitTime);
+      const ep = Number((t as any).EntryPrice);
+      const xp = Number((t as any).ExitPrice);
+      if (
+        !Number.isFinite(et) ||
+        !Number.isFinite(xt) ||
+        !Number.isFinite(ep) ||
+        !Number.isFinite(xp)
+      )
+        continue;
+
+      const target = Number((t as any).ReturnPct ?? 0) > 0 ? winSegs : lossSegs;
+
+      if (xt === et) {
+        // Zero-duration trade: draw a tiny 1-second segment to avoid equal timestamps
+        pushAsc(target, { time: et, value: ep });
+        pushAsc(target, { time: et + 1, value: xp });
+      } else {
+        // Normal segment
+        pushAsc(target, { time: et, value: ep });
+        pushAsc(target, { time: xt, value: xp });
+      }
+
+      // NOTE: we intentionally do NOT insert a same-time gap point; lightweight-charts requires strictly ascending times.
+    }
+
+    winSeriesRef.current.setData(winSegs as any);
+    lossSeriesRef.current.setData(lossSegs as any);
+
+    // Cleanup when trades change
+    return () => {
+      try {
+        (main as any).setMarkers([]);
+      } catch {}
+      try {
+        winSeriesRef.current?.setData([] as any);
+      } catch {}
+      try {
+        lossSeriesRef.current?.setData([] as any);
+      } catch {}
+    };
+  }, [backtestTrades]);
 
   // Realtime updates
   useRealtimeBars(symbol, interval, (u) => {
@@ -446,7 +638,7 @@ export default function LWChartContainer({
 
     // Debug one-liner to verify updates are received by this container
     try {
-      console.debug("[RT] container got", { symbol, interval, bar: u });
+      console.log("[RT] container got", { symbol, interval, bar: u });
     } catch {}
 
     // Normalize server time to seconds
@@ -474,6 +666,12 @@ export default function LWChartContainer({
       // append new
       arr.push(nextBar);
       indexByTimeRef.current.set(t, arr.length - 1);
+      onNewBar?.(t);
+      if (predTimerRef.current) window.clearTimeout(predTimerRef.current);
+      predTimerRef.current = window.setTimeout(
+        () => refreshPrediction("newbar"),
+        500
+      );
     } else {
       // out-of-order -> ignore
       return;
@@ -577,6 +775,12 @@ export default function LWChartContainer({
         else if (!last || t > Number(last.time)) {
           arr.push(nextBar);
           indexByTimeRef.current.set(t, arr.length - 1);
+          onNewBar?.(t);
+          if (predTimerRef.current) window.clearTimeout(predTimerRef.current);
+          predTimerRef.current = window.setTimeout(
+            () => refreshPrediction("dev-newbar"),
+            500
+          );
         } else return;
 
         switch (chartType) {
@@ -620,7 +824,7 @@ export default function LWChartContainer({
           } catch {}
         }
       };
-      console.debug("[RT] __rt_tick", bar);
+      console.log("[RT] __rt_tick", bar);
       cb(bar);
     };
   } catch {}
@@ -646,6 +850,31 @@ export default function LWChartContainer({
         className="w-full h-full"
         style={{ height: "100%" }}
       />
+
+      {/* Top-left overlay: symbol | interval */}
+      <div className="absolute left-2 top-2 flex items-center gap-2 pointer-events-none select-none">
+        <span className="px-2 py-0.5 text-xs font-semibold rounded bg-white/80 border border-neutral-200 text-neutral-900 shadow-sm">
+          {symbol}
+        </span>
+        <span className="px-2 py-0.5 text-xs font-medium rounded bg-white/70 border border-neutral-200 text-neutral-700 shadow-sm">
+          {interval}
+        </span>
+        {pred && (
+          <span
+            className={`px-2 py-0.5 text-xs font-medium rounded bg-white/80 border border-neutral-200 shadow-sm ${
+              pred.trend === "UP"
+                ? "text-green-600"
+                : pred.trend === "DOWN"
+                ? "text-red-600"
+                : "text-neutral-700"
+            }`}
+            title="Predicted close"
+          >
+            Pred {pred.predicted.toFixed(2)} ({pred.delta >= 0 ? "+" : ""}
+            {pred.deltaPct.toFixed(2)}%)
+          </span>
+        )}
+      </div>
 
       {/* Drawing overlay (only when projector is ready) */}
       {projectorReady && projectorRef.current && (

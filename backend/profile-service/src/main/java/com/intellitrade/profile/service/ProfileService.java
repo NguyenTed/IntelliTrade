@@ -1,6 +1,8 @@
 package com.intellitrade.profile.service;
 
 import com.intellitrade.profile.dto.request.ProfileCreationRequest;
+import com.intellitrade.profile.dto.request.ProfileUpdateRequest;
+import com.intellitrade.profile.dto.request.UpsertPremiumRequest;
 import com.intellitrade.profile.dto.response.ProfileResponse;
 import com.intellitrade.profile.entity.Profile;
 import com.intellitrade.profile.exception.AppException;
@@ -34,6 +36,20 @@ public class ProfileService {
 
     public ProfileResponse getProfileByUserId(String userId) {
         Profile profile = profileRepository.findProfileByUserId(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        return profileMapper.toProfileResponse(profile);
+    }
+
+    public ProfileResponse updateProfile(String profileId, ProfileUpdateRequest request) {
+        Profile profile = profileRepository.findProfileByUserId(profileId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        profile.setUsername(request.username());
+        profile.setEmail(request.email());
+        profile.setFirstName(request.firstName());
+        profile.setLastName(request.lastName());
+        profile.setDob(request.dob());
+
+        profileRepository.save(profile);
 
         return profileMapper.toProfileResponse(profile);
     }

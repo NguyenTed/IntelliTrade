@@ -1,0 +1,27 @@
+Flask==2.0.3
+Werkzeug==2.0.3
+Jinja2==3.0.3
+itsdangerous==2.0.1
+click==8.0.4
+
+Flask-SQLAlchemy==2.5.1
+SQLAlchemy==1.4.52
+pymysql==1.1.0
+cachetools==5.3.1
+
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.11.4
+scikit-learn==1.6.0
+
+# Use 'tensorflow' (works on ARM64; pulls the CPU wheel)
+tensorflow==2.19.1
+
+# h5py: allow a wheel to be selected on ARM64+Py3.12 (avoids compiling from source)
+h5py>=3.10,<3.13
+
+# TF 2.19 requires protobuf >=3.20,<6
+protobuf==3.20.3
+
+joblib==1.4.2
+requests==2.26.0
