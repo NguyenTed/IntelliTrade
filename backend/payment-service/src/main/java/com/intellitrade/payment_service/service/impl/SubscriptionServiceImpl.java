@@ -12,15 +12,19 @@ import com.intellitrade.payment_service.repository.PaymentRepository;
 import com.intellitrade.payment_service.repository.SubscriptionRepository;
 import com.intellitrade.payment_service.service.SubscriptionService;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class SubscriptionServiceImpl implements SubscriptionService {
     private final PaymentRepository paymentRepository;
     private final SubscriptionRepository subscriptionRepository;
@@ -52,18 +56,29 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             existedActiveSubscription.setSubscriptionStatus(SubscriptionStatus.CANCELED);
             subscriptionRepository.saveAndFlush(existedActiveSubscription);
         }
+        Date payDate = vnPayOrderDTO.getTransactionTime();
+        Instant provider = (payDate != null) ? payDate.toInstant() : Instant.now();
+        Instant now      = Instant.now();
+        Instant startInstant = now.isAfter(provider) ? now : provider;   // pick the later of the two
+        Instant endInstant   = startInstant.plus(30, ChronoUnit.DAYS);
+
+        Date startDate = Date.from(startInstant);
+        Date endDate   = Date.from(endInstant);
+
+        ZoneId VN = ZoneId.of("Asia/Ho_Chi_Minh");
+        log.info("start UTC: {}", startInstant);
+        log.info("start VN : {}", startInstant.atZone(VN));
+        log.info("end   UTC: {}", endInstant);
+        log.info("end   VN : {}", endInstant.atZone(VN));
+
         Subscription subscription = new Subscription();
         subscription.setPayment(payment);
         subscription.setUserId(payment.getUserId());
-        subscription.setStartDate(payment.getTransactionTime());
-        subscription.setSubscriptionType(vnPayOrderDTO.getSubscriptionType());
-        Date payDate = vnPayOrderDTO.getTransactionTime();
-        LocalDateTime payDateTime =
-                payDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        LocalDateTime endDateTime = payDateTime.plusDays(30);
-        Date endDate = Date.from(endDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        subscription.setStartDate(startDate);
         subscription.setEndDate(endDate);
+        subscription.setSubscriptionType(vnPayOrderDTO.getSubscriptionType());
         subscription=subscriptionRepository.saveAndFlush(subscription);
+
         // send request to profile service to update profile
         SubscriptionUpdateRequest subscriptionUpdateRequest = new SubscriptionUpdateRequest();
         subscriptionUpdateRequest.setSubscriptionType(subscription.getSubscriptionType().toString());
@@ -74,7 +89,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
         //send email to inform that the success subscription
 
-
+        System.out.println("Now: " + Instant.now());
+        System.out.println("Subscription start date: " + subscription.getStartDate());
+        System.out.println("Subscription end date: " + subscription.getEndDate());
 
         SubscriptionResponse subscriptionResponse = modelMapper.map(subscription,SubscriptionResponse.class);
         return subscriptionResponse;

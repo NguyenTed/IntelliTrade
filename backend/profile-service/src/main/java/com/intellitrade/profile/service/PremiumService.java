@@ -6,10 +6,13 @@ import com.intellitrade.profile.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.Clock;
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.Instant;
+import java.time.Duration;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +25,9 @@ public class PremiumService {
      * switch this to constructor injection and remove the default.
      */
     private final Clock clock = Clock.systemUTC();
+
+    @Value("${premium.clock-skew-seconds:0}")
+    private long clockSkewSeconds; // Positive moves 'now' forward, negative moves it back
 
     /**
      * Idempotent upsert called by Payment service.
@@ -36,8 +42,27 @@ public class PremiumService {
         Profile p = profileRepository.findProfileByUserId(req.userId())
                 .orElseThrow(() -> new IllegalArgumentException("Profile not found for userId=" + req.userId()));
 
-        OffsetDateTime startDate = req.startDate().toInstant().atOffset(ZoneId.systemDefault().getRules().getOffset(req.startDate().toInstant()));
-        OffsetDateTime endDate = req.endDate().toInstant().atOffset(ZoneId.systemDefault().getRules().getOffset(req.endDate().toInstant()));
+        // Inputs are now UTC-normalized by Payment. No additional shifting is required.
+        OffsetDateTime startDate = req.startDate().toInstant().atOffset(ZoneOffset.UTC);
+        OffsetDateTime endDate   = req.endDate().toInstant().atOffset(ZoneOffset.UTC);
+
+        // Preserve original subscription duration
+        Duration originalDuration = Duration.between(startDate, endDate);
+        if (originalDuration.isZero() || originalDuration.isNegative()) {
+            throw new IllegalArgumentException("endDate must be after startDate (UTC)");
+        }
+
+        // If start is in the future due to clock skew or provider timestamp, clamp to now and keep the same duration
+        OffsetDateTime nowUtc = OffsetDateTime.now(clock);
+        if (startDate.isAfter(nowUtc)) {
+            OffsetDateTime clampedStart = nowUtc;
+            OffsetDateTime clampedEnd = clampedStart.plus(originalDuration);
+            // Log once; replace with proper logger if available
+            System.out.println("[PremiumService] Clamped start from " + startDate + " to " + clampedStart + 
+                               ", end adjusted to " + clampedEnd + " to preserve duration " + originalDuration);
+            startDate = clampedStart;
+            endDate = clampedEnd;
+        }
 
         p.setPlanKey(req.subscriptionType());
         p.setPremiumSince(startDate);
@@ -68,15 +93,19 @@ public class PremiumService {
         if (isBlank(req.subscriptionType())) throw new IllegalArgumentException("subscriptionType is required");
         if (req.startDate() == null || req.endDate() == null)
             throw new IllegalArgumentException("startDate and endDate are required");
-        if (req.startDate().after(req.endDate()))
-            throw new IllegalArgumentException("startDate must be <= endDate");
     }
 
     private boolean isActiveNow(OffsetDateTime start, OffsetDateTime end) {
         if (start == null || end == null) return false;
-        OffsetDateTime now = OffsetDateTime.now(clock);
+        Instant now = Instant.now(clock).plusSeconds(clockSkewSeconds);
+        System.out.println("clockSkewSeconds: " + clockSkewSeconds);
+        System.out.println("now: " + now);
+        System.out.println("start: " + start.toInstant());
+        System.out.println("end: " + end.toInstant());
+        System.out.println("result: " + (!now.isBefore(start.toInstant()) && now.isBefore(end.toInstant())));
+
         // Active when now ∈ [start, end)
-        return !now.isBefore(start) && now.isBefore(end);
+        return !now.isBefore(start.toInstant()) && now.isBefore(end.toInstant());
     }
 
     private boolean isBlank(String s) {

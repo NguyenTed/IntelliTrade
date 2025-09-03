@@ -38,8 +38,4 @@ public class ProfileService {
 
         return profileMapper.toProfileResponse(profile);
     }
-
-    public String updateToPremium(UpsertPremiumRequest request) {
-        return "Update profile to premium";
-    }
 }

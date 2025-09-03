@@ -13,3 +13,6 @@ spring:
     authentication:
       username: ${DB_USER}
       password: ${DB_PASSWORD}
+  premium:
+    clock-skew-seconds=0
+    start-grace-seconds=0
