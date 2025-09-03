@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { Spin, Result, Button } from "antd";
 import { createSubscription } from "../api/SubscriptionApiService";
+import { authStore } from "@/features/auth/model/authStore";
 
 const VNPayCallback: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -56,6 +57,14 @@ const VNPayCallback: React.FC = () => {
       );
       console.log("res: ", res);
       if (res) {
+        try {
+          const loadMe = authStore.getState().loadMe;
+          if (typeof loadMe === "function") {
+            await loadMe();
+          }
+        } catch (e) {
+          console.warn("Profile refresh after VNPay success failed:", e);
+        }
         setLoading(false);
         setStatus("success");
       } else {

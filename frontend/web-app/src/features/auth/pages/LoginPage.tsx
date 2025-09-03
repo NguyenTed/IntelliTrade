@@ -167,28 +167,6 @@ export const LoginPage = () => {
                   )}
                 </div>
 
-                {/* Row: forgot + remember */}
-                <div className="flex items-center justify-between">
-                  <Link
-                    to="/forgot-password"
-                    className="text-sm font-medium text-violet-700 hover:underline"
-                  >
-                    Forgot password?
-                  </Link>
-                  <label className="inline-flex cursor-pointer items-center gap-3">
-                    <input
-                      type="checkbox"
-                      className="h-5 w-9 appearance-none rounded-full bg-neutral-300 outline-none transition focus:ring-2 focus:ring-violet-200 checked:bg-violet-600"
-                      role="switch"
-                      aria-label="Remember sign in details"
-                      {...register("remember")}
-                    />
-                    <span className="text-sm text-neutral-700">
-                      Remember sign in details
-                    </span>
-                  </label>
-                </div>
-
                 {/* Submit */}
                 <button
                   type="submit"
@@ -203,15 +181,6 @@ export const LoginPage = () => {
                   <div className="absolute left-0 right-0 top-1/2 -z-10 h-px -translate-y-1/2 bg-neutral-200" />
                   <span className="bg-white px-3">OR</span>
                 </div>
-
-                {/* Google button (placeholder) */}
-                <button
-                  type="button"
-                  className="inline-flex w-full items-center justify-center gap-3 rounded-xl border border-neutral-300 bg-white px-5 py-3 font-medium text-neutral-900 shadow-sm transition hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-violet-300"
-                  onClick={() => window.alert("Use OAuth flow here")}
-                >
-                  Continue with Google
-                </button>
 
                 {/* Sign up hint */}
                 <p className="text-center text-sm text-neutral-600">
