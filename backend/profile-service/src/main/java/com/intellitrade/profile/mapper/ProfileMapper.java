@@ -8,6 +8,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface ProfileMapper {
     Profile toProfile(ProfileCreationRequest profileCreationRequest);
-
     ProfileResponse toProfileResponse(Profile profile);
 }

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { ChartPage } from "@/features/chart";
 import LandingPage from "@/shared/pages/LandingPage";
-import ProfilePage from "@/shared/pages/ProfilePage";
+import ProfilePage from "@/features/profile/pages/ProfilePage";
 import { LoginPage } from "@/features/auth/pages/LoginPage";
 import VNPayCallback from "@/features/payment/components/VNPayCallback";
 import SubscriptionPlans from "@/features/payment/pages/SubscriptionPlan";

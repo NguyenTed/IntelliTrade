@@ -14,6 +14,7 @@ import BacktestStatsModal from "../components/BacktestStatsModal";
 import type { BacktestTrade } from "../types/backtest";
 import { fetchPrediction } from "../api/prediction";
 import type { PanelPrediction } from "../types/prediction";
+import UpgradeModal from "../components/UpgradeModal";
 
 type ChartType = "candles" | "bars" | "line" | "area" | "baseline";
 
@@ -33,7 +34,7 @@ type PanelState = {
 function initialPanels(n: number): PanelState[] {
   const seeds = [
     { id: 0, symbol: "BTCUSDT", interval: "1m" },
-    { id: 1, symbol: "ETHUSDT", interval: "1m" },
+    { id: 1, symbol: "DOGEUSDT", interval: "1m" },
     { id: 2, symbol: "LINKUSDT", interval: "1m" },
     { id: 3, symbol: "SOLUSDT", interval: "1m" },
   ];
@@ -100,6 +101,18 @@ export default function ChartPage() {
   const [symbols, setSymbols] = useState<MarketSymbol[]>([]);
   const [backtestOpen, setBacktestOpen] = useState(false);
   const [statsOpen, setStatsOpen] = useState(false);
+
+  const [upgradeOpen, setUpgradeOpen] = useState(false);
+  const [upgradeFeature, setUpgradeFeature] = useState<
+    "BACKTEST" | "MULTI_CHARTS" | "INDICATORS" | null
+  >(null);
+
+  const requestUpgrade = (
+    feature: "BACKTEST" | "MULTI_CHARTS" | "INDICATORS"
+  ) => {
+    setUpgradeFeature(feature);
+    setUpgradeOpen(true);
+  };
 
   const [rightOpen, setRightOpen] = useState(false);
 
@@ -263,6 +276,7 @@ export default function ChartPage() {
         activeChartType={activePanel?.chartType ?? "candles"}
         onChangeActiveChartType={handleChangeActiveChartType}
         onRequestOpenBacktest={() => setBacktestOpen(true)}
+        onRequestUpgrade={requestUpgrade}
         onToggleRightSidebar={() => setRightOpen((o) => !o)}
         rightSidebarOpen={rightOpen}
         onRequestPredict={handlePredictActive}
@@ -364,6 +378,14 @@ export default function ChartPage() {
         open={statsOpen}
         onClose={() => setStatsOpen(false)}
         stats={btResult?.stats ?? null}
+      />
+      <UpgradeModal
+        open={upgradeOpen}
+        feature={upgradeFeature ?? undefined}
+        onClose={() => {
+          setUpgradeOpen(false);
+          setUpgradeFeature(null);
+        }}
       />
     </div>
   );

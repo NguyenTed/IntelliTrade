@@ -20,16 +20,21 @@ const SignupSchema = z
     confirmPassword: z.string(),
     firstName: z.string().min(1, "Required"),
     lastName: z.string().min(1, "Required"),
-    dateOfBirth: z
+    dob: z
       .string()
       .refine((v) => !Number.isNaN(Date.parse(v)), "Invalid date")
       .refine((v) => {
-        const dob = new Date(v);
+        const dateOfBirth = new Date(v);
         const today = new Date();
         const age =
           today.getFullYear() -
-          dob.getFullYear() -
-          (today < new Date(today.getFullYear(), dob.getMonth(), dob.getDate())
+          dateOfBirth.getFullYear() -
+          (today <
+          new Date(
+            today.getFullYear(),
+            dateOfBirth.getMonth(),
+            dateOfBirth.getDate()
+          )
             ? 1
             : 0);
         return age >= 13; // example age gate; adjust per policy
@@ -57,7 +62,7 @@ export const SignUpPage = () => {
       confirmPassword: "",
       firstName: "",
       lastName: "",
-      dateOfBirth: "",
+      dob: "",
     },
     mode: "onBlur",
   });
@@ -70,7 +75,7 @@ export const SignUpPage = () => {
         password: values.password,
         firstName: values.firstName,
         lastName: values.lastName,
-        dateOfBirth: values.dateOfBirth, // yyyy-mm-dd from input
+        dob: values.dob, // yyyy-mm-dd from input
       });
 
       if (res.autoLoggedIn) {
@@ -261,22 +266,22 @@ export const SignUpPage = () => {
                 {/* Date of Birth */}
                 <div>
                   <label
-                    htmlFor="dateOfBirth"
+                    htmlFor="dob"
                     className="mb-1 block text-sm font-medium"
                   >
                     Date of birth
                   </label>
                   <input
-                    id="dateOfBirth"
+                    id="dob"
                     type="date"
                     autoComplete="bday"
                     className="block w-full rounded-xl border border-neutral-300 px-4 py-3 text-base outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200"
-                    {...register("dateOfBirth")}
-                    aria-invalid={!!errors.dateOfBirth}
+                    {...register("dob")}
+                    aria-invalid={!!errors.dob}
                   />
-                  {errors.dateOfBirth && (
+                  {errors.dob && (
                     <p role="alert" className="mt-1 text-sm text-red-600">
-                      {errors.dateOfBirth.message}
+                      {errors.dob.message}
                     </p>
                   )}
                 </div>

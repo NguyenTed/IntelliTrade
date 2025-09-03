@@ -81,7 +81,7 @@ export default function LandingPage() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="text-5xl md:text-7xl font-bold mb-4"
           >
-            Look first / Then leap.
+            Smarter Charts, Smarter Trades.
           </motion.h1>
 
           <motion.p
@@ -90,7 +90,7 @@ export default function LandingPage() {
             transition={{ delay: 0.3, duration: 1 }}
             className="text-lg md:text-2xl"
           >
-            The best trades require research, then commitment.
+            Turn complex market data into clear, actionable trading strategies.
           </motion.p>
 
           <button

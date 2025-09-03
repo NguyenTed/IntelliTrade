@@ -1,5 +1,6 @@
 package com.intellitrade.profile.controller;
 
+import com.intellitrade.profile.dto.request.ProfileUpdateRequest;
 import com.intellitrade.profile.dto.response.ApiResponse;
 import com.intellitrade.profile.dto.response.ProfileResponse;
 import com.intellitrade.profile.service.ProfileService;
@@ -28,6 +29,15 @@ public class ProfileController {
 
         return ApiResponse.<ProfileResponse>builder()
                 .result(profileService.getProfileByUserId(userId))
+                .build();
+    }
+
+    @PutMapping("/me")
+    public ApiResponse<ProfileResponse> updateProfile(Authentication authentication, @RequestBody ProfileUpdateRequest request) {
+        String userId = authentication.getName();
+
+        return ApiResponse.<ProfileResponse>builder()
+                .result(profileService.updateProfile(userId, request))
                 .build();
     }
 }

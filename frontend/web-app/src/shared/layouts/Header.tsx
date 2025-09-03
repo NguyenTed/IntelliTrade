@@ -1,9 +1,23 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate, useLocation } from "react-router-dom";
 import { authStore } from "@/features/auth/model/authStore";
+
+function IconUserSolid(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+      <path d="M5 20a7 7 0 1 1 14 0H5Z" />
+    </svg>
+  );
+}
+function IconChevronDown(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.06l3.71-2.83a.75.75 0 1 1 .92 1.18l-4.25 3.25a.75.75 0 0 1-.92 0L5.21 8.41a.75.75 0 0 1 .02-1.2z" />
+    </svg>
+  );
+}
 
 export default function Header({
   whiteSectionRef,
@@ -14,11 +28,13 @@ export default function Header({
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   // Get user data and logout function from auth store
   const user = authStore((s) => s.user);
   const logout = authStore((s) => s.logout);
   const isLoading = authStore((s) => s.isLoading);
+  const showPricing = !(user && (user as any).premium);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,101 +86,221 @@ export default function Header({
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-colors duration-500 ${
-        isLight ? "bg-white/90 text-black" : "bg-black/50 text-white"
+        isLight
+          ? "bg-white/80 text-neutral-900 backdrop-blur border-b border-neutral-200"
+          : "bg-neutral-900/60 text-white backdrop-blur"
       }`}
     >
-      <div className="w-[90%] mx-auto flex items-center justify-between px-6 py-4">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
+      >
+        <div className="h-px bg-gradient-to-r from-transparent via-neutral-300/60 to-transparent" />
+      </div>
+      <div className="relative w-[94%] max-w-7xl mx-auto flex items-center justify-between gap-4 px-3 sm:px-6 py-2.5">
+        <div
+          aria-hidden
+          className="absolute left-0 top-0 h-full w-20 pointer-events-none"
+        >
+          <div className="h-full w-full opacity-30 bg-[radial-gradient(120px_60px_at_10%_30%,rgba(14,165,233,0.2),transparent_60%)]" />
+        </div>
         {/* Logo */}
-        <a href="/" className="flex gap-2 items-center">
-          <svg width="36" height="28" viewBox="0 0 36 28">
-            <path
-              d="M14 22H7V11H0V4h14v18zM28 22h-8l7.5-18h8L28 22z"
-              fill="currentColor"
-            ></path>
-            <circle cx="20" cy="8" r="4" fill="currentColor"></circle>
-          </svg>
-          <div className="text-2xl font-bold">IntelliTrade</div>
+        <a
+          href="/"
+          className="flex gap-2 items-center transition-transform hover:scale-[1.01] active:scale-[0.99]"
+        >
+          <img
+            src="/media/logo.png"
+            alt="Intelli Trade Logo"
+            className="h-8 w-auto"
+            loading="lazy"
+          />
         </a>
 
         {/* Menu */}
-        <nav className="font-semibold">
-          <ul className="flex space-x-6 items-center">
+        <nav
+          className={
+            showPricing
+              ? "font-medium hidden md:block"
+              : "font-medium hidden md:block absolute left-1/2 -translate-x-1/2"
+          }
+        >
+          <ul className="flex space-x-1 items-center">
+            {showPricing && (
+              <li>
+                <a
+                  href="/pricing"
+                  className={`${
+                    pathname === "/pricing"
+                      ? isLight
+                        ? "bg-neutral-900 text-white"
+                        : "bg-white text-neutral-900"
+                      : isLight
+                      ? "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
+                      : "text-neutral-200 hover:text-white hover:bg-neutral-800"
+                  } px-3 py-2 rounded-full transition`}
+                >
+                  Pricing
+                </a>
+              </li>
+            )}
             <li>
-              <div className="relative">
-                <input
-                  type="search"
-                  placeholder="Search..."
-                  className={`pl-9 py-2 rounded-full transition-all ${
-                    isLight
-                      ? "bg-gray-100 text-black"
-                      : "bg-[#2E2E2E] text-white"
-                  }`}
-                />
-                <div className="absolute left-2 top-1.5">
-                  <SearchIcon
-                    className={isLight ? "text-black" : "text-white"}
-                  />
-                </div>
-              </div>
+              <a
+                href="/chart"
+                className={`${
+                  pathname.startsWith("/chart")
+                    ? isLight
+                      ? "bg-neutral-900 text-white"
+                      : "bg-white text-neutral-900"
+                    : isLight
+                    ? "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
+                    : "text-neutral-200 hover:text-white hover:bg-neutral-800"
+                } px-3 py-2 rounded-full transition`}
+              >
+                Chart
+              </a>
             </li>
             <li>
-              <a href="/chart">Chart</a>
+              <a
+                href="/ideas"
+                className={`${
+                  pathname.startsWith("/ideas")
+                    ? isLight
+                      ? "bg-neutral-900 text-white"
+                      : "bg-white text-neutral-900"
+                    : isLight
+                    ? "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
+                    : "text-neutral-200 hover:text-white hover:bg-neutral-800"
+                } px-3 py-2 rounded-full transition`}
+              >
+                Ideas
+              </a>
             </li>
             <li>
-              <a href="/ideas">Ideas</a>
-            </li>
-            <li>
-              <a href="/news">News</a>
+              <a
+                href="/news"
+                className={`${
+                  pathname.startsWith("/news")
+                    ? isLight
+                      ? "bg-neutral-900 text-white"
+                      : "bg-white text-neutral-900"
+                    : isLight
+                    ? "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100"
+                    : "text-neutral-200 hover:text-white hover:bg-neutral-800"
+                } px-3 py-2 rounded-full transition`}
+              >
+                News
+              </a>
             </li>
           </ul>
         </nav>
 
-        {/* Profile dropdown */}
+        {/* Profile / Login */}
         <div className="relative" ref={menuRef}>
-          <div
-            className={`rounded-full cursor-pointer transition-all p-1 ${
-              isLight ? "hover:bg-gray-200" : "hover:bg-[#3D3D3E]"
-            }`}
-            onClick={() => setOpenMenu(!openMenu)}
-          >
-            <PersonOutlineIcon sx={{ fontSize: 30 }} />
-          </div>
-
-          {openMenu && (
-            <div
-              className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-2 z-50 ${
-                isLight ? "bg-white text-black" : "bg-[#2E2E2E] text-white"
-              }`}
-            >
-              <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-600">
-                <p className="font-semibold">{displayName}</p>
-                {user && <p className="text-sm text-gray-500">{user.email}</p>}
-              </div>
-              {user ? (
-                <>
-                  <a
-                    href="/profile"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-500 dark:hover:text-white"
-                  >
-                    Profile
-                  </a>
-                  <button
-                    onClick={handleLogout}
-                    disabled={isLoading}
-                    className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-500 dark:hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isLoading ? "Logging out..." : "Logout"}
-                  </button>
-                </>
-              ) : (
-                <a
-                  href="/login"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-500 dark:hover:text-white"
-                >
-                  Login
-                </a>
-              )}
+          {!user ? (
+            <div className="flex items-center gap-2">
+              <a
+                href="/login"
+                className={`${
+                  isLight
+                    ? "text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100 border-neutral-200 bg-white"
+                    : "text-neutral-200 hover:text-white hover:bg-neutral-800 border-neutral-700 bg-neutral-800"
+                } px-4 py-2 rounded-full border transition hidden sm:inline-block`}
+              >
+                Log in
+              </a>
+              <a
+                href="/signup"
+                className="px-4 py-2 rounded-full bg-sky-600 hover:bg-sky-700 text-white font-medium shadow"
+              >
+                Sign up
+              </a>
             </div>
+          ) : (
+            <>
+              <button
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={openMenu}
+                onClick={() => setOpenMenu((v) => !v)}
+                className="group inline-flex items-center gap-2 focus:outline-none"
+              >
+                <span className="rounded-full p-[3px] bg-gradient-to-br from-sky-300/70 via-emerald-300/70 to-indigo-300/70 shadow transition">
+                  <span
+                    className={`grid place-items-center h-10 w-10 sm:h-11 sm:w-11 rounded-full shadow-md ring-1 transition-transform duration-150 ease-out group-hover:shadow-lg group-active:scale-[0.98] ${
+                      isLight
+                        ? "bg-white text-neutral-800 ring-neutral-200"
+                        : "bg-neutral-800 text-white ring-neutral-700"
+                    }`}
+                  >
+                    <span className="relative inline-grid place-items-center">
+                      <IconUserSolid className="h-6 w-6" />
+                      <span
+                        className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(ellipse_at_30%_20%,rgba(255,255,255,0.9),transparent_55%)]"
+                        aria-hidden
+                      />
+                    </span>
+                  </span>
+                </span>
+                <IconChevronDown
+                  className={`h-4 w-4 transition ${
+                    openMenu ? "rotate-180" : ""
+                  } ${isLight ? "text-neutral-500" : "text-neutral-300"}`}
+                />
+              </button>
+
+              {openMenu && (
+                <div
+                  className={`absolute right-0 mt-2 w-56 rounded-xl shadow-xl z-50 border ${
+                    isLight
+                      ? "bg-white text-neutral-900 border-neutral-200"
+                      : "bg-neutral-800 text-white border-neutral-700"
+                  }`}
+                  role="menu"
+                >
+                  <div
+                    className={`px-4 py-3 rounded-t-xl ${
+                      isLight
+                        ? "bg-gradient-to-br from-sky-50 via-emerald-50 to-sky-100 border-b border-neutral-200"
+                        : "bg-neutral-800 border-b border-neutral-700"
+                    }`}
+                  >
+                    <p className="font-semibold leading-tight">{displayName}</p>
+                    {user && (
+                      <p className="text-xs opacity-70 truncate">
+                        {user.email}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="py-2">
+                    <a
+                      href="/profile"
+                      className={`${
+                        isLight
+                          ? "hover:bg-neutral-50"
+                          : "hover:bg-neutral-700/70"
+                      } block px-4 py-2 text-sm transition`}
+                      role="menuitem"
+                    >
+                      Profile
+                    </a>
+                    <button
+                      onClick={handleLogout}
+                      disabled={isLoading}
+                      className={`${
+                        isLight
+                          ? "hover:bg-neutral-50"
+                          : "hover:bg-neutral-700/70"
+                      } w-full text-left px-4 py-2 text-sm transition disabled:opacity-50 disabled:cursor-not-allowed`}
+                      role="menuitem"
+                    >
+                      {isLoading ? "Logging out..." : "Logout"}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

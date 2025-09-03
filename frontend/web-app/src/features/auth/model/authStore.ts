@@ -7,9 +7,13 @@ export type AuthUser = {
   userId: string;
   username: string;
   email: string;
+  premium: boolean;
   firstName: string;
   lastName: string;
   dob: string; // ISO date string
+  planKey: string;
+  premiumSince: string;
+  premiumUntil: string;
 } | null;
 
 type AuthState = {
