@@ -28,14 +28,10 @@ export const createSubscription = async (
   vnp_TransactionStatus: string,
   subscriptionType: string
 ): Promise<ICreateSubscriptionResponse> => {
-  const year = vnp_PayDate.substring(0, 4);
-  const month = vnp_PayDate.substring(4, 6);
-  const day = vnp_PayDate.substring(6, 8);
-  const formattedDate = `${year}-${month}-${day}`;
   const payload: CreateSubscriptionPayload = {
     paymentId,
     transactionNo: vnp_TransactionNo,
-    transactionTime: formattedDate,
+    transactionTime: vnp_PayDate,
     transactionStatus: vnp_TransactionStatus,
     subscriptionType,
   };

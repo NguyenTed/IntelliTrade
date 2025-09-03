@@ -28,6 +28,16 @@ const VNPayCallback: React.FC = () => {
 
     verifyPayment();
   }, []);
+  function vnpCompactToIsoLocal(compact: string): string {
+    if (!/^\d{14}$/.test(compact)) throw new Error("Bad VNPay time format");
+    const y = compact.slice(0, 4);
+    const M = compact.slice(4, 6);
+    const d = compact.slice(6, 8);
+    const h = compact.slice(8, 10);
+    const m = compact.slice(10, 12);
+    const s = compact.slice(12, 14);
+    return `${y}-${M}-${d}T${h}:${m}:${s}`;
+  }
 
   const handleUpdateSubscriptions = async (
     paymentId: string,
@@ -40,7 +50,7 @@ const VNPayCallback: React.FC = () => {
       const res = await createSubscription(
         paymentId,
         vnp_TransactionNo,
-        vnp_PayDate,
+        vnpCompactToIsoLocal(vnp_PayDate),
         vnp_TransactionStatus,
         subscriptionType
       );
