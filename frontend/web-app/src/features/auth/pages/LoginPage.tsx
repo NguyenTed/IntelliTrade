@@ -82,12 +82,14 @@ export const LoginPage = () => {
               className="absolute inset-0 h-full w-full object-cover"
             />
             <div className="relative h-full w-full bg-black/45 p-8 text-white">
-              <img
-                src="/media/logo.png"
-                alt="Intelli Trade Logo"
-                className="absolute left-8 top-8 h-8 w-auto"
-                loading="lazy"
-              />
+              <a href="/">
+                <img
+                  src="/media/logo.png"
+                  alt="Intelli Trade Logo"
+                  className="absolute left-8 top-8 h-8 w-auto"
+                  loading="lazy"
+                />
+              </a>
               <figure className="absolute bottom-8 left-8 right-8">
                 <blockquote className="text-2xl font-semibold leading-snug">
                   “You Trade. We Empower.”
@@ -175,12 +177,6 @@ export const LoginPage = () => {
                 >
                   {isSubmitting ? "Signing in…" : "Log in"}
                 </button>
-
-                {/* Divider */}
-                <div className="relative py-3 text-center text-sm text-neutral-500">
-                  <div className="absolute left-0 right-0 top-1/2 -z-10 h-px -translate-y-1/2 bg-neutral-200" />
-                  <span className="bg-white px-3">OR</span>
-                </div>
 
                 {/* Sign up hint */}
                 <p className="text-center text-sm text-neutral-600">
