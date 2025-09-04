@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import type { IArticles } from "../model/IArticles";
@@ -7,6 +7,7 @@ import MetaShare from "../components/news/MetaShare";
 import SymbolRow from "../components/news/SymbolRow";
 import NewsContent from "../components/news/NewsContent";
 import NewsTags from "../components/news/NewsTags";
+import Header from "@/shared/layouts/Header";
 
 // ===== util helpers =====
 function estimateReadMinutes(text: string): number {
@@ -28,6 +29,7 @@ function estimateReadMinutes(text: string): number {
 // }
 
 export default function NewsDetailPage() {
+  const whiteSectionRef = useRef<HTMLDivElement | null>(null);
   const { slug = "" } = useParams();
   const [data, setData] = useState<IArticles | null>(null);
   const [loading, setLoading] = useState(true);
@@ -106,25 +108,28 @@ export default function NewsDetailPage() {
   if (!data) return null;
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <img
-        src="https://s3.tradingview.com/news/logo/tradingview--theme-light.svg"
-        alt=""
-      />
-      {/* Title */}
-      <h1 className="mb-3 text-[48px] font-bold ">{data.title}</h1>
+    <div>
+      <Header whiteSectionRef={whiteSectionRef} />
+      <div className="mx-auto max-w-3xl px-4 py-10 mt-10" ref={whiteSectionRef}>
+        <img
+          src="https://s3.tradingview.com/news/logo/tradingview--theme-light.svg"
+          alt=""
+        />
+        {/* Title */}
+        <h1 className="mb-3 text-[48px] font-bold ">{data.title}</h1>
 
-      {/* Meta + share */}
-      <MetaShare data={data} minRead={readMin} />
+        {/* Meta + share */}
+        <MetaShare data={data} minRead={readMin} />
 
-      {/* Symbol row*/}
-      <SymbolRow symbols={data.symbols} />
+        {/* Symbol row*/}
+        <SymbolRow symbols={data.symbols} />
 
-      {/* Content */}
-      <NewsContent contentHtml={data.contentHtml} />
+        {/* Content */}
+        <NewsContent contentHtml={data.contentHtml} />
 
-      {/* Tags */}
-      <NewsTags tags={data.tags} />
+        {/* Tags */}
+        <NewsTags tags={data.tags} />
+      </div>
     </div>
   );
 }
