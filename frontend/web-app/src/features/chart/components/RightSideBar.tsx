@@ -73,7 +73,7 @@ export default function RightSidebar() {
           </div>
         )}
         <a
-          href="/ideas"
+          href={value === 0 ? "/ideas" : "/news"}
           className="block w-full my-2 py-2 text-center hover:bg-[#F2F2F2] transition-colors rounded-lg cursor-auto border-1 border-gray-200"
         >
           Show more
