@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import type { IArticles } from "../model/IArticles";
@@ -9,8 +9,10 @@ import MetaRows from "../components/ideas/MetaRows";
 import IdeaContent from "../components/ideas/IdeaContent";
 import { Comments } from "../components/ideas/Comments";
 import IdeaRightInfo from "../components/ideas/IdeaRightInfo";
+import Header from "@/shared/layouts/Header";
 
 export default function IdeasDetailPage() {
+  const whiteSectionRef = useRef<HTMLDivElement | null>(null);
   const { slug = "" } = useParams();
   const [data, setData] = useState<IArticles | null>(null);
   const [loading, setLoading] = useState(true);
@@ -66,20 +68,26 @@ export default function IdeasDetailPage() {
 
   return (
     <ArticleContext.Provider value={data.id}>
-      <div className="w-full h-auto mx-auto px-[32px] md:px-[42px] xl:px-[100px] py-6">
-        <IdeaHeader data={data} />
+      <div>
+        <Header whiteSectionRef={whiteSectionRef} />
+        <div
+          ref={whiteSectionRef}
+          className="w-full h-auto mx-auto px-[32px] md:px-[42px] xl:px-[100px] py-6 mt-10"
+        >
+          <IdeaHeader data={data} />
 
-        <div className="mt-6 xl:px-[10%]">
-          <MetaRows data={data} />
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 ">
-            {/* content */}
-            <div className="lg:col-span-8 xl:col-span-9">
-              <IdeaContent contentHtml={data.contentHtml} />
-              <Comments comments={data.comments} />
+          <div className="mt-6 xl:px-[10%]">
+            <MetaRows data={data} />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 ">
+              {/* content */}
+              <div className="lg:col-span-8 xl:col-span-9">
+                <IdeaContent contentHtml={data.contentHtml} />
+                <Comments comments={data.comments} />
+              </div>
+
+              {/* right info */}
+              <IdeaRightInfo tags={data.tags} />
             </div>
-
-            {/* right info */}
-            <IdeaRightInfo tags={data.tags} />
           </div>
         </div>
       </div>
